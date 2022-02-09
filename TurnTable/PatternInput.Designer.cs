@@ -33,6 +33,7 @@
             this.combo_cmd2 = new System.Windows.Forms.ComboBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.combo_cmd3 = new System.Windows.Forms.ComboBox();
+            this.combo_cmd5 = new System.Windows.Forms.ComboBox();
             this.combo_cmd4 = new System.Windows.Forms.ComboBox();
             this.label_cmd1 = new MaterialSkin.Controls.MaterialLabel();
             this.editComment = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -60,7 +61,6 @@
             this.radio_enable = new MaterialSkin.Controls.MaterialRadioButton();
             this.btnCancel = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnOk = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.combo_cmd5 = new System.Windows.Forms.ComboBox();
             this.groupBox15.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -158,6 +158,30 @@
             this.combo_cmd3.TabIndex = 16;
             this.combo_cmd3.Text = "All";
             this.combo_cmd3.SelectedValueChanged += new System.EventHandler(this.combo_Tpnt_SelectedValueChanged);
+            // 
+            // combo_cmd5
+            // 
+            this.combo_cmd5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.combo_cmd5.DropDownHeight = 140;
+            this.combo_cmd5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.combo_cmd5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.combo_cmd5.ForeColor = System.Drawing.SystemColors.Info;
+            this.combo_cmd5.IntegralHeight = false;
+            this.combo_cmd5.ItemHeight = 12;
+            this.combo_cmd5.Items.AddRange(new object[] {
+            "No Tool",
+            "1mL",
+            "10uL",
+            "300uL",
+            "5mL",
+            "Laser",
+            "Gripper",
+            "Calib Tip"});
+            this.combo_cmd5.Location = new System.Drawing.Point(103, 65);
+            this.combo_cmd5.Margin = new System.Windows.Forms.Padding(0);
+            this.combo_cmd5.Name = "combo_cmd5";
+            this.combo_cmd5.Size = new System.Drawing.Size(85, 20);
+            this.combo_cmd5.TabIndex = 16;
             // 
             // combo_cmd4
             // 
@@ -327,7 +351,7 @@
             // 
             this.editParam1.Depth = 0;
             this.editParam1.Hint = "";
-            this.editParam1.Location = new System.Drawing.Point(217, 14);
+            this.editParam1.Location = new System.Drawing.Point(252, 14);
             this.editParam1.MaxLength = 32767;
             this.editParam1.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam1.Name = "editParam1";
@@ -335,7 +359,7 @@
             this.editParam1.SelectedText = "";
             this.editParam1.SelectionLength = 0;
             this.editParam1.SelectionStart = 0;
-            this.editParam1.Size = new System.Drawing.Size(139, 22);
+            this.editParam1.Size = new System.Drawing.Size(104, 22);
             this.editParam1.TabIndex = 12;
             this.editParam1.TabStop = false;
             this.editParam1.UseSystemPasswordChar = false;
@@ -344,7 +368,7 @@
             // 
             this.editParam5.Depth = 0;
             this.editParam5.Hint = "";
-            this.editParam5.Location = new System.Drawing.Point(217, 118);
+            this.editParam5.Location = new System.Drawing.Point(252, 118);
             this.editParam5.MaxLength = 32767;
             this.editParam5.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam5.Name = "editParam5";
@@ -352,7 +376,7 @@
             this.editParam5.SelectedText = "";
             this.editParam5.SelectionLength = 0;
             this.editParam5.SelectionStart = 0;
-            this.editParam5.Size = new System.Drawing.Size(139, 22);
+            this.editParam5.Size = new System.Drawing.Size(104, 22);
             this.editParam5.TabIndex = 14;
             this.editParam5.TabStop = false;
             this.editParam5.UseSystemPasswordChar = false;
@@ -361,7 +385,7 @@
             // 
             this.editParam2.Depth = 0;
             this.editParam2.Hint = "";
-            this.editParam2.Location = new System.Drawing.Point(217, 40);
+            this.editParam2.Location = new System.Drawing.Point(252, 40);
             this.editParam2.MaxLength = 32767;
             this.editParam2.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam2.Name = "editParam2";
@@ -369,7 +393,7 @@
             this.editParam2.SelectedText = "";
             this.editParam2.SelectionLength = 0;
             this.editParam2.SelectionStart = 0;
-            this.editParam2.Size = new System.Drawing.Size(139, 22);
+            this.editParam2.Size = new System.Drawing.Size(104, 22);
             this.editParam2.TabIndex = 14;
             this.editParam2.TabStop = false;
             this.editParam2.UseSystemPasswordChar = false;
@@ -404,7 +428,7 @@
             // 
             this.editParam7.Depth = 0;
             this.editParam7.Hint = "";
-            this.editParam7.Location = new System.Drawing.Point(217, 170);
+            this.editParam7.Location = new System.Drawing.Point(252, 170);
             this.editParam7.MaxLength = 32767;
             this.editParam7.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam7.Name = "editParam7";
@@ -412,7 +436,7 @@
             this.editParam7.SelectedText = "";
             this.editParam7.SelectionLength = 0;
             this.editParam7.SelectionStart = 0;
-            this.editParam7.Size = new System.Drawing.Size(139, 22);
+            this.editParam7.Size = new System.Drawing.Size(104, 22);
             this.editParam7.TabIndex = 15;
             this.editParam7.TabStop = false;
             this.editParam7.UseSystemPasswordChar = false;
@@ -434,7 +458,7 @@
             // 
             this.editParam4.Depth = 0;
             this.editParam4.Hint = "";
-            this.editParam4.Location = new System.Drawing.Point(217, 92);
+            this.editParam4.Location = new System.Drawing.Point(252, 92);
             this.editParam4.MaxLength = 32767;
             this.editParam4.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam4.Name = "editParam4";
@@ -442,7 +466,7 @@
             this.editParam4.SelectedText = "";
             this.editParam4.SelectionLength = 0;
             this.editParam4.SelectionStart = 0;
-            this.editParam4.Size = new System.Drawing.Size(139, 22);
+            this.editParam4.Size = new System.Drawing.Size(104, 22);
             this.editParam4.TabIndex = 15;
             this.editParam4.TabStop = false;
             this.editParam4.UseSystemPasswordChar = false;
@@ -451,7 +475,7 @@
             // 
             this.editParam6.Depth = 0;
             this.editParam6.Hint = "";
-            this.editParam6.Location = new System.Drawing.Point(217, 144);
+            this.editParam6.Location = new System.Drawing.Point(252, 144);
             this.editParam6.MaxLength = 32767;
             this.editParam6.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam6.Name = "editParam6";
@@ -459,7 +483,7 @@
             this.editParam6.SelectedText = "";
             this.editParam6.SelectionLength = 0;
             this.editParam6.SelectionStart = 0;
-            this.editParam6.Size = new System.Drawing.Size(139, 22);
+            this.editParam6.Size = new System.Drawing.Size(104, 22);
             this.editParam6.TabIndex = 15;
             this.editParam6.TabStop = false;
             this.editParam6.UseSystemPasswordChar = false;
@@ -494,7 +518,7 @@
             // 
             this.editParam3.Depth = 0;
             this.editParam3.Hint = "";
-            this.editParam3.Location = new System.Drawing.Point(217, 66);
+            this.editParam3.Location = new System.Drawing.Point(252, 66);
             this.editParam3.MaxLength = 32767;
             this.editParam3.MouseState = MaterialSkin.MouseState.HOVER;
             this.editParam3.Name = "editParam3";
@@ -502,7 +526,7 @@
             this.editParam3.SelectedText = "";
             this.editParam3.SelectionLength = 0;
             this.editParam3.SelectionStart = 0;
-            this.editParam3.Size = new System.Drawing.Size(139, 22);
+            this.editParam3.Size = new System.Drawing.Size(104, 22);
             this.editParam3.TabIndex = 15;
             this.editParam3.TabStop = false;
             this.editParam3.UseSystemPasswordChar = false;
@@ -583,30 +607,6 @@
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
-            // combo_cmd5
-            // 
-            this.combo_cmd5.BackColor = System.Drawing.Color.DodgerBlue;
-            this.combo_cmd5.DropDownHeight = 140;
-            this.combo_cmd5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.combo_cmd5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.combo_cmd5.ForeColor = System.Drawing.SystemColors.Info;
-            this.combo_cmd5.IntegralHeight = false;
-            this.combo_cmd5.ItemHeight = 12;
-            this.combo_cmd5.Items.AddRange(new object[] {
-            "No Tool",
-            "1mL",
-            "10uL",
-            "300uL",
-            "5mL",
-            "Laser",
-            "Gripper",
-            "Calib Tip"});
-            this.combo_cmd5.Location = new System.Drawing.Point(103, 65);
-            this.combo_cmd5.Margin = new System.Windows.Forms.Padding(0);
-            this.combo_cmd5.Name = "combo_cmd5";
-            this.combo_cmd5.Size = new System.Drawing.Size(85, 20);
-            this.combo_cmd5.TabIndex = 16;
             // 
             // PatternInput
             // 

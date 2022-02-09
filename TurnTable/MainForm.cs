@@ -19,12 +19,9 @@ using System.Management;
 using MvCamCtrl.NET;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-//using OpenCvSharp.UserInterface;
 using OpenCvSharp.Blob;
-//using OpenCvSharp.CPlusPlus;
 using System.Linq;
 using System.Text;
-
 
 namespace CytoDx
 {
@@ -142,9 +139,10 @@ namespace CytoDx
             OPEN = 1,
         }
 
+        // index는 해밀턴 매뉴얼 28페이지 참조
         public enum TIP_TYPE
         {
-            _10UL = 0,      // index는 매뉴얼 28페이지 참조
+            _10UL = 0,
             _300UL = 4,
             _1000UL = 6,
             NONE = -1,
@@ -209,17 +207,19 @@ namespace CytoDx
         public enum Direction
         {
             CCW = '0',   //0x30,    // '0'
-            CW = '1',   //0x31,    // '1'
-            STOP = 'S',   //0x53,    // 'S'
+            CW = '1',    //0x31,    // '1'
+            STOP = 'S',  //0x53,    // 'S'
         }
 
-        public string VERSION = "v2021.11.16";
+        public string VERSION = "v2022.02.08";
         // 2020.12.02  4 Digit Pump Time (99.9 sec --> 999.9 sec)
         // 2021.07.20 FW Protocol Verified
         // 2021.07.30 FW Protocol Applied
         // 2021.09.30 Position Monitoring Done(one Timer version)
         // 2021.11.08 speed unit modified(for slow motion)
         // 2021.11.15 통신 속도 및 펌웨어 통신 방식을 Ring Buffer를 사용하도록 변경함
+        // 2021.12.17 tube 바닥면 처리를 위한 연산부를 추가함
+        // 2022.02.08 속도 향상을 위해 명령어 일부를 통합하고 명령어에 적용된 속도 파라미터를 조정함
 
         private readonly MaterialSkinManager materialSkinManager;
         private object lockSerial = new object();
@@ -248,7 +248,6 @@ namespace CytoDx
         bool isRunningManual = false;
         bool bRpmChanged = false;
         bool isRecording = false;
-        //bool isConverting = true;
 
         //Video Play 관련
         bool isScrolled_Video = false;        // TrackBar 움직였는지
@@ -362,7 +361,8 @@ namespace CytoDx
         public byte MANUAL_MODE = 1;
         public byte boggle = 0;
 
-        public bool holdTimer = false;         // btn을 통한 serial CMD 시에 timer 루프를 continue
+        // btn을 통한 serial CMD 시에 timer 루프를 continue
+        public bool holdTimer = false;
         public string lastRcvStr = "";
 
         public string CurrentRecipeCommand = "";
@@ -388,7 +388,6 @@ namespace CytoDx
         public SENSOR_STATUS SensorStatus;
         public CMD_RESULT CmdResult;
         public CurrentPosition CurrentPos;
-        //INT_REQUEST IntRequest;
         RPM Rpm;
         public Mat srcImage;
 
@@ -405,7 +404,7 @@ namespace CytoDx
         public double TriPipett_Vol = 5000.0;
         public double TriPipett_Max_Increment = 1600.0;
         public double TriPipett_Vel_Resolution = 6000.0;
-        public double TriPipett_ul_per_inc = 3.808; // 매뉴얼에 기재됨
+        public double TriPipett_ul_per_inc = 3.808; // tricontinental 매뉴얼에 기재됨
         public int PE1PlungerPosInc = 0;
 
         public string strcLLD_Sensitivity;
@@ -446,6 +445,9 @@ namespace CytoDx
         public bool bStepMotorInitDoneState = false;
         public bool bSystemInitDoneState = false;
         public double dbMovingDist = 0;
+        public double[] dbStepMovingSpd = new double[6];
+        public double[] dbStepTrgPos = new double[6];
+        public POS_OPT[] MovOpt = new POS_OPT[6];
 
         public bool bPeltRunState = false;
         public float fPeltOffTemp = 50;
@@ -519,7 +521,6 @@ namespace CytoDx
             public List<Recipe> recipe = new List<Recipe>();
         }
 
-        //public TOOL_OFFSET Tool_Offset_Val;
         public TOOL_OFFSET offset_val;
                 
         public struct TOOL_OFFSET
@@ -623,10 +624,6 @@ namespace CytoDx
             public bool bINJECT_LIMIT_HI;
             public bool bINJECT_LIMIT_LOW;
             public bool bALM;
-            //public bool bHOME_END;
-            //public bool bPLS_RDY;
-            //public bool bREADY;
-            //public bool bMOVE;
         };
 
         public struct STEP0AXISSTATE
@@ -712,7 +709,7 @@ namespace CytoDx
             public Status RunSwitch;
             public Status StopSwitch;
             public Status RotorCover;
-            public Status EccentricProxi; // 근접센서
+            public Status EccentricProxi; // Eccentric Emergency 감지용 근접센서
             public Status AlarmPeri1_tri_pipett;
             public int tri_pipett_errNo;
             public Status AlarmPeri2_ham_pipett;
@@ -785,13 +782,6 @@ namespace CytoDx
             public COM_Status SystemCmd;
         }
 
-        //public struct INT_REQUEST
-        //{
-        //    public bool RunManual;
-        //    public bool StopManual;
-        //    public bool Stop;
-        //}
-
         public struct RPM
         {
             public double Tick;
@@ -812,14 +802,6 @@ namespace CytoDx
             STEP1 = 5,
             STEP2 = 6,
         }
-
-        //public enum AXIS
-        //{
-        //    NONE = 0,
-        //    AXIS_X = 4,
-        //    AXIS_Y = 5,
-        //    AXIS_Z = 6,
-        //}
 
         public enum PERIPHERAL
         {
@@ -843,6 +825,7 @@ namespace CytoDx
             SPIN,
             SPIN_PARAM,
             SPIN_POS,
+            MOV_HOME,
             SEL_TOOL,
             VALVE,
             LIGHT,
@@ -1030,15 +1013,15 @@ namespace CytoDx
 
             StateMonitorThread.Start();
         }
-        
+
         public void SetAxisStoke()  //Unit: mm
         {
-            axis_stroke.X_min = 0.0;    //driver: -2.5mm
-            axis_stroke.X_max = 582.0;  //driver: 584mm
-            axis_stroke.Y_min = 0.0;    //driver: -2.5mm
-            axis_stroke.Y_max = 290.0;  //driver: 292mm
-            axis_stroke.Z_min = 0.0;    //driver: -2.5mm
-            axis_stroke.Z_max = 169.0;  //driver: 170mm
+            axis_stroke.X_min = -14.0;    //driver setting: -15.0mm
+            axis_stroke.X_max = 582.0;    //driver setting: 584mm
+            axis_stroke.Y_min = -0.5;     //driver setting: -2.5mm
+            axis_stroke.Y_max = 290.0;    //driver setting: 292mm
+            axis_stroke.Z_min = -0.5;     //driver setting: -2.5mm
+            axis_stroke.Z_max = 169.0;    //driver setting: 170mm
             axis_stroke.Grip_min = 0.0;
             axis_stroke.Grip_max = 110.0;
             axis_stroke.Ham_min = 0.0;
@@ -1047,6 +1030,7 @@ namespace CytoDx
             axis_stroke.Cover_max = 117.0;
         }
 
+        // text 변경 이벤트 감지를 위해 invoke 사용함
         private void PositionDataDisplay()
         {
             if (bStateMonitorTh == false || bShudown == true)
@@ -1176,6 +1160,7 @@ namespace CytoDx
             }
         }
 
+        // text 변경 이벤트 감지를 위해 invoke 사용함
         private void SwitchStateDisplay()
         {
             if (bStateMonitorTh == false || bShudown == true)
@@ -1233,6 +1218,15 @@ namespace CytoDx
                     });
                 }
                 this.btnInitializeAll.BackColor = Color.LightSkyBlue;
+
+                if (btnInitializeCover.InvokeRequired == true)
+                {
+                    this.btnInitializeCover.Invoke((MethodInvoker)delegate ()
+                    {
+                        btnInitializeCover.Text = "Home Cover";
+                    });
+                }
+                this.btnInitializeCover.BackColor = Color.LightSkyBlue;
 
                 if (btnComConnect.InvokeRequired == true)
                 {
@@ -1335,6 +1329,7 @@ namespace CytoDx
             }
         }
 
+        // text 변경 이벤트 감지를 위해 invoke 사용함
         private void LabelStateUpdate()
         {
             if (bStateMonitorTh == false || bShudown == true)
@@ -1507,7 +1502,6 @@ namespace CytoDx
             {
                 while (bStateMonitorTh)
                 {
-                    //if (Serial.IsOpen && bCommunicationActive != true)
                     if (Serial.IsOpen)
                     {
                         lock (sync)
@@ -1527,8 +1521,7 @@ namespace CytoDx
 
                             PositionDataDisplay();
 
-                            // 모터 정지 후 타이머 정지를 위해 3초를 추가함
-                            if (bServoRunState == true && SerialTimerCnt > (SpinTotalTime + 3))
+                            if (bServoRunState == true && SerialTimerCnt > SpinTotalTime)
                             {
                                 if (bSerialTimerState == true)
                                 {
@@ -1536,7 +1529,7 @@ namespace CytoDx
                                     bSerialTimerState = false;
 
                                     iPrintf(string.Format("[Servo] Stop Serial Tick Timer! {0} / {1}", 
-                                                          SerialTimerCnt, SpinTotalTime + 3));   // for test
+                                                          SerialTimerCnt, SpinTotalTime));   // for test
 
                                     ReadMotorPosition(true, bSilent: true);
                                 }
@@ -1548,14 +1541,19 @@ namespace CytoDx
                                     isRunningManual = false;
                             }
 
-                            // 근접센서 카운트 값이 임계치를 넘었을 때 Servo Off 처리함
+                            // 근접센서 카운트 값이 임계치를 넘었을 때 서보모터 비상정지함
                             if(bServoRunState == true && SensorStatus.ErrEccentricCnt == true)
                             {
                                 iPrintf(string.Format("Servo Off! Eccentric Sensor Count Exceed! Count: {0}, Threshold: {1}", 
                                         nEccentricCnt, nEccentricThreshold));
                                 DisplayStatusMessage("Servo Off! Eccentric Sensor Count Exceed!", TEST.FAIL);
 
-                                ServoOnOff(HOLD_STATE.FREE);
+                                SerCmd_Spin(CMD.STOP, 0);
+
+                                Thread.Sleep(500);
+                                ServoMonitor(MotorMon.RPM);
+                                ReadMotorPosition(true, bSilent: true);
+                                Thread.Sleep(100);
                             }
                         }
                     }
@@ -1576,17 +1574,17 @@ namespace CytoDx
         public bool bStep0Move_old = false; public bool bStep1Move_old = false; public bool bStep2Move_old = false;
         public bool bStepGripMove_old = false; public bool bStepHamMove_old = false; public bool bStepCoverMove_old = false;
 
-        //public double dbCurPosCover_old = 0;
-        //public double diffPosCover = 0;
-        //public double diffPosCover_old = 0;
+        public double dbCurPosCover_old = 0;
+        public double diffPosCover = 0;
+        public double diffPosCover_old = 0;
 
         public double dbCurPosHam_old = 0; public double dbCurPosGrip_old = 0;
         public double diffPosHam = 0; public double diffPosGrip = 0;
-        public double diffPosHam_old = 0; public double diffPosGrip_old = 0;  
+        public double diffPosHam_old = 0; public double diffPosGrip_old = 0;
 
-        //public double dbCurPosX_old = 0; public double dbCurPosY_old = 0; public double dbCurPosZ_old = 0;
-        //public double diffPosX = 0; public double diffPosY = 0; public double diffPosZ = 0;
-        //public double diffPosX_old = 0; public double diffPosY_old = 0; public double diffPosZ_old = 0;
+        public double dbCurPosX_old = 0; public double dbCurPosY_old = 0; public double dbCurPosZ_old = 0;
+        public double diffPosX = 0; public double diffPosY = 0; public double diffPosZ = 0;
+        public double diffPosX_old = 0; public double diffPosY_old = 0; public double diffPosZ_old = 0;
 
         public void CurPosRead()
         {
@@ -1640,8 +1638,22 @@ namespace CytoDx
 
         public void PosThreadMethod()
         {
-            // pipett 축의 위치값이 빠르게 수렴하지 않아서 in-position 값을 설정하여 운영함
-            double in_position = 0.3;
+            // 위치값이 빠르게 수렴하지 않아서 in-position 값을 설정하여 운영함
+            // 속도값에 따라 in_position이 변경되어야 함. 검토 필요. -> in_pos는 문제가 있음. 적용 보류
+            double[] in_position = new double[6];
+            in_position[0] = dbStepMovingSpd[0] * 0.002;    //0.001
+            in_position[1] = dbStepMovingSpd[1] * 0.002;
+            in_position[2] = dbStepMovingSpd[2] * 0.002;
+            in_position[3] = dbStepMovingSpd[3] * 0.002;
+            in_position[4] = dbStepMovingSpd[4] * 0.002;
+            in_position[5] = dbStepMovingSpd[5] * 0.002;
+
+            if (in_position[0] <= 1.0) in_position[0] = 1.0;
+            if (in_position[1] <= 1.0) in_position[1] = 1.0;
+            if (in_position[2] <= 1.0) in_position[2] = 1.0;
+            if (in_position[3] <= 1.0) in_position[3] = 1.0;
+            if (in_position[4] <= 1.0) in_position[4] = 1.0;
+            if (in_position[5] <= 1.0) in_position[5] = 1.0;
 
             if (bAxisStartFlag[0] == true || bAxisStartFlag[1] == true || bAxisStartFlag[2] == true ||
                 bAxisStartFlag[3] == true || bAxisStartFlag[4] == true || bAxisStartFlag[5] == true)
@@ -1674,13 +1686,13 @@ namespace CytoDx
                 if (bAxisStartFlag[5] == true) bAxisStartFlag[5] = false;
             }
 
-            //diffPosX = Math.Abs(CurrentPos.Step0AxisX - dbCurPosX_old);
-            //diffPosY = Math.Abs(CurrentPos.Step1AxisY - dbCurPosY_old);
-            //diffPosZ = Math.Abs(CurrentPos.Step2AxisZ - dbCurPosZ_old);
+            diffPosX = Math.Abs(CurrentPos.Step0AxisX - dbCurPosX_old);
+            diffPosY = Math.Abs(CurrentPos.Step1AxisY - dbCurPosY_old);
+            diffPosZ = Math.Abs(CurrentPos.Step2AxisZ - dbCurPosZ_old);
 
             diffPosHam   = Math.Abs(CurrentPos.StepHamAxis  - dbCurPosHam_old);
             diffPosGrip  = Math.Abs(CurrentPos.StepGripAxis - dbCurPosGrip_old);
-            //diffPosCover = Math.Abs(CurrentPos.StepRotCover - dbCurPosCover_old);
+            diffPosCover = Math.Abs(CurrentPos.StepRotCover - dbCurPosCover_old);
 
             if (bPosMonitorTh == false || Serial.IsOpen == false || bStepMotorInitDoneState == false)
             {
@@ -1697,15 +1709,24 @@ namespace CytoDx
 
             Thread.Sleep(50);
 
+            // recipe run 상태가 아닐때
             if ((isRunning == false && isRunningSingle == false && isRunningManual == false) && bStepRunState == true)
             {
                 if ((bAxisMovingFlag[0] == true || bAxisMovingFlag[1] == true || bAxisMovingFlag[2] == true ||
                      bAxisMovingFlag[3] == true || bAxisMovingFlag[4] == true || bAxisMovingFlag[5] == true) &&
-                   ((Step0AxState.bMOVE == false && bStep0Move_old == true) ||
+
+                    /* inposition을 이용하여 위치값 수렴하는 방법 */
+                    //(((diffPosX >= 0 && diffPosX < in_position) && diffPosX_old > 0) ||
+                    // ((diffPosY >= 0 && diffPosY < in_position) && diffPosY_old > 0) ||
+                    // ((diffPosZ >= 0 && diffPosZ < in_position) && diffPosZ_old > 0) ||
+                    // ((diffPosHam >= 0 && diffPosHam < in_position) && diffPosHam_old > 0) ||
+                    // ((diffPosGrip >= 0 && diffPosGrip < in_position) && diffPosGrip_old > 0) ||
+                    // ((diffPosCover >=0 && diffPosCover < in_position) && diffPosCover_old > 0)))
+
+                    /* Axis의 Status를 이용하여 위치값 수렴하는 방법 */
+                    ((Step0AxState.bMOVE == false && bStep0Move_old == true) ||
                     (Step1AxState.bMOVE == false && bStep1Move_old == true) ||
                     (Step2AxState.bMOVE == false && bStep2Move_old == true) ||
-                    //((diffPosHam >= 0 && diffPosHam < in_position) && diffPosHam_old > 0) ||
-                    //((diffPosGrip >= 0 && diffPosGrip < in_position) && diffPosGrip_old > 0) ||
                     (GripAxState.bMove == false && bStepGripMove_old == true) ||
                     (HamAxState.bMove == false && bStepHamMove_old == true) ||
                     (CoverAxState.bMove == false && bStepCoverMove_old == true)))
@@ -1729,18 +1750,24 @@ namespace CytoDx
                     if (bAxisMovingFlag[5] == true)  bAxisMovingFlag[5] = false;
 
                     dbMovingDist = 0;
-                    //diffPosX = 0;       diffPosX_old = 0;
-                    //diffPosY = 0;       diffPosY_old = 0;
-                    //diffPosZ = 0;       diffPosZ_old = 0;
+                    diffPosX = 0;       diffPosX_old = 0;
+                    diffPosY = 0;       diffPosY_old = 0;
+                    diffPosZ = 0;       diffPosZ_old = 0;
                     diffPosHam = 0;     diffPosHam_old = 0;
                     diffPosGrip = 0;    diffPosGrip_old = 0;
-                    //diffPosCover = 0;   diffPosCover_old = 0;
-                    bStep0Move_old = false;
-                    bStep1Move_old = false;
-                    bStep2Move_old = false;
-                    bStepGripMove_old = false;
-                    bStepHamMove_old = false;
-                    bStepCoverMove_old = false;
+                    diffPosCover = 0;   diffPosCover_old = 0;
+
+                    dbStepMovingSpd[0] = 0;     dbStepMovingSpd[1] = 0;
+                    dbStepMovingSpd[2] = 0;     dbStepMovingSpd[3] = 0;
+                    dbStepMovingSpd[4] = 0;     dbStepMovingSpd[5] = 0;
+
+                    in_position[0] = 0; in_position[1] = 0;
+                    in_position[2] = 0; in_position[3] = 0;
+                    in_position[4] = 0; in_position[5] = 0;
+
+                    bStep0Move_old = false;     bStep1Move_old = false;
+                    bStep2Move_old = false;     bStepGripMove_old = false;
+                    bStepHamMove_old = false;   bStepCoverMove_old = false;
 
                     Thread.Sleep(100);  //100
                     MonitorStepMotorStatus();
@@ -1751,12 +1778,12 @@ namespace CytoDx
                     return;
                 }
             }
-            
+
+            // recipe run 상태일 때
             if ((isRunning == true || isRunningSingle == true || isRunningManual == true) && bStepRunState == true)
             {
                 if (bAxisMovingFlag[0] == true && (Step0AxState.bMOVE == false && bStep0Move_old == true))
                 {
-                    //iPrintf(string.Format("Step0: {0}, Step0_old:{1}", Step0AxState.bMOVE, bStep0Move_old));
                     bAxisMovingFlag[0] = false;
                 }
                 else if(bAxisMovingFlag[0] == true && (Step0AxState.bMOVE == false && bStep0Move_old == false))
@@ -1766,7 +1793,6 @@ namespace CytoDx
 
                 if (bAxisMovingFlag[1] == true && (Step1AxState.bMOVE == false && bStep1Move_old == true))
                 {
-                    //iPrintf(string.Format("Step1: {0}, Step1_old:{1}", Step1AxState.bMOVE, bStep1Move_old));
                     bAxisMovingFlag[1] = false;
                 }
                 else if (bAxisMovingFlag[1] == true && (Step1AxState.bMOVE == false && bStep1Move_old == false))
@@ -1776,7 +1802,6 @@ namespace CytoDx
 
                 if (bAxisMovingFlag[2] == true && (Step2AxState.bMOVE == false && bStep2Move_old == true))
                 {
-                    //iPrintf(string.Format("Step2: {0}, Step2_old:{1}", Step2AxState.bMOVE, bStep2Move_old));
                     bAxisMovingFlag[2] = false;
                 }
                 else if (bAxisMovingFlag[2] == true && (Step2AxState.bMOVE == false && bStep2Move_old == false))
@@ -1784,10 +1809,8 @@ namespace CytoDx
                     bAxisMovingFlag[2] = false;
                 }
 
-                //if (bAxisMovingFlag[3] == true && ((diffPosGrip >= 0 && diffPosGrip < in_position) && diffPosGrip_old > 0))
                 if (bAxisMovingFlag[3] == true && (GripAxState.bMove == false && bStepGripMove_old == true))
                 {
-                    //iPrintf(string.Format("Grip_diff:{0}, Grip_diff_old:{1}", diffPosGrip, diffPosGrip_old));
                     bAxisMovingFlag[3] = false;
                 }
                 else if (bAxisMovingFlag[3] == true && (GripAxState.bMove == false && bStepGripMove_old == false))
@@ -1795,10 +1818,8 @@ namespace CytoDx
                     bAxisMovingFlag[3] = false;
                 }
 
-                //if (bAxisMovingFlag[4] == true && (HamAxState.bMove == false && bStepHamMove_old == true))
-                if (bAxisMovingFlag[4] == true && ((diffPosHam >= 0 && diffPosHam < in_position) && diffPosHam_old > 0))
+                if (bAxisMovingFlag[4] == true && (HamAxState.bMove == false && bStepHamMove_old == true))
                 {
-                    //iPrintf(string.Format("Ham_diff: {0}, Ham_diff_old:{1}", diffPosHam, diffPosHam_old));
                     bAxisMovingFlag[4] = false;
                 }
                 else if (bAxisMovingFlag[4] == true && (HamAxState.bMove == false && bStepHamMove_old == false))
@@ -1808,7 +1829,6 @@ namespace CytoDx
 
                 if (bAxisMovingFlag[5] == true && (CoverAxState.bMove == false && bStepCoverMove_old == true))
                 {
-                    //iPrintf(string.Format("Cover_diff:{0}, Cover_diff_old:{1}", diffPosCover, diffPosCover_old));
                     bAxisMovingFlag[5] = false;
                 }
                 else if (bAxisMovingFlag[5] == true && (CoverAxState.bMove == false && bStepCoverMove_old == false))
@@ -1832,12 +1852,21 @@ namespace CytoDx
                     }
 
                     dbMovingDist = 0;
-                    //diffPosX = 0;     diffPosX_old = 0;
-                    //diffPosY = 0;     diffPosY_old = 0;
-                    //diffPosZ = 0;     diffPosZ_old = 0;
+                    diffPosX = 0;       diffPosX_old = 0;
+                    diffPosY = 0;       diffPosY_old = 0;
+                    diffPosZ = 0;       diffPosZ_old = 0;
                     diffPosHam = 0;     diffPosHam_old = 0;
                     diffPosGrip = 0;    diffPosGrip_old = 0;
-                    //diffPosCover = 0; diffPosCover_old = 0;
+                    diffPosCover = 0;   diffPosCover_old = 0;
+
+                    dbStepMovingSpd[0] = 0; dbStepMovingSpd[1] = 0;
+                    dbStepMovingSpd[2] = 0; dbStepMovingSpd[3] = 0;
+                    dbStepMovingSpd[4] = 0; dbStepMovingSpd[5] = 0;
+
+                    in_position[0] = 0; in_position[1] = 0;
+                    in_position[2] = 0; in_position[3] = 0;
+                    in_position[4] = 0; in_position[5] = 0;
+
                     bStep0Move_old = false;     bStep1Move_old = false;
                     bStep2Move_old = false;     bStepGripMove_old = false;
                     bStepHamMove_old = false;   bStepCoverMove_old = false;
@@ -1869,14 +1898,14 @@ namespace CytoDx
             bStep2Move_old = Step2AxState.bMOVE;    bStepGripMove_old = GripAxState.bMove;
             bStepHamMove_old = HamAxState.bMove;    bStepCoverMove_old = CoverAxState.bMove;
 
-            //dbCurPosX_old = CurrentPos.Step0AxisX;    dbCurPosY_old = CurrentPos.Step1AxisY;
-            //dbCurPosZ_old = CurrentPos.Step2AxisZ;    diffPosX_old = diffPosX;
-            //diffPosY_old = diffPosY;                  diffPosZ_old = diffPosZ;
+            dbCurPosX_old = CurrentPos.Step0AxisX;    dbCurPosY_old = CurrentPos.Step1AxisY;
+            dbCurPosZ_old = CurrentPos.Step2AxisZ;    diffPosX_old = diffPosX;
+            diffPosY_old = diffPosY;                  diffPosZ_old = diffPosZ;
 
             dbCurPosHam_old = CurrentPos.StepHamAxis;   dbCurPosGrip_old = CurrentPos.StepGripAxis;
-            //dbCurPosCover_old = CurrentPos.StepRotCover;
+            dbCurPosCover_old = CurrentPos.StepRotCover;
             diffPosHam_old = diffPosHam;                diffPosGrip_old = diffPosGrip;
-            //diffPosCover_old = diffPosCover;
+            diffPosCover_old = diffPosCover;
         }
 
         public void MonitorStepMotorStatus()
@@ -1884,9 +1913,9 @@ namespace CytoDx
             if (ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0)
             {
                 GetStatus(waitReceive: false, bSilent: true);
-                Thread.Sleep(200);   //200
+                Thread.Sleep(200);
                 ReadMotorPosition(waitReceive: false, bSilent: true);
-                Thread.Sleep(100);   //100
+                Thread.Sleep(100);
             }
         }
 
@@ -1898,10 +1927,11 @@ namespace CytoDx
             if (SerialTimerCnt >= SerialTimerLimit)
                 SerialTimerCnt = 0;
 
-            if (Serial.IsOpen /*&& !holdTimer*/ && !bDirectReceive)
+            if (Serial.IsOpen && !bDirectReceive)
             {
                 if ((bStepRunState == true || bServoRunState == true) && 
-                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && bMotionDoneWait == false)
+                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && 
+                    bMotionDoneWait == false && bPipettMotion == false)
                 {
                     Thread.Sleep(150);
                     iPrintf("[Timer] GetStatus");
@@ -1910,7 +1940,8 @@ namespace CytoDx
                 }
 
                 if (bPeltRunState == true &&
-                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && bMotionDoneWait == false)
+                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && 
+                    bMotionDoneWait == false && bPipettMotion == false)
                 {
                     if (isRunning == false && isRunningSingle == false && isRunningManual == false)
                     {
@@ -1921,8 +1952,9 @@ namespace CytoDx
                     }
                 }
 
-                if (bStepRunState == true && 
-                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && bMotionDoneWait == false)
+                if (bStepRunState == true && bServoRunState != true &&
+                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && 
+                    bMotionDoneWait == false && bPipettMotion == false)
                 {
                     Thread.Sleep(150);
                     iPrintf("[Timer] Read Motor Pos");
@@ -1931,7 +1963,8 @@ namespace CytoDx
                 }
 
                 if (bServoRunState == true && 
-                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && bMotionDoneWait == false)
+                    ReceiveFrameFlag == false && bCommunicationActive == false && nRcvBuffCnt == 0 && 
+                    bMotionDoneWait == false && bPipettMotion == false)
                 {
                     Thread.Sleep(150);
                     iPrintf("[Timer] Read Servo RPM");
@@ -1939,6 +1972,7 @@ namespace CytoDx
                     Thread.Sleep(50);
                 }
             }
+            // for debug message
             //iPrintf(string.Format("RcvFlag: {0}, ComActive: {1}, RcvBuff: {2}, MotionDone: {3}, DirectRcv: {4}",
             //            ReceiveFrameFlag, bCommunicationActive, nRcvBuffCnt, bMotionDoneWait, bDirectReceive));
         }
@@ -1955,7 +1989,7 @@ namespace CytoDx
 
             PosTimerLimit = 60 * 2;     // 2 min.(timer 1초 기준)
 
-            if (Serial.IsOpen /*&& !holdTimer*/ && !bDirectReceive)
+            if (Serial.IsOpen && !bDirectReceive)
             {
                 bPosTimerRun = true;
                 Thread.Sleep(100);
@@ -2096,6 +2130,8 @@ namespace CytoDx
                 DV_Recipe.CellValidating += new DataGridViewCellValidatingEventHandler(DV_Recipe_CellValidating);
             }                
             DV_Recipe.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(DV_Recipe_EditingControlShowing);
+
+            DoubleBuffered = true;  // datagrideview 업데이트시 속도 향상됨
         }
 
         private void DV_Recipe_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -2225,7 +2261,6 @@ namespace CytoDx
                 else
                     DebugStatus.Hide();
 
-                Application.DoEvents();
                 return true;
             }
             else if (keyData == (Keys.Control | Keys.Alt | Keys.Shift | Keys.D1))
@@ -2680,6 +2715,8 @@ namespace CytoDx
                     editStepAxisHam_Dec.Text = config.StepAxisPipett_Dec.ToString();
                     editStepCoverDec.Text = config.RotorCover_Dec.ToString();
 
+                    editcLLD_Speed.Text = config.cLLD_Speed.ToString();
+
                     editStepAxisX_Jog.Text = config.StepAxisX_Jog.ToString();
                     editStepAxisY_Jog.Text = config.StepAxisY_Jog.ToString();
                     editStepAxisZ_Jog.Text = config.StepAxisZ_Jog.ToString();
@@ -2850,6 +2887,8 @@ namespace CytoDx
                     config.StepAxisGripper_Dec = int.Parse(editStepAxisGripper_Dec.Text);
                     config.StepAxisPipett_Dec = int.Parse(editStepAxisHam_Dec.Text);
                     config.RotorCover_Dec = int.Parse(editStepCoverDec.Text);
+
+                    config.cLLD_Speed = int.Parse(editcLLD_Speed.Text);
 
                     config.StepAxisX_Jog = editStepAxisX_Jog.Text;
                     config.StepAxisY_Jog = editStepAxisY_Jog.Text;
@@ -3022,7 +3061,7 @@ namespace CytoDx
                 }
                 label_elaplsed_time.Text = $"{stopwatch.Elapsed.Minutes:d2}:{stopwatch.Elapsed.Seconds:d2}";
                 //label_elaplsed_time.Update();
-                Application.DoEvents();
+                //Application.DoEvents();
                 Thread.Sleep((int)SamplingTime);
                 if (Rpm.Tick > 0)    // Increment
                 {
@@ -3139,7 +3178,7 @@ namespace CytoDx
                     SerCmd_Spin(CMD.STOP, 0);
                     StopRecord();
                     stopwatch.Stop();
-                    //if (btnTimer.Text == "Stop Timer")
+
                     if (bSerialTimerState == true)
                         btnTimer_Click(this, null);
                     StopMusic();
@@ -3198,6 +3237,7 @@ namespace CytoDx
             bShudown = true;
         }
 
+        // log file 저장
         public void LogFileSave()
         {
             string dtStr = DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss");
@@ -3331,6 +3371,7 @@ namespace CytoDx
             holdTimer = false;
         }        
 
+        // 별도로 서보모터만 구동하기 위한 run menu
         private void btnManualTestRun_Click(object sender, EventArgs e)
         {
             COM_Status retVal;
@@ -3346,7 +3387,6 @@ namespace CytoDx
                 DeleteOldFiles();
                 btnGetSerialStatus_Click(this, null);
 
-                //if (btnTimer.Text == "Start Timer")
                 if (bSerialTimerState == false)
                 {
                     btnTimer_Click(this, null);
@@ -3373,6 +3413,7 @@ namespace CytoDx
             }
         }
 
+        // 별도로 서보모터만 정지하기 위한 stop menu
         private void btnManualTestStop_Click(object sender, EventArgs e)
         {
             COM_Status retVal = COM_Status.ACK;
@@ -3666,6 +3707,8 @@ namespace CytoDx
             }
         }
 
+        // 전면 도어를 감지할 것인지 아닌지를 선택하기 위한 버튼
+        // 기본적으로는 전면 도어가 open되어 있으면 run 상태로 변경되지 않도록 firmware에서 제어함
         private void btnDoorActive_Click(object sender, EventArgs e)
         {
             if(SensorStatus.DoorEnable == Status.ON)
@@ -3681,11 +3724,12 @@ namespace CytoDx
             SwitchControl(SwitchState.STATUS, Status.NONE);
         }
 
+        // pipett 및 step 모터(cover 제외)의 위차값을 초기화 하기 위한 버튼
         private void btnInitializeAll_Click(object sender, EventArgs e)
         {
             COM_Status retVal = COM_Status.RESET;
 
-            // door가 닫혀있거나 run switch가 on되어 있지 않으면 초기화를 진행하지 않음
+            // 전면 door가 닫혀있거나 run switch가 on되어 있지 않으면 초기화를 진행하지 않음
             if (SensorStatus.RunSwitch == Status.OFF ||
                (SwitchMon.bDoorEnable == true && SwitchMon.bDoorSW == false))
             {
@@ -3698,7 +3742,6 @@ namespace CytoDx
                 return;
             }
 
-            //if (this.btnInitializeAll.BackColor == Color.LightSkyBlue)
             if(bSystemInitDoneState == false)
             {
                 // Set Motor Homing Parameters: offset, searching speed
@@ -3714,9 +3757,7 @@ namespace CytoDx
                 ReadMotorPosition(true);
                 Thread.Sleep(200);
 
-                // Initialize pipett & pump
-                //retVal = InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600A0A10z0V1000a1000a0R", Environment.NewLine));
-                //retVal = InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A10R", Environment.NewLine));
+                // Initialize tricontinent pipett
                 retVal = InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A1580R", Environment.NewLine));
 
                 if (retVal == COM_Status.ACK)
@@ -3732,11 +3773,11 @@ namespace CytoDx
                 }
                 Thread.Sleep(800);  //800 //600
 
-                // 해밀턴 모듈의 초기화 명령 DI 전달 후 응답이 이유는 모르겠지만 첫번째에서는 전달되지 않아 두번 전달함
+                // 해밀턴 모듈의 초기화
                 //RunPer2_HamiltonPipett("RF", 0, 0, 0, 0, TIP_TYPE.NONE);
                 InitPeripherals(PERIPHERAL.HAM_PIPETT);
-                retVal = RunPer2_HamiltonPipett("DI", 0, 0, 0, 0, TIP_TYPE.NONE);
-                Thread.Sleep(100);
+                //retVal = RunPer2_HamiltonPipett("DI", 0, 0, 0, 0, TIP_TYPE.NONE);
+                Thread.Sleep(50);
 
                 if (SensorStatus.ham_pipett_errNo == 0)
                     ConfirmTipPresence();
@@ -3752,20 +3793,22 @@ namespace CytoDx
                     iPrintf("Hamilton 1ml pipett Init Fail!");
                     retVal = COM_Status.RESET;
                 }
-                Thread.Sleep(600);
+                Thread.Sleep(200);  //600
 
-                retVal = InitPeripherals(PERIPHERAL.TRI_PUMP);
+                // tricontinent pump 초기화 - 장치를 실제로는 사용하지 않기 때문에 초기화에서 제외함
+                //retVal = InitPeripherals(PERIPHERAL.TRI_PUMP);
 
-                if (retVal == COM_Status.ACK)
-                {
-                    SensorStatus.AlarmPeri3_tri_pump = Status.OFF;
-                    iPrintf("Tricontinent Syringe Pump Init Done!");
-                }
-                else
-                {
-                    iPrintf("Tricontinent Syringe Pump Init Fail!");
-                }
-                Thread.Sleep(200);
+                //if (retVal == COM_Status.ACK)
+                //{
+                //    SensorStatus.AlarmPeri3_tri_pump = Status.OFF;
+                //    iPrintf("Tricontinent Syringe Pump Init Done!");
+                //}
+                //else
+                //{
+                //    iPrintf("Tricontinent Syringe Pump Init Fail!");
+                //}
+                //Thread.Sleep(200);
+                SensorStatus.AlarmPeri3_tri_pump = Status.OFF;
 
                 // Move Rotor Chamber1 Position
                 if (SelectRotorPosition(CHAMBER_POS.CHAMBER1) == COM_Status.ACK)
@@ -3786,9 +3829,9 @@ namespace CytoDx
                 GetStatus(true);
                 Thread.Sleep(200);
                 SwitchControl(SwitchState.STATUS, Status.NONE);
-                Thread.Sleep(200);
-                ServoMonitor(MotorMon.POS);
-                SystemCmd("SYSTEM", "ERRORS", "");
+                //Thread.Sleep(200);
+                //ServoMonitor(MotorMon.POS);
+                //SystemCmd("SYSTEM", "ERRORS", "");
 
                 if (ServoState.bALM == true)
                     ServoMonitor(MotorMon.ALARM);
@@ -3810,14 +3853,79 @@ namespace CytoDx
                     bSystemInitDoneState = false;
                 }
             }
-            //else if (this.btnInitializeAll.BackColor == Color.SteelBlue ||
-            //         this.btnInitializeAll.BackColor == Color.LightPink)
             else if(bSystemInitDoneState == true && 
                    (isRunning == false && isRunningSingle == false && isRunningManual == false))
             {
                 this.btnInitializeAll.BackColor = Color.LightSkyBlue;
                 btnInitializeAll.Text = "Initialize All";
                 bSystemInitDoneState = false;
+            }
+        }
+
+        // X축이 원심분리기 근처에서 정지해 있을 때 전체를 초기화하면 충돌우려가 있으므로
+        // 원심분리기 커버 모터는 별도로 초기화 함
+        private void btnInitializeCover_Click(object sender, EventArgs e)
+        {
+            // door가 닫혀있거나 run switch가 on되어 있지 않으면 초기화를 진행하지 않음
+            if (SensorStatus.RunSwitch == Status.OFF ||
+               (SwitchMon.bDoorEnable == true && SwitchMon.bDoorSW == false))
+            {
+                this.btnInitializeCover.BackColor = Color.LightPink;
+                btnInitializeCover.Text = "CoverHome Fail";
+                iPrintf("Cover Axis Homing Fail!! Check Switch State");
+                DisplayStatusMessage("Cover Axis Homing Fail!! Check Switch State");
+                bSystemInitDoneState = false;
+
+                return;
+            }
+
+            int timeout = 1000;
+            int i = 0;
+
+            if (CoverAxState.bHOME_COMP != true)
+            {
+                iPrintf("Initializing Step Motor ... Axis Cover to Home");
+
+                if (StepMotorHomeMove(MOTOR.COVER, "HOME", "") != COM_Status.ACK)
+                {
+                    iPrintf("Initializing Step Motor ... Axis Cover to Home ... Fail");
+                    return;
+                }
+                else
+                {
+                    iPrintf("Cover Axis Homing Done!");
+                }
+            }
+
+            i = 0;
+            while (CoverAxState.bHOME_COMP != true)
+            {
+                while (i < timeout)
+                {
+                    i++;
+                    Thread.Sleep(200);
+                    GetStatus(bSilent: true);
+
+                    //CoverAxState.bHOME_COMP = true; // for test            
+                    if (CoverAxState.bHOME_COMP == true)
+                        break;
+                }
+                Thread.Sleep(200);
+            }
+
+            if (CoverAxState.bHOME_COMP == true && SensorStatus.Alarm == false)
+            {
+                this.btnInitializeCover.BackColor = Color.SteelBlue;
+                btnInitializeCover.Text = "CoverHome Done";
+                iPrintf("Cover Axis Homing Process Done!!");
+                DisplayStatusMessage("Cover Axis Homing Done!!");
+            }
+            else
+            {
+                this.btnInitializeAll.BackColor = Color.LightPink;
+                btnInitializeAll.Text = "CoverHome Fail";
+                iPrintf("Cover Axis Homing Process Fail!!");
+                DisplayStatusMessage("Cover Axis Homing Fail!!");
             }
         }
 

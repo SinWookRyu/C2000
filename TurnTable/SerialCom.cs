@@ -278,8 +278,6 @@ namespace CytoDx
 
                     if (SensorStatus.AlarmPeri1_tri_pipett == Status.ON)
                     {
-                        //InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600A0A10z0V1000a1000a0R", Environment.NewLine));
-                        //InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A10R", Environment.NewLine));
                         InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A1580R", Environment.NewLine));
                     }
                     if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
@@ -480,9 +478,8 @@ namespace CytoDx
                 return;
             try
             {
-                Application.DoEvents();
+                //Application.DoEvents();
 
-                //bCommunicationActive = true;
                 int bytes = Serial.BytesToRead;
 
                 if (bytes > 0)
@@ -495,7 +492,6 @@ namespace CytoDx
                             break;
                     }
                 }
-                //bCommunicationActive = false;
             }
             catch (Exception)
             {
@@ -560,6 +556,7 @@ namespace CytoDx
                             if (isRunning)
                             {
                                 ByteToString(bSerialRcvDataFrame, RcvFramePtr);
+                                // recipe를 run한 상태에서는 디버깅 메세지가 출력되지 않음. 필요시 주석 해제
                                 //iPrintf(ByteToString(bSerialRcvDataFrame, RcvFramePtr), false); // for debug
                             }
                             else
@@ -2316,10 +2313,8 @@ namespace CytoDx
                 return;
             }
 
-            //if (btnTimer.Text == "Stop Timer")
             if (bSerialTimerState == true)
             {
-                //btnTimer.Text = "Start Timer";
                 bSerialTimerState = false;
                 timer_com.Stop();
                 bSerialTimerState = false;
@@ -2331,7 +2326,6 @@ namespace CytoDx
             }
             else
             {
-                //btnTimer.Text = "Stop Timer";
                 bSerialTimerState = true;
                 if (int.Parse(tbTimerInterval.Text) > 0)
                 {
@@ -2383,15 +2377,36 @@ namespace CytoDx
         // Centrifuge 동작 관련 파라미터의 변수만 저장함 (구 프로토콜: WRMSET)
         private COM_Status SerCmd_SetParameter(Direction dir, int rpm, int prescale, int spinUpTime, int spinDownTime)
         {
+            int rpm_offset = 0;
+
+            //rpm_offset = int.Parse(edit_rpm_offset.Text);
+
             SpinDir = (int)dir;
             SpinUpTime = spinUpTime;
             SpinDownTime = spinDownTime;
-            SpinRpm = rpm + int.Parse(edit_rpm_offset.Text);
+            
+            if(rpm <= 500)
+                rpm_offset = 201;
+            else if(rpm > 500 && rpm <= 750)
+                rpm_offset = 134;
+            else if (rpm > 750 && rpm <= 1005)
+                rpm_offset = 90;
+            else if (rpm > 1005 && rpm <= 1250)
+                rpm_offset = -36;
+            else if (rpm > 1250 && rpm <= 1500)
+                rpm_offset = -122;
+            else if (rpm > 1500 && rpm <= 1641)
+                rpm_offset = -175;
+            else if (rpm > 1641)
+                rpm_offset = -217;
+
+            SpinRpm = rpm + rpm_offset;
             Prescale = prescale;
 
             SpinTotalTime = SpinUpTime + SpinDownTime + SpinDuration;
 
-            iPrintf(string.Format("Set SpinParam Cmd rpm: {0}, Offset rpm: {1}", SpinRpm, int.Parse(edit_rpm_offset.Text)));
+            //iPrintf(string.Format("Set SpinParam Cmd rpm: {0}, Offset rpm: {1}", SpinRpm, int.Parse(edit_rpm_offset.Text)));
+            iPrintf(string.Format("Set SpinParam Cmd rpm: {0}, Offset rpm: {1}", SpinRpm, rpm_offset));
 
             return COM_Status.ACK;
         }
@@ -2825,13 +2840,23 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.Step0AxisX);
+                            dbStepTrgPos[0] = position;
+                            MovOpt[0] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[0] = position + CurrentPos.Step0AxisX;
+                            MovOpt[0] = POS_OPT.REL;
+                        }
 
                         // 이동 거리가 소량일 때는 통신 충돌 방지를 위해 타이머를 통한 위치 모니터링을 방지함
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[0] = true;
+                        
+                        dbStepMovingSpd[0] = speed;
 
                         bAxisStartFlag[0] = true;
                         bStepRunState = true;
@@ -2844,12 +2869,22 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.Step1AxisY);
+                            dbStepTrgPos[1] = position;
+                            MovOpt[1] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[1] = position + CurrentPos.Step0AxisX;
+                            MovOpt[1] = POS_OPT.REL;
+                        }
 
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[1] = true;
+
+                        dbStepMovingSpd[1] = speed;
 
                         bAxisStartFlag[1] = true;
                         bStepRunState = true;
@@ -2862,12 +2897,22 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.Step2AxisZ);
+                            dbStepTrgPos[2] = position;
+                            MovOpt[2] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[2] = position + CurrentPos.Step0AxisX;
+                            MovOpt[2] = POS_OPT.REL;
+                        }
 
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[2] = true;
+
+                        dbStepMovingSpd[2] = speed;
 
                         bAxisStartFlag[2] = true;
                         bStepRunState = true;
@@ -2880,12 +2925,22 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.StepGripAxis);
+                            dbStepTrgPos[3] = position;
+                            MovOpt[3] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[3] = position + CurrentPos.Step0AxisX;
+                            MovOpt[3] = POS_OPT.REL;
+                        }
 
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[3] = true;
+
+                        dbStepMovingSpd[3] = speed;
 
                         bAxisStartFlag[3] = true;
                         bStepRunState = true;
@@ -2898,12 +2953,22 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.StepHamAxis);
+                            dbStepTrgPos[4] = position;
+                            MovOpt[4] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[4] = position + CurrentPos.Step0AxisX;
+                            MovOpt[4] = POS_OPT.REL;
+                        }
 
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[4] = true;
+
+                        dbStepMovingSpd[4] = speed;
 
                         bAxisStartFlag[4] = true;
                         bStepRunState = true;
@@ -2916,12 +2981,22 @@ namespace CytoDx
                     if (cmd == STEP_CMD.MOVE)
                     {
                         if (opt1 == POS_OPT.ABS)
+                        {
                             dbMovingDist = Math.Abs(position - CurrentPos.StepRotCover);
+                            dbStepTrgPos[5] = position;
+                            MovOpt[5] = POS_OPT.ABS;
+                        }
                         else if (opt1 == POS_OPT.REL)
+                        {
                             dbMovingDist = Math.Abs(position);
+                            dbStepTrgPos[5] = position + CurrentPos.Step0AxisX;
+                            MovOpt[5] = POS_OPT.REL;
+                        }
 
                         if (dbMovingDist > 1)
                             bAxisMovingFlag[5] = true;
+
+                        dbStepMovingSpd[5] = speed;
 
                         bAxisStartFlag[5] = true;
                         bStepRunState = true;
@@ -3060,7 +3135,7 @@ namespace CytoDx
             {
                 do
                 {
-                    if (cnt >= 20) break;
+                    if (cnt >= 50) break;
                     bMotionDoneWait = true;
 
                     GetStatus(true, bSilent: true);
@@ -3095,9 +3170,8 @@ namespace CytoDx
                         }
                         break;
                     }
+                //} while (Step2AxState.bMOVE == true || GripAxState.bMove == true || HamAxState.bMove == true);
                 } while (Step2AxState.bMOVE == true || GripAxState.bMove == true);
-                //} while (Step2AxState.bMOVE == true);
-                //} while (bAxisStartFlag[2] == true) ;
 
                 GetStatus(true, bSilent: true);
                 Thread.Sleep(100);
@@ -3132,7 +3206,7 @@ namespace CytoDx
             int y_dec = int.Parse(editStepAxisY_Dec.Text);
 
             MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP0, spdX, posX, x_acc, x_dec, POS_OPT.ABS, HOLD_STATE.NONE);
-            Thread.Sleep(50);
+            Thread.Sleep(100);
             MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP1, spdY, posY, y_acc, y_dec, POS_OPT.ABS, HOLD_STATE.NONE);
             Thread.Sleep(100);
 
@@ -3230,6 +3304,7 @@ namespace CytoDx
             return retVal;
         }
 
+        // recipe 구동간 펠티어 온도를 체크하기 위한 텍스트 변경 이벤트 발생
         private void UpdateRecipeTempData()
         {
             if (label_Recipe_PeltSetTemp.InvokeRequired == true)
@@ -3941,9 +4016,6 @@ namespace CytoDx
                 if (cmdChar1 == 'Z')
                 {
                     // 마지막 종료 시점과 상관없이 플런저를 최상단으로 보낸 후 zero 값으로 초기화함
-                    //strParam = string.Format("z0R{0}", Environment.NewLine);
-                    //strParam = string.Format("z1600A0A10z0R{0}", Environment.NewLine);
-                    //strParam = string.Format("z1600A0A10R{0}", Environment.NewLine);
                     strParam = string.Format("z1600A0A10R");
                 }
                 else if (cmdChar1 == 'A')    // 절대 위치 복귀 후 상대이동
@@ -3951,20 +4023,14 @@ namespace CytoDx
                     if (cmdChar2 == 'P')
                     {
                         strParam = string.Format("a{0}V{1}d{2}R", absPos, topSpd, relPos);   // aspirate
-                        //strParam = string.Format("a{0}V{1}d{2}R{3}", absPos, topSpd, relPos, Environment.NewLine);   // aspirate
-                        //strParam = string.Format("A{0}V{1}P{2}R{3}", absPos, topSpd, relPos, Environment.NewLine);   // aspirate
                     }
                     else if (cmdChar2 == 'D')
                     {
                         strParam = string.Format("a{0}V{1}p{2}R", absPos, topSpd, relPos);   // dispense
-                        //strParam = string.Format("a{0}V{1}p{2}R{3}", absPos, topSpd, relPos, Environment.NewLine);   // dispense
-                        //strParam = string.Format("A{0}V{1}D{2}R{3}", absPos, topSpd, relPos, Environment.NewLine);   // dispense
                     }
                     else
                     {
                         strParam = string.Format("a{0}R", absPos);   // abs move plunger
-                        //strParam = string.Format("a{0}R{1}", absPos, Environment.NewLine);   // abs move plunger
-                        //strParam = string.Format("A{0}R{1}", absPos, Environment.NewLine);   // abs move plunger
                     }
                 }
                 else if (cmdChar1 == ' ')    // 절대 위치 복귀없이 상대이동
@@ -3973,23 +4039,15 @@ namespace CytoDx
                     {
                         if (topSpd != 0)
                             strParam = string.Format("V{0}d{1}R", topSpd, relPos);   // aspirate
-                                                                                     //strParam = string.Format("V{0}d{1}R{2}", topSpd, relPos, Environment.NewLine);   // aspirate
-                                                                                     //strParam = string.Format("V{0}P{1}R{2}", topSpd, relPos, Environment.NewLine);   // aspirate
                         else
                             strParam = string.Format("d{0}R", relPos);   // aspirate
-                                                                         //strParam = string.Format("d{0}R{1}", relPos, Environment.NewLine);   // aspirate
-                                                                         //strParam = string.Format("P{0}R{1}", relPos, Environment.NewLine);   // aspirate
                     }
                     else if (cmdChar2 == 'D')
                     {
                         if (topSpd != 0)
                             strParam = string.Format("V{0}p{1}R", topSpd, relPos);   // dispense
-                                                                                     //strParam = string.Format("V{0}p{1}R{2}", topSpd, relPos, Environment.NewLine);   // dispense
-                                                                                     //strParam = string.Format("V{0}D{1}R{2}", topSpd, relPos, Environment.NewLine);   // dispense
                         else
                             strParam = string.Format("p{0}R", relPos);   // dispense
-                                                                         //strParam = string.Format("p{0}R{1}", relPos, Environment.NewLine);   // dispense
-                                                                         //strParam = string.Format("D{0}R{1}", relPos, Environment.NewLine);   // dispense
                     }
                     else
                     {
@@ -3999,12 +4057,10 @@ namespace CytoDx
                 else if (cmdChar1 == 'T')   // 현재 명령 종료
                 {
                     strParam = string.Format("TR");
-                    //strParam = string.Format("TR{0}", Environment.NewLine);
                 }
                 else if (cmdChar1 == '?')    // 현재 위치 확인
                 {
                     strParam = string.Format("?R");
-                    //strParam = string.Format("?R{0}", Environment.NewLine);
                 }
 
                 strParam = StartChar + PumpAddr + strParam;
@@ -4146,7 +4202,12 @@ namespace CytoDx
                 {
                     strParam = string.Format("00REid0000");
                 }
-
+                else if (szCmdChar == "VT")     //  TV: Request Monitoring of Volume in Tip
+                                                //  (tr: tip volume/monitored, tw: tip volume/corrected, vt: current volume in tip)
+                {
+                    strParam = string.Format("00VTid0000");
+                }
+                
                 BuildCmdPacket(bCommandSendBuffer, "PUMP", "PE2", strParam);
 
                 SerialByteSend(bCommandSendBuffer, nSendBufferLength);      // Send Cmd to Serial Port
@@ -4174,7 +4235,7 @@ namespace CytoDx
         // 튜브 내경 및 lead를 고려한 축의 속도 계산
         // argument -> tube_ID: target tube inner diameter, axis_lead: axis lead
         // Z_FOLLOW_DIR UP = -1, DOWN = 1
-        private void Liquid_Z_Follow_Move(double volume, double flowrate, double tube_ID, double axis_lead, Z_FOLLOW_DIR dir, PERIPHERAL pipett)
+        private void Liquid_Z_Follow_Move(double volume, double flowrate, double tube_ID, double axis_lead, Z_FOLLOW_DIR dir, PERIPHERAL pipett, bool bBtmProc = false, double ex_dist = 0)
         {
             double travel_time = volume / flowrate;   // sec
             double travel_dist = Math.Round((volume * 1000) / (Math.Pow(tube_ID, 2) * (Math.PI / 4)), 2);    // mm
@@ -4186,6 +4247,8 @@ namespace CytoDx
             {
                 acc = (int)(travel_spd_mm * 2.0);
                 dec = (int)(travel_spd_mm * 3.0);
+                travel_dist = travel_dist * 1.2;
+                travel_spd_mm = travel_spd_mm * 1.2;
             }
             else if (pipett == PERIPHERAL.TRI_PIPETT)
             {
@@ -4195,8 +4258,15 @@ namespace CytoDx
                 travel_spd_mm = travel_spd_mm * 1.4;
             }
 
+            if(bBtmProc == true)
+            {
+                travel_dist = ex_dist;
+                travel_spd_mm = travel_spd_mm * 1.0;
+            }
+
             if (acc <= 0) acc = 1;
             if (dec <= 0) dec = 1;
+            if (travel_spd_mm <= 2) travel_spd_mm = 2;
 
             bPipettMotion = true;
 

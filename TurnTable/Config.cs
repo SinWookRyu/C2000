@@ -162,6 +162,8 @@ namespace CytoDx
         public int StepAxisPipett_Dec = 0;
         public int RotorCover_Dec = 0;
 
+        public int cLLD_Speed = 0;
+
         public int TriPipett_OffsetVol = 0;
         public int TriPipett_LoadingVol = 0;
         public int TriPipett_FlowRate = 0;
@@ -382,6 +384,8 @@ namespace CytoDx
                         StepAxisGripper_Dec = Read("MOTOR", "STEP_AXIS_GRIPPER_DEC", StepAxisGripper_Dec, PathConfig);
                         StepAxisPipett_Dec = Read("MOTOR", "STEP_AXIS_PIPETT_DEC", StepAxisPipett_Dec, PathConfig);
                         RotorCover_Dec = Read("MOTOR", "STEP_AXIS_ROTOR_COVER_DEC", RotorCover_Dec, PathConfig);
+
+                        cLLD_Speed = Read("MOTOR", "CLLD_SPD", cLLD_Speed, PathConfig);
 
                         StepAxisX_Pos = Read("MOTOR", "STEP_AXIS_X_POS", StepAxisX_Pos, PathConfig);
                         StepAxisY_Pos = Read("MOTOR", "STEP_AXIS_Y_POS", StepAxisY_Pos, PathConfig);
@@ -654,6 +658,8 @@ namespace CytoDx
                     Write("MOTOR", "STEP_AXIS_GRIPPER_DEC", StepAxisGripper_Dec, PathConfig);
                     Write("MOTOR", "STEP_AXIS_PIPETT_DEC", StepAxisPipett_Dec, PathConfig);
                     Write("MOTOR", "STEP_AXIS_ROTOR_COVER_DEC", RotorCover_Dec, PathConfig);
+
+                    Write("MOTOR", "CLLD_SPD", cLLD_Speed, PathConfig);
 
                     Write("MOTOR", "STEP_AXIS_X_POS", StepAxisX_Pos, PathConfig);
                     Write("MOTOR", "STEP_AXIS_Y_POS", StepAxisY_Pos, PathConfig);
@@ -1077,28 +1083,5 @@ namespace CytoDx
         {
             WritePrivateProfileString(Section ?? EXE, Key, Value.ToString(), path);
         }
-
-        //----------------------------------------------------------------------
-        //----------------------------------------------------------------------
-        //public void DeleteKey(string Key, string Section = null)
-        //{
-        //    Write(Key, null, Section ?? EXE);
-        //}
-
-
-        ////----------------------------------------------------------------------
-        ////----------------------------------------------------------------------
-        //public void DeleteSection(string Section = null)
-        //{
-        //    Write(null, null, Section ?? EXE);
-        //}
-
-
-        ////----------------------------------------------------------------------
-        ////----------------------------------------------------------------------
-        //public bool KeyExists(string Key, string Section = null)
-        //{
-        //    return Read(Key, Section).Length > 0;
-        //}
     }
 }

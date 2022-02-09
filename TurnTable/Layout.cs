@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -76,8 +77,21 @@ namespace CytoDx
                     i--;
                 }
             }
-
+            
             DV_World_T_Pnt.Refresh();
+
+            //if (idxChar == "IP")
+            //{
+            //    DV_World_T_Pnt.Rows.Add(CNT_TIP_PNT);
+            //}
+            //else if (idxChar == "RP")
+            //{
+            //    DV_World_T_Pnt.Rows.Add(CNT_TUBE_PNT);
+            //}
+            //else if (idxChar == "CP")
+            //{
+            //    DV_World_T_Pnt.Rows.Add(CNT_COOL_PNT);
+            //}
         }
 
         private void btnSetTipBasePos_Click(object sender, EventArgs e)
@@ -133,6 +147,23 @@ namespace CytoDx
 
             try
             {
+                int idx = 0;
+
+                string[] tmpZPosArray = new string[CNT_TIP_PNT];
+                string[] tmpGripPosArray = new string[CNT_TIP_PNT];
+                string[] tmpPipettPosArray = new string[CNT_TIP_PNT];
+
+                for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)
+                {
+                    if (DV_World_T_Pnt.Rows[i].Cells[1].Value.ToString().Contains("Tip") == true)
+                    {
+                        tmpZPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[4].Value.ToString();
+                        tmpGripPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[5].Value.ToString();
+                        tmpPipettPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[6].Value.ToString();
+                        idx = idx + 1;
+                    }
+                }
+
                 RemoveRowContainIndexChar("IP");
 
                 int start_row = DV_World_T_Pnt.Rows.Count - 1;
@@ -143,11 +174,23 @@ namespace CytoDx
                     //DV_World_T_Pnt.Rows.Add();
                     DV_World_T_Pnt.Rows[start_row + i].Cells[0].Value = "IP" + (i + 1).ToString();
                     DV_World_T_Pnt.Rows[start_row + i].Cells[1].Value = "Tip(Auto)";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[2].Value = (double.Parse(label_Tip_OrgPosX.Text) - dbTip_PntPos[i, 0]).ToString();
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[3].Value = (double.Parse(label_Tip_OrgPosY.Text) - dbTip_PntPos[i, 1]).ToString();
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";   //"0"
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+                    DV_World_T_Pnt.Rows[start_row + i].Cells[2].Value = (double.Parse(label_Tip_OrgPosX.Text) - dbTip_PntPos[i, 0]).ToString("F2");
+                    DV_World_T_Pnt.Rows[start_row + i].Cells[3].Value = (double.Parse(label_Tip_OrgPosY.Text) - dbTip_PntPos[i, 1]).ToString("F2");
+
+                    if (tmpZPosArray[i] == null)
+                         DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = tmpZPosArray[i];
+
+                    if (tmpGripPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = tmpGripPosArray[i];
+
+                    if (tmpPipettPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = tmpPipettPosArray[i];
                 }
 
                 for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)
@@ -163,7 +206,7 @@ namespace CytoDx
             }
 
             MessageBox.Show("Data Generated Done!!", "Completed", MessageBoxButtons.OK);
-        }
+        } 
 
         private void btnSetTubeBasePos_Click(object sender, EventArgs e)
         {
@@ -218,6 +261,22 @@ namespace CytoDx
 
             try
             {
+                int idx = 0;
+                string[] tmpZPosArray = new string[CNT_TUBE_PNT];
+                string[] tmpGripPosArray = new string[CNT_TUBE_PNT];
+                string[] tmpPipettPosArray = new string[CNT_TUBE_PNT];
+
+                for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)
+                {
+                    if (DV_World_T_Pnt.Rows[i].Cells[1].Value.ToString().Contains("Tube") == true)
+                    {
+                        tmpZPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[4].Value.ToString();
+                        tmpGripPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[5].Value.ToString();
+                        tmpPipettPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[6].Value.ToString();
+                        idx = idx + 1;
+                    }
+                }
+
                 RemoveRowContainIndexChar("RP");
                 
                 int start_row = DV_World_T_Pnt.Rows.Count - 1;
@@ -230,9 +289,21 @@ namespace CytoDx
                     DV_World_T_Pnt.Rows[start_row + i].Cells[1].Value = "Tube(Auto)";
                     DV_World_T_Pnt.Rows[start_row + i].Cells[2].Value = double.Parse(label_Tube_OrgPosX.Text) - dbTube_PntPos[i, 0];
                     DV_World_T_Pnt.Rows[start_row + i].Cells[3].Value = double.Parse(label_Tube_OrgPosY.Text) - dbTube_PntPos[i, 1];
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+
+                    if (tmpZPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = tmpZPosArray[i];
+
+                    if (tmpGripPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = tmpGripPosArray[i];
+
+                    if (tmpPipettPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = tmpPipettPosArray[i];
                 }
 
                 for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)
@@ -303,15 +374,21 @@ namespace CytoDx
 
             try
             {
-                //for (int i = 0; i < DV_World_T_Pnt.Rows.Count; i++)
-                //{
-                //    if (DV_World_T_Pnt.Rows[i].Cells[1].Value.ToString().Contains("Cooler") == true)
-                //    {
-                //        double AxisZPos = (double) DV_World_T_Pnt.Rows[i].Cells[4].Value;
-                //        double AxisGripPos = (double)DV_World_T_Pnt.Rows[i].Cells[5].Value;
-                //        double AxisPipettPos = (double)DV_World_T_Pnt.Rows[i].Cells[6].Value;
-                //    }
-                //}
+                int idx = 0;
+                string[] tmpZPosArray = new string[CNT_COOL_PNT];
+                string[] tmpGripPosArray = new string[CNT_COOL_PNT];
+                string[] tmpPipettPosArray = new string[CNT_COOL_PNT];
+
+                for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)
+                {
+                    if (DV_World_T_Pnt.Rows[i].Cells[1].Value.ToString().Contains("Cooler") == true)
+                    {
+                        tmpZPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[4].Value.ToString();
+                        tmpGripPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[5].Value.ToString();
+                        tmpPipettPosArray[idx] = DV_World_T_Pnt.Rows[i].Cells[6].Value.ToString();
+                        idx = idx + 1;
+                    }
+                }
 
                 RemoveRowContainIndexChar("CP");
 
@@ -325,9 +402,21 @@ namespace CytoDx
                     DV_World_T_Pnt.Rows[start_row + i].Cells[1].Value = "Cooler(Auto)";
                     DV_World_T_Pnt.Rows[start_row + i].Cells[2].Value = double.Parse(label_Cooling_OrgPosX.Text) - dbCooling_PntPos[i, 0];
                     DV_World_T_Pnt.Rows[start_row + i].Cells[3].Value = double.Parse(label_Cooling_OrgPosY.Text) - dbCooling_PntPos[i, 1];
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
-                    DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+
+                    if (tmpZPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[4].Value = tmpZPosArray[i];
+
+                    if (tmpGripPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[5].Value = tmpGripPosArray[i];
+
+                    if (tmpPipettPosArray[i] == null)
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = "0";
+                    else
+                        DV_World_T_Pnt.Rows[start_row + i].Cells[6].Value = tmpPipettPosArray[i];
                 }
 
                 for (int i = 0; i < DV_World_T_Pnt.Rows.Count - 1; i++)

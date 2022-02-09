@@ -19,32 +19,27 @@ namespace CytoDx
         private void btnHomeStepAxisX_Click(object sender, EventArgs e)
         {
             StepMotorHomeMove(MOTOR.STEP0, "HOME", "");
-            //ReadMotorPosition(true);
         }
 
         private void btnHomeStepAxisY_Click(object sender, EventArgs e)
         {
             StepMotorHomeMove(MOTOR.STEP1, "HOME", "");
-            //ReadMotorPosition(true);
         }
 
         private void btnHomeStepAxisZ_Click(object sender, EventArgs e)
         {
             StepMotorHomeMove(MOTOR.STEP2, "HOME", "");
-            //ReadMotorPosition(true);
         }
 
         private void btnHomeStepGripperAxis_Click(object sender, EventArgs e)
         {
             StepMotorHomeMove(MOTOR.GRIP, "HOME", "");
-            Thread.Sleep(1000);
-            //ReadMotorPosition(true);
+            //Thread.Sleep(1000);
         }
 
         private void btnHomeStepPipettAxis_Click(object sender, EventArgs e)
         {
             StepMotorHomeMove(MOTOR.HAM, "HOME", "");
-            //ReadMotorPosition(true);
         }
 
         /////////////////////////////////////////////////
@@ -132,13 +127,16 @@ namespace CytoDx
             return true;
         }
 
-        public bool MoveHomeStepMotor()
+        public bool MoveHomeStepMotor(bool bStateCheck = true)
         {
             iPrintf("Initializing Step Motor");
-            
-            // verify current status
-            GetStatus(true);
-            Thread.Sleep(200);
+
+            if (bStateCheck == true)
+            {
+                // verify current status
+                GetStatus(true);
+                Thread.Sleep(200);
+            }
 
             if (GripAxState.bHOME_COMP != true)
             {
@@ -201,21 +199,21 @@ namespace CytoDx
 
             iPrintf("Gripper, Hamilton, Z Motor Homing Done!");
 
-            if (CoverAxState.bHOME_COMP != true)
-            {
-                iPrintf("Initializing Step Motor ... Axis Cover to Home");
+            //if (CoverAxState.bHOME_COMP != true)
+            //{
+            //    iPrintf("Initializing Step Motor ... Axis Cover to Home");
 
-                if (StepMotorHomeMove(MOTOR.COVER, "HOME", "") != COM_Status.ACK)
-                {
-                    iPrintf("Initializing Step Motor ... Axis Cover to Home ... Fail");
-                    return false;
-                }
-                else
-                {
-                    iPrintf("Z Axis Homing Done!");
-                }
-            }
-            
+            //    if (StepMotorHomeMove(MOTOR.COVER, "HOME", "") != COM_Status.ACK)
+            //    {
+            //        iPrintf("Initializing Step Motor ... Axis Cover to Home ... Fail");
+            //        return false;
+            //    }
+            //    else
+            //    {
+            //        iPrintf("Cover Axis Homing Done!");
+            //    }
+            //}
+
             // 충돌 방지를 위해 XY축 이동을 가장 마지막에 수행해야 함
             Thread.Sleep(500);
             if (Step1AxState.bHOME_COMP != true)
@@ -248,8 +246,8 @@ namespace CytoDx
                         
             // wait for 3 axes homing done
             i = 0;
-            while (Step0AxState.bHOME_COMP != true || Step1AxState.bHOME_COMP != true
-                   || CoverAxState.bHOME_COMP != true)
+            while (Step0AxState.bHOME_COMP != true || Step1AxState.bHOME_COMP != true)
+                   //|| CoverAxState.bHOME_COMP != true)
             {
                 while (i < timeout)
                 {
@@ -258,8 +256,8 @@ namespace CytoDx
                     GetStatus(bSilent: true);
                     
                     //CoverAxState.bHOME_COMP = true; // for test            
-                    if (Step0AxState.bHOME_COMP == true && Step1AxState.bHOME_COMP == true
-                        && CoverAxState.bHOME_COMP == true)
+                    if (Step0AxState.bHOME_COMP == true && Step1AxState.bHOME_COMP == true)
+                        //&& CoverAxState.bHOME_COMP == true)
                         break;
                 }
                 Thread.Sleep(200);
@@ -563,7 +561,6 @@ namespace CytoDx
                     return;
                 }
 
-                //flow_stopwatch.Start();
                 RunPer1_TricontinentPipett((byte)' ', 0,                  // 절대위치 0로 복귀
                                            (int)FlowRate_inc_per_sec,     // Plunger Speed 설정
                                            (byte)'P', (int)Volume_inc);   // aspiration 방향으로 volume값 만큼 이동
@@ -571,9 +568,6 @@ namespace CytoDx
                 Thread.Sleep(duration_ms);
                 
                 ConfirmPlungerPosition();
-                //flow_stopwatch.Stop();
-                //double pipett_time = flow_stopwatch.Elapsed.Milliseconds;
-                //iPrintf(string.Format("pipett elapse: {0} duration: {1}", pipett_time, duration_ms));
                 iPrintf(string.Format("duration: {0} ms", duration_ms));
             }
             catch (Exception ex)
@@ -665,9 +659,6 @@ namespace CytoDx
         {
             try
             {
-                //InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600A0A10z0V1000a1000a0R", Environment.NewLine));
-                //InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600A0A10R", Environment.NewLine));
-                //InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A10z0V1000A1590R", Environment.NewLine));
                 InitPeripherals(PERIPHERAL.TRI_PIPETT, string.Format("/2z1600V1000A0A1580R", Environment.NewLine));
             }
             catch (Exception ex)
@@ -739,14 +730,14 @@ namespace CytoDx
         {
             try
             {
-                if (double.Parse(editHamPipettFlowRate.Text) < 0.01 || double.Parse(editHamPipettFlowRate.Text) > 15)
+                if (double.Parse(editHamPipettFlowRate.Text) < 0.001 || double.Parse(editHamPipettFlowRate.Text) > 1.5)
                 {
-                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.01 ~ 15 (* 0.1 mL/sec)");
+                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.001 ~ 1.5 (* mL/sec)");
                     return;
                 }
 
                 //입력: mL/sec, 모듈전송: uL/sec
-                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 1000.0;    // mL/s -> uL/s
+                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 10000.0;    // mL/s -> uL/s
 
                 RunPer2_HamiltonPipett("DE", 0, 0,(int) flowrate, 0, TIP_TYPE.NONE);
 
@@ -814,9 +805,9 @@ namespace CytoDx
         {
             try
             {
-                if (double.Parse(editHamPipettFlowRate.Text) < 0.01 || double.Parse(editHamPipettFlowRate.Text) > 15)
+                if (double.Parse(editHamPipettFlowRate.Text) < 0.001 || double.Parse(editHamPipettFlowRate.Text) > 1.5)
                 {
-                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.01 ~ 15 (* 0.1 mL/sec)");
+                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.001 ~ 1.5 (mL/sec)");
                     return;
                 }
 
@@ -827,7 +818,7 @@ namespace CytoDx
                 }
 
                 //입력: mL/sec, 모듈전송: uL/sec
-                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 1000.0;    // mL/s -> uL/s
+                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 10000.0;    // mL/s -> uL/s
                 //입력: mL, 모듈전송: 0.1uL
                 double vol1 = double.Parse(editHamPipettAirBlowOutVol.Text) * 10000.0;    // mL -> 0.1uL
                 
@@ -843,9 +834,9 @@ namespace CytoDx
         {
             try
             {
-                if (double.Parse(editHamPipettFlowRate.Text) < 0.01 || double.Parse(editHamPipettFlowRate.Text) > 15)
+                if (double.Parse(editHamPipettFlowRate.Text) < 0.001 || double.Parse(editHamPipettFlowRate.Text) > 1.5)
                 {
-                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.01 ~ 15 (* 0.1  mL/sec)");
+                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.001 ~ 1.5 (mL/sec)");
                     return;
                 }
 
@@ -868,15 +859,20 @@ namespace CytoDx
             }
         }
 
+        private void btnVolumeConfirm_HamPipett_Click(object sender, EventArgs e)
+        {
+            RunPer2_HamiltonPipett("VT", 0, 0, 0, 0, TIP_TYPE.NONE);
+        }
+
         private void btnLiquidDispense_HamPipett_Click(object sender, EventArgs e)
         {
             int mov_opt = 0;
 
             try
             {
-                if (double.Parse(editHamPipettFlowRate.Text) < 0.01 || double.Parse(editHamPipettFlowRate.Text) > 15)
+                if (double.Parse(editHamPipettFlowRate.Text) < 0.001 || double.Parse(editHamPipettFlowRate.Text) > 1.5)
                 {
-                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.01 ~ 15 (* 0.1  mL/sec)");
+                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.001 ~ 1.5 (mL/sec)");
                     return;
                 }
 
@@ -903,7 +899,7 @@ namespace CytoDx
 
                 double spd_scale = double.Parse(editZMoveSpdScale.Text);
                 //입력: mL/sec, 모듈전송: uL/sec
-                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 1000.0;  // mL/s -> uL/s
+                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 10000.0;  // mL/s -> uL/s
                 //입력: mL, 모듈전송: 0.1uL
                 double vol1 = double.Parse(editHamPipettDispenseVol.Text) * 10000.0;    // mL -> 0.1uL
                 //입력: mL, 모듈전송: 0.1uL
@@ -949,9 +945,9 @@ namespace CytoDx
 
             try
             {
-                if (double.Parse(editHamPipettFlowRate.Text) < 0.01 || double.Parse(editHamPipettFlowRate.Text) > 15)
+                if (double.Parse(editHamPipettFlowRate.Text) < 0.001 || double.Parse(editHamPipettFlowRate.Text) > 1.5)
                 {
-                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.01 ~ 15 (* 0.1  mL/sec)");
+                    iPrintf("Invalid Value! Pipett Flow Rate range = 0.001 ~ 1.5 (mL/sec)");
                     return;
                 }
 
@@ -978,7 +974,7 @@ namespace CytoDx
 
                 double spd_scale = double.Parse(editZMoveSpdScale.Text);
                 //입력: mL/sec, 모듈전송: uL/sec
-                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 1000.0;  // mL/s -> uL/s
+                double flowrate = double.Parse(editHamPipettFlowRate.Text) * 10000.0;  // mL/s -> uL/s
                 //입력: mL, 모듈전송: 0.1uL
                 double vol1 = double.Parse(editHamPipettAspirateVol.Text) * 10000.0;    // mL -> 0.1uL
                 //입력: mL, 모듈전송: 0.1uL
@@ -1176,22 +1172,25 @@ namespace CytoDx
                 else
                     return;
 
-                //string axis = string.Format("AXIS_{0}", strcLLD_Dir_Axis[1]);
                 var trg_axis = (MOTOR)Enum.Parse(typeof(MOTOR), axis);
                 int dir = 0;
                 if (strcLLD_Dir_Axis[0] == '+')
                     dir = 1;
                 else if (strcLLD_Dir_Axis[0] == '-')
                     dir = -1;
-                int timeout = 1000;   //100000;
+                double timeout = 1000;
                 int i = 0;
                 bLLD_Stop_Flag = false;
-                                
+                timeout = 1.6 * (double.Parse(editcLLD_MaxPosition.Text) / (double.Parse(editcLLD_Speed.Text) * 0.001));
+
+                Run_Hamilton_cLLD((byte)'L', int.Parse(strcLLD_Sensitivity));
+                Thread.Sleep(50);
+                SystemCmd("ESCAPE", "", "");
+                Thread.Sleep(50);
+
                 MoveStepMotor(STEP_CMD.MOVE, trg_axis, int.Parse(editcLLD_Speed.Text), dir * double.Parse(editcLLD_MaxPosition.Text), 
                                         3, 3, POS_OPT.REL, HOLD_STATE.NONE);
-                Thread.Sleep(20);
-                Run_Hamilton_cLLD((byte)'L', int.Parse(strcLLD_Sensitivity));
-
+                
                 if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
                 {
                     MoveStepMotor(STEP_CMD.STOP, trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
@@ -1209,9 +1208,7 @@ namespace CytoDx
                     i++;
                     Thread.Sleep(1);
                     Run_Hamilton_cLLD((byte)'V', 0);
-                    //iPrintf(String.Format("level I/O: {0}", bcLLD_IO));
 
-                    //if (ConfirmcLLD_State() == true)
                     if (bcLLD_IO == true || bcLLD_Detected == true)
                     {
                         iPrintf(String.Format("level I/O: {0}, detected msg: {1}", bcLLD_IO, bcLLD_Detected));
@@ -1219,7 +1216,6 @@ namespace CytoDx
                         MoveStepMotor(STEP_CMD.STOP, trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
                         Run_Hamilton_cLLD((byte)'P', 0);
                         iPrintf("Liquid Level Detection Success!");
-                        //MoveStepMotor(STEP_CMD.POS, trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
 
                         if (bPosTimerState == true)
                         {
@@ -1282,7 +1278,6 @@ namespace CytoDx
                 else
                     return;
 
-                //string axis = string.Format("AXIS_{0}", strcLLD_Dir_Axis[1]);
                 var trg_axis = (MOTOR)Enum.Parse(typeof(MOTOR), axis);
                 
                 MoveStepMotor(STEP_CMD.STOP, trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
@@ -1323,18 +1318,9 @@ namespace CytoDx
         /////////////////////////////////////////////////
         private void btnRunPeltier_Click(object sender, EventArgs e)
         {
-            //WritePeltier(PELT_CMD.SET_BIAS, false, 0, 0, 0, timeout: 120);
             WritePeltier(PELT_CMD.SET_SV, bPeltier: true, float.Parse(edit_pelt_set_temp.Text), 0, 0);
-            //Thread.Sleep(200);
-            
             WritePeltier(PELT_CMD.SET_FAN, false, 0, float.Parse(edit_fan_on_temp.Text), float.Parse(edit_fan_off_temp.Text), timeout: 120);
             ReadPeltierTemp();
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
-
-            //ReadPeltier(PELT_CMD.RD_BIAS);
-            //ReadPeltier(PELT_CMD.RD_FAN);
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
 
             if (bSerialTimerState == false)
                 btnTimer_Click(this, null);
@@ -1354,12 +1340,6 @@ namespace CytoDx
             ReadPeltier(PELT_CMD.CHAMBER_SV, timeout: 100);
             Thread.Sleep(500);
             ReadPeltierTemp();
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
-
-            //ReadPeltier(PELT_CMD.RD_BIAS);
-            //ReadPeltier(PELT_CMD.RD_FAN);
-            //ReadPeltier(PELT_CMD.CHAMBER_SV);
 
             if (bSerialTimerState == true)
                 btnTimer_Click(this, null);
@@ -1516,18 +1496,6 @@ namespace CytoDx
             btnGetSerialStatus_Click(null, null);
         }
 
-        /*
-        private void btnDoorOpen_Click(object sender, EventArgs e)
-        {
-            SerDoorLock(door1: false, door2: false);
-        }
-
-        private void btnDoorClose_Click(object sender, EventArgs e)
-        {
-            SerDoorLock(door1: true, door2: true);
-        }
-        */
-
         /////////////////////////////////////////////////
         // Pinch On/Off
         /////////////////////////////////////////////////
@@ -1560,7 +1528,6 @@ namespace CytoDx
         /////////////////////////////////////////////////
         private void btnStepIncAxisX_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step0AxisXPos.Text) + double.Parse(editStepAxisX_Jog.Text);
             double pos = double.Parse(editStepAxisX_Jog.Text);
             if (MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP0, int.Parse(editStepAxisX_Speed.Text), pos,
                              int.Parse(editStepAxisX_Acc.Text), int.Parse(editStepAxisX_Dec.Text),
@@ -1581,7 +1548,6 @@ namespace CytoDx
         }
         private void btnStepIncAxisY_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step1AxisYPos.Text) + double.Parse(editStepAxisY_Jog.Text);
             double pos = double.Parse(editStepAxisY_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP1, int.Parse(editStepAxisY_Speed.Text), pos,
                              int.Parse(editStepAxisY_Acc.Text), int.Parse(editStepAxisY_Dec.Text), 
@@ -1603,7 +1569,6 @@ namespace CytoDx
 
         private void btnStepIncAxisZ_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step2AxisZPos.Text) + double.Parse(editStepAxisZ_Jog.Text);
             double pos = double.Parse(editStepAxisZ_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP2, int.Parse(editStepAxisZ_Speed.Text), pos,
                              int.Parse(editStepAxisZ_Acc.Text), int.Parse(editStepAxisZ_Dec.Text), 
@@ -1625,7 +1590,6 @@ namespace CytoDx
 
         private void btnStepIncGripperAxis_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_StepGripAxisPos.Text) + double.Parse(editStepGripper_Jog.Text);
             double pos = double.Parse(editStepGripper_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.GRIP, int.Parse(editStepGripper_Speed.Text), pos,
                              int.Parse(editStepAxisGripper_Acc.Text), int.Parse(editStepAxisGripper_Dec.Text), 
@@ -1647,7 +1611,6 @@ namespace CytoDx
 
         private void btnStepIncPipettAxis_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_StepHamAxisPos.Text) + double.Parse(editStepPipett_Jog.Text);
             double pos = double.Parse(editStepPipett_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.HAM, int.Parse(editStepPipett_Speed.Text), pos,
                              int.Parse(editStepAxisHam_Acc.Text), int.Parse(editStepAxisHam_Dec.Text), 
@@ -1670,7 +1633,6 @@ namespace CytoDx
 
         private void btnStepDecAxisX_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step0AxisXPos.Text) - double.Parse(editStepAxisX_Jog.Text);
             double pos = -double.Parse(editStepAxisX_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP0, int.Parse(editStepAxisX_Speed.Text), pos,
                              int.Parse(editStepAxisX_Acc.Text), int.Parse(editStepAxisX_Dec.Text), 
@@ -1692,7 +1654,6 @@ namespace CytoDx
 
         private void btnStepDecAxisY_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step1AxisYPos.Text) - double.Parse(editStepAxisY_Jog.Text);
             double pos = -double.Parse(editStepAxisY_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP1, int.Parse(editStepAxisY_Speed.Text), pos,
                              int.Parse(editStepAxisY_Acc.Text), int.Parse(editStepAxisY_Dec.Text), 
@@ -1714,7 +1675,6 @@ namespace CytoDx
 
         private void btnStepDecAxisZ_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_Step2AxisZPos.Text) - double.Parse(editStepAxisZ_Jog.Text);
             double pos = -double.Parse(editStepAxisZ_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.STEP2, int.Parse(editStepAxisZ_Speed.Text), pos,
                              int.Parse(editStepAxisZ_Acc.Text), int.Parse(editStepAxisZ_Dec.Text), 
@@ -1736,7 +1696,6 @@ namespace CytoDx
 
         private void btnStepDecGripperAxis_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_StepGripAxisPos.Text) - double.Parse(editStepGripper_Jog.Text);
             double pos = -double.Parse(editStepGripper_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.GRIP, int.Parse(editStepGripper_Speed.Text), pos,
                              int.Parse(editStepAxisGripper_Acc.Text), int.Parse(editStepAxisGripper_Dec.Text), 
@@ -1758,7 +1717,6 @@ namespace CytoDx
 
         private void btnStepDecPipettAxis_Click(object sender, EventArgs e)
         {
-            //double pos = double.Parse(label_StepHamAxisPos.Text) - double.Parse(editStepPipett_Jog.Text);
             double pos = -double.Parse(editStepPipett_Jog.Text);
             if(MoveStepMotor(STEP_CMD.MOVE, MOTOR.HAM, int.Parse(editStepPipett_Speed.Text), pos,
                              int.Parse(editStepAxisHam_Acc.Text), int.Parse(editStepAxisHam_Dec.Text), 
@@ -2203,54 +2161,38 @@ namespace CytoDx
         private void btnMoveChamber1_Click(object sender, EventArgs e)
         {
             SelectRotorPosition(CHAMBER_POS.CHAMBER1);
-            //Thread.Sleep(1000);
             WaitForServoStop();
-            //ServoOnOff(HOLD_STATE.FREE);
-            //ServoMonitor(MotorMon.STATUS);
-            //ReadMotorPosition(true, bSilent: true);
         }
 
         private void btnMoveCelldown1_Click(object sender, EventArgs e)
         {
             SelectRotorPosition(CHAMBER_POS.CELLDOWN1);
-            //Thread.Sleep(1000);
             WaitForServoStop();
-            //ServoOnOff(HOLD_STATE.FREE);
-            //ServoMonitor(MotorMon.STATUS);
-            //ReadMotorPosition(true, bSilent: true);
         }
 
         private void btnMoveChamber2_Click(object sender, EventArgs e)
         {
             SelectRotorPosition(CHAMBER_POS.CHAMBER2);
-            //Thread.Sleep(1000);
             WaitForServoStop();
-            //ServoOnOff(HOLD_STATE.FREE);
-            //ServoMonitor(MotorMon.STATUS);
-            //ReadMotorPosition(true, bSilent: true);
         }
 
         private void btnMoveCelldown2_Click(object sender, EventArgs e)
         {
             SelectRotorPosition(CHAMBER_POS.CELLDOWN2);
-            //Thread.Sleep(1000);
             WaitForServoStop();
-            //ServoOnOff(HOLD_STATE.FREE);
-            //ServoMonitor(MotorMon.STATUS);
-            //ReadMotorPosition(true, bSilent: true);
         }
 
         private void btnServoOff_Click(object sender, EventArgs e)
         {
             ServoOnOff(HOLD_STATE.FREE);
-            Thread.Sleep(200);  //1000
+            Thread.Sleep(200);
             ServoMonitor(MotorMon.STATUS);
         }
 
         private void btnServoOn_Click(object sender, EventArgs e)
         {
             ServoOnOff(HOLD_STATE.HOLD);
-            Thread.Sleep(200);  //1000
+            Thread.Sleep(200);
             ServoMonitor(MotorMon.STATUS);
         }
 
@@ -2325,14 +2267,12 @@ namespace CytoDx
         /////////////////////////////////////////////////
         private void btnCoverOpen_Click(object sender, EventArgs e)
         {
-            //Cover(int.Parse(editCoverOpenPos.Text), int.Parse(editCoverOpenSpeed.Text));
             MoveStepMotor(STEP_CMD.MOVE, MOTOR.COVER, int.Parse(editCoverOpenSpeed.Text), double.Parse(editCoverOpenPos.Text), 
                 int.Parse(editStepCoverAcc.Text), int.Parse(editStepCoverDec.Text), POS_OPT.ABS, HOLD_STATE.NONE);
         }
 
         private void btnCoverClose_Click(object sender, EventArgs e)
         {
-            //Cover(int.Parse(editCoverClosePos.Text), int.Parse(editCoverCloseSpeed.Text));
             MoveStepMotor(STEP_CMD.MOVE, MOTOR.COVER, int.Parse(editCoverCloseSpeed.Text), double.Parse(editCoverClosePos.Text),
                int.Parse(editStepCoverAcc.Text), int.Parse(editStepCoverDec.Text), POS_OPT.ABS, HOLD_STATE.NONE);
         }
@@ -2529,10 +2469,6 @@ namespace CytoDx
                 }
                 else if (e.ClickedItem.Name == "Move")
                 {
-                    //if ((MenuMotor.SourceControl.Name == "DV_World_T_Pnt" && DV_World_T_Pnt.SelectedRows.Count > 0) &&
-                    //    (DV_World_T_Pnt.SelectedRows[0].Cells[0].Value.ToString().Contains("TP") ||
-                    //     DV_World_T_Pnt.SelectedRows[0].Cells[0].Value.ToString().Contains("CP")))
-
                     var confirmResult = MessageBox.Show("Are you sure to move to Teaching Point??",
                                                     "", MessageBoxButtons.YesNo);
 
@@ -2540,7 +2476,7 @@ namespace CytoDx
                     {
                         if ((MenuMotor.SourceControl.Name == "DV_World_T_Pnt" && DV_World_T_Pnt.SelectedRows.Count > 0))
                         {
-                            if (MoveTpnt("5000",        // 5000: speed value
+                            if (MoveTpnt("4000",        // 4000: speed value, 해밀턴, 그리퍼 축은 기구적인 문제로 4000 이상에서 탈조됨
                                 DV_World_T_Pnt.SelectedRows[0].Cells[2].Value.ToString(),
                                 DV_World_T_Pnt.SelectedRows[0].Cells[3].Value.ToString(),
                                 DV_World_T_Pnt.SelectedRows[0].Cells[4].Value.ToString(),
@@ -2636,7 +2572,7 @@ namespace CytoDx
                 }
                 else if (e.ClickedItem.Name == "Paste")
                 {
-                    var confirmResult = MessageBox.Show("Are you sure to move to Teaching Point??",
+                    var confirmResult = MessageBox.Show("Are you sure to paste Z, Grip, Ham Data??",
                                                     "", MessageBoxButtons.YesNo);
 
                     if (confirmResult == DialogResult.Yes)
@@ -2696,6 +2632,8 @@ namespace CytoDx
                     config.ReadWriteLastButtonfile(RW.WRITE);
                     SelectButton(0);
                 }
+
+                iPrintf("button file save done!!");
             }
         }
 
@@ -2818,30 +2756,9 @@ namespace CytoDx
             strcLLD_Dir_Axis = comboBox_DirAxiscLLD.SelectedItem.ToString();
         }
 
-        /*
-        private void comboBox_AccScale_IdxChanged(object sender, EventArgs e)
-        {
-            strAccScale = comboBox_AccScale.SelectedItem.ToString();
-        }
-
-        private void comboBox_GatherValue_IdxChanged(object sender, EventArgs e)
-        {
-            strGatherValue = comboBox_GatherValue.SelectedItem.ToString();
-        }
-        */
         // 각 축의 현재 위치를 교시점 table에 저장함
         private void btnPositionSave_Click(object sender, EventArgs e)
         {
-            /*
-            if ((DV_World_T_Pnt.SelectedRows[0].Cells[1].Value.ToString() == "" || DV_World_T_Pnt.SelectedRows[0].Cells[1].Value == null) &&
-                (strTpnt_Sort == "None" || strTpnt_Sort == null))
-            {
-                MessageBox.Show("Teaching Point Type Not Selected!", "Input Data Error", MessageBoxButtons.OK);
-                iPrintf("Invalid Value! Teaching Point Type Not Selected");
-                return;
-            }
-            */
-
             if (DV_World_T_Pnt.SelectedRows.Count > 0)
             {
                 strTpnt = GetTpntCategory(EDIT.SAVE);
@@ -3084,6 +3001,8 @@ namespace CytoDx
                                    ref ListButtonRecipe[defineButtonForm.buttonIndex].recipe);
 
             btnButtonFileSave_Click(sender, e);
+
+            iPrintf("All recipe & button save done!!");
         }
     }
 }

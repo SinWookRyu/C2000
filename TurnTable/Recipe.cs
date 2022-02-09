@@ -44,13 +44,18 @@ namespace CytoDx
 
             {PROCESS_CMD.MOV_Z_AXES,
               new CommandParam {strCmd1=PROCESS_CMD.MOV_Z_AXES.ToString(),
-              param_cnt=5, param1 = "Speed", param2 = "Z Pos", param3 = "Gripper Pos", param4 = "Ham Pos" ,
-              param5 = "None=0/Z MoveUp=1", param6 = "", param7 = ""}},
+              param_cnt=7, param1 = "Speed", param2 = "Z Pos", param3 = "Gripper Pos", param4 = "Ham Pos" ,
+              param5 = "No=0/MoveUp=1/TipInsert=2/cLLD=3", param6 = "No=0/10ul=1/300ul=2/1ml=3", param7 = "cLLD Max Pos"}},
 
             {PROCESS_CMD.SEL_TOOL,
               new CommandParam {strCmd1=PROCESS_CMD.SEL_TOOL.ToString(),
               param_cnt=4, param1 = "Z Distance", param2 = "Offset X", param3 = "Offset Y", param4 = "Offset Z" ,
               param5 = "", param6 = "", param7 = ""}},
+
+            {PROCESS_CMD.MOV_HOME,
+              new CommandParam {strCmd1=PROCESS_CMD.MOV_HOME.ToString(),
+              param_cnt=7, param1 = "HOME NO=0/EACH=1/ALL=2", param2 = "AXIS NO=0, Grip=1", param3 = "AXIS NO=0, Ham=1",
+              param4 = "AXIS NO=0, Cov=1" , param5 = "AXIS NO=0, X=1", param6 = "AXIS NO=0, Y=1", param7 = "AXIS NO=0, Z=1"}},
 
             {PROCESS_CMD.MOV_TOOL_XY,
               new CommandParam {strCmd1=PROCESS_CMD.MOV_TOOL_XY.ToString(),
@@ -93,22 +98,22 @@ namespace CytoDx
 
             {PROCESS_CMD.PIPETT_TRI,
               new CommandParam {strCmd1=PROCESS_CMD.PIPETT_TRI.ToString(),
-              param_cnt = 7, param1 = "No=0/Abs=1/Kill=2/Init=3/Pos?=4", param2 = "AbsPos(0~1600,if Abs=1)", param3 = "No=0/Asp=1/Disp=2",
-              param4 = "Follow NA=0/1.5=1/15=2/50=3", param5 = "FlowRate(0.01~22.85 mL/sec)", param6 = "Vol(0~5mL)", param7 = "Offset Vol(0~0.5mL)"}},
+              param_cnt = 7, param1 = "No=0/Abs=1/End=2/Init=3/Pos?=4", param2 = "Pos(~1600,Abs),EndVol(~5,End)", param3 = "No=0/Asp=1/Disp=2",
+              param4 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3", param5 = "FlowRate(0.01~22.85 mL/sec)", param6 = "Vol(0~5mL)", param7 = "Offset Vol(0~0.5mL)"}},
 
             {PROCESS_CMD.PIPETT_HAM_DRY,
               new CommandParam {strCmd1=PROCESS_CMD.PIPETT_HAM_DRY.ToString(),
               param_cnt = 7, param1 = "No=0/PInit=1/TInit=2", param2 = "No=0/TipInsert=1/TipDiscard=2", param3 = "10uL=1/300uL=2/1000uL=3",
-              param4 = "No=0/AirAsp=1/AirTrans=2", param5 = "FlowRate 0.01~15(0.1mL/s)", param6 = "Vol(0~1mL)", param7 = "State No=0/Tip=1/cLLD=2"}},
+              param4 = "No=0/AirAsp=1/AirTrans=2", param5 = "FlowRate 0.01~15(0.1mL/s)", param6 = "AirVol(0~1mL)", param7 = "State No=0/Tip=1/cLLD=2"}},
 
             {PROCESS_CMD.PIPETT_HAM_LIQ,
               new CommandParam {strCmd1=PROCESS_CMD.PIPETT_HAM_LIQ.ToString(),
-              param_cnt = 7, param1 = "Asp=1/Disp=2/ADC=3/MA=4/MD=5", param2 = "Follow NA=0/1.5=1/15=2/50=3(ml)", param3 = "FlowRate 0.01~15(0.1mL/s)",
-              param4 = "Asp/Disp Vol(0~1.1mL)", param5 = "StopBackVol(0~0.0325mL)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)"}},
+              param_cnt = 7, param1 = "Asp=1/Disp=2/ADC=3/EndAsp=4", param2 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3", param3 = "FlowRate 0.001~1.5(mL/s)",
+              param4 = "Asp/Disp Vol(0~1.1mL)", param5 = "StBk(0~0.0325),EndVol(~2,End)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)"}},
 
             {PROCESS_CMD.FIND_SURFACE,
               new CommandParam {strCmd1=PROCESS_CMD.FIND_SURFACE.ToString(),
-              param_cnt = 6, param1 = "Start=1/Stop=2", param2 = "Sensitivity", param3 = "Dir Plus=1/Minus=2", 
+              param_cnt = 6, param1 = "Start=1/Stop=2/Start&Air=3", param2 = "Sensitivity=1~4", param3 = "Dir Plus=1/Minus=2", 
               param4 = "Axis X=1/Y=2/Z=3", param5 = "Speed", param6 = "Max Position", param7 = ""}},
             
             {PROCESS_CMD.SEL_PUMP_PORT,
@@ -165,7 +170,7 @@ namespace CytoDx
 
             {PROCESS_CMD.SLEEP,
               new CommandParam {strCmd1=PROCESS_CMD.SLEEP.ToString(),
-              param_cnt=1, param1="Time [ms]", param2="", param3="", param4="", param5="", param6="", param7=""}},
+              param_cnt=2, param1="Keyin=0/SpinDuration=1", param2="Time[sec]", param3="", param4="", param5="", param6="", param7=""}},
         };
 
         public bool ExeRecipe(CommandParam param)
@@ -464,6 +469,17 @@ namespace CytoDx
                         }
 
                         break;
+                    case PROCESS_CMD.MOV_HOME:
+                        // param1 = "HOME NO=0/EACH=1/ALL=2", param2 = "AXIS NO=0, Grip=1", param3 = "AXIS NO=0, Ham=1",
+                        // param4 = "AXIS NO=0, Cov=1" , param5 = "AXIS NO=0, X=1", param6 = "AXIS NO=0, Y=1", param7 = "AXIS NO=0, Z=1"
+
+                        if (CmdHomeMove(param.param1, param.param2, param.param3, param.param4, 
+                                        param.param5, param.param6, param.param7) == false)
+                        {
+                            return false;
+                        }
+
+                        break;
                     case PROCESS_CMD.MOV_TOOL_XY:
                         //param1 = "Speed", param2 = "X Position", param3 = "Y Position", param4 = "X ToolOffset" ,
                         //param5 = "Y ToolOffset", param6 = "X Offset", param7 = "Y Offset"
@@ -477,10 +493,11 @@ namespace CytoDx
                         break;
                     case PROCESS_CMD.MOV_Z_AXES:
                         // param1 = "Speed", param2 = "Z Pos", param3 = "Gripper Pos", param4 = "Ham Pos" ,
-                        // param5 = "None=0/Z MoveUp=1", param6 = "", param7 = ""
-                        if (int.Parse(param.param5) == 0)
+                        // param5 = "No=0/MoveUp=1/TipInsert=2/cLLD=3", param6 = "No=0/10ul=1/300ul=2/1ml=3", param7 = "cLLD Max Pos"
+                        if (int.Parse(param.param5) != 1)
                         {
-                            if (MoveZAxes(param.param1, param.param2, param.param3, param.param4) == false)
+                            if (MoveZAxes(param.param1, param.param2, param.param3, 
+                                          param.param4, param.param5, param.param6, param.param7) == false)
                             {
                                 return false;
                             }
@@ -587,7 +604,7 @@ namespace CytoDx
                         //param4="", param5="", param6="", param7=""}},
                         
                         // 먼저 로터가 회전하고 있다면 기다렸다가 진행할 것
-                        WaitForServoStop();
+                        //WaitForServoStop();
 
                         if (SelectRotorPosition((CHAMBER_POS) int.Parse(param.param1)) != COM_Status.ACK)
                         {
@@ -690,15 +707,27 @@ namespace CytoDx
                         }
                         break;
                     case PROCESS_CMD.PIPETT_TRI:
-                        //param1 = "No=0/Abs=1/Kill=2/Init=3/Pos?=4", param2 = "AbsPos(if Abs=1)", param3 = "No=0/Asp=1/Disp=2",
-                        //param4 = "Z Follow OFF=0/1.5ml=1/15ml=2/50ml=3", param5 = "FlowRate(0.01~22.85 mL/sec)",
+                        //param1 = "No=0/Abs=1/End=2/Init=3/Pos?=4", param2 = "Pos(~1600,Abs),EndVol(~5,End)", param3 = "No=0/Asp=1/Disp=2",
+                        //param4 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3", param5 = "FlowRate(0.01~22.85 mL/sec)",
                         //param6 = "Vol(0~5mL)", param7 = "Offset Vol(0~0.5mL)" 
 
-                        if(OperateTricontinentalPipett(param.param1, param.param2, param.param3, 
-                                                       param.param4, param.param5, param.param6, param.param7) == false)
+                        if (int.Parse(param.param1) != 2)
                         {
-                            return false;
+                            if (OperateTricontinentalPipett(param.param1, param.param2, "0", param.param3,
+                                                       param.param4, param.param5, param.param6, param.param7) == false)
+                            {
+                                return false;
+                            }
                         }
+                        else if (int.Parse(param.param1) == 2)
+                        {
+                            if (OperateTricontinentalPipett(param.param1,  "0", param.param2, param.param3,
+                                                       param.param4, param.param5, param.param6, param.param7) == false)
+                            {
+                                return false;
+                            }
+                        }
+
                         break;
                     case PROCESS_CMD.PIPETT_HAM_DRY:
                         //  param1 = "No=0/PInit=1/TInit=2", param2 = "No=0/TipInsert=1/TipDiscard=2",
@@ -712,21 +741,32 @@ namespace CytoDx
                         }
                         break;
                     case PROCESS_CMD.PIPETT_HAM_LIQ:
-                        //  param1 = "Asp=1/Disp=2/ADC=3/MA=4/MD=5", param2 = "Follow NA=0/1.5=1/15=2/50=3(ml)",
+                        //  param1 = "Asp=1/Disp=2/ADC=3/EndAsp=4", param2 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3",
                         //  param3 = "FlowRate 0.01 ~ 15(0.1mL/s)",param4 = "Asp/Disp Vol(0~1.1mL)", 
-                        //  param5 = "StopBackVol(0~0.0325mL)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)" 
+                        //  param5 = "StBk(0~0.0325),EndVol(~2,End)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)" 
 
-                        if (OperateHamiltonPipettLiquid(param.param1, param.param2, param.param3, 
-                                                       param.param4, param.param5, param.param6, param.param7) == false)
+                        if (int.Parse(param.param1) != 4)
                         {
-                            return false;
+                            if (OperateHamiltonPipettLiquid(param.param1, param.param2, param.param3,
+                                                       param.param4, "0", param.param5, param.param6, param.param7) == false)
+                            {
+                                return false;
+                            }
                         }
-                        break;
+                        else if (int.Parse(param.param1) == 4)
+                        {
+                            if (OperateHamiltonPipettLiquid(param.param1, param.param2, param.param3,
+                                                       param.param4, param.param5, "0", param.param6, param.param7) == false)
+                            {
+                                return false;
+                            }
+                        }
+                            break;
                     case PROCESS_CMD.FIND_SURFACE:
-                        //param_cnt = 6, param1 = "Start=1/Stop=2", param2 = "Sensitivity", param3 = "Dir Plus=1/Minus=2",
+                        //param_cnt = 6, param1 = "Start=1/Stop=2/Start&Air=3", param2 = "Sensitivity", param3 = "Dir Plus=1/Minus=2",
                         //param4 = "Axis X=1/Y=2/Z=3", param5 = "Speed", param6 = "Max Position", param7 = ""
 
-                        if(FindLiquidSurface(param.param1, param.param2, param.param3, 
+                        if (FindLiquidSurface(param.param1, param.param2, param.param3, 
                                              param.param4, param.param5, param.param6) == false)
                         {
                             return false;
@@ -852,9 +892,55 @@ namespace CytoDx
                         m_bSaveRecord = param.param3 == "0" ? false : true;
                         break;
                     case PROCESS_CMD.SLEEP:
-                        //param_cnt=1, param1="Time [ms]", param2="", param3="",
+                        //param_cnt=2, param1="Keyin=0/SpinDuration=1", param2="Time[sec]", param3="",
                         //param4="", param5="", param6="", param7=""}},
-                        Thread.Sleep(int.Parse(param.param1));
+
+                        //Thread.Sleep(int.Parse(param.param1));
+                        //for (i = 0; i < (double.Parse(param.param1) * 0.066); i++)
+
+                        bMotionDoneWait = true; // 모니터링으로 인해 통신 데이터 충돌. 모니터링이 안되는 문제가 있음
+
+                        if (int.Parse(param.param1) == 0)
+                        {
+                            //for (i = 0; i < (double.Parse(param.param2)); i++)
+                            //{
+                            //    if (bStopFlag)
+                            //    {
+                            //        bMotionDoneWait = false;
+                            //        return false;
+                            //    }
+
+                            //    Thread.Sleep(1);    //10
+                            //    if (i % 100 == 0)
+                            //    {
+                            //        iPrintf(string.Format("sleep: {0} sec elapsed", ((i / 100) + 1)));
+                            //        Application.DoEvents(); // 실행 속도 개선을 위해 테스트 필요
+                            //    }
+                            //}
+                            Delay(int.Parse(param.param2));
+                            bMotionDoneWait = false;
+                            if (bServoRunState == true)
+                                bServoRunState = false;
+                            //while(bServoRunState == true)
+                            //{
+                            //    Thread.Sleep(10);
+                            //    if (bStopFlag)
+                            //        return false;
+                            //}
+                        }
+                        else if (int.Parse(param.param1) == 1)
+                        {
+                            Delay(SpinTotalTime);
+                            bMotionDoneWait = false;
+                            if (bServoRunState == true)
+                                bServoRunState = false;
+                            //while (bServoRunState == true)
+                            //{
+                            //    Thread.Sleep(10);
+                            //    if (bStopFlag)
+                            //        return false;
+                            //}
+                        }
                         break;
 
                     default:
@@ -868,7 +954,7 @@ namespace CytoDx
                         if (bStopFlag)
                             return false;
                         Thread.Sleep(1);
-                        Application.DoEvents(); // 실행 속도 개선을 위해 테스트 필요
+                        //Application.DoEvents(); // 실행 속도 개선을 위해 테스트 필요
                     }
                 }
             }
@@ -879,6 +965,96 @@ namespace CytoDx
             }
             return retVal;
         }
+
+        public void Delay(int sec)
+        {
+            DateTime dateTimeNow = DateTime.Now;
+            TimeSpan duration = new TimeSpan(0, 0, 0, sec, 0);
+            DateTime dateTimeAdd = dateTimeNow.Add(duration);
+
+            DateTime start = DateTime.Now;
+            double timeCount = 0;
+            double timeCount_old = 0;
+
+            //iPrintf(DateTime.Now.ToString("HH:mm:ss"));
+            while (dateTimeAdd >= dateTimeNow)
+            {
+                System.Windows.Forms.Application.DoEvents();
+                dateTimeNow = DateTime.Now;
+                TimeSpan timeDiff = dateTimeNow - start;
+                timeCount = Math.Truncate(double.Parse(timeDiff.TotalSeconds.ToString()));
+
+                if (timeCount != timeCount_old)
+                {
+                    iPrintf(string.Format("sleep: {0} sec elapsed", timeCount));
+                }
+
+                timeCount_old = timeCount;
+                if (bStopFlag)
+                    return;
+            }
+            //iPrintf(DateTime.Now.ToString("HH:mm:ss"));
+
+            return;
+        }
+
+        // param1 = "HOME NO=0/EACH=1/ALL=2", param2 = "AXIS NO=0, Grip=1", param3 = "AXIS NO=0, Ham=1",
+        // param4 = "AXIS NO=0, Cov=1" , param5 = "AXIS NO=0, X=1", param6 = "AXIS NO=0, Y=1", param7 = "AXIS NO=0, Z=1"
+        private bool CmdHomeMove(string Cmd, string AxGrip, string AxHam, string AxCov, string Ax_X, string Ax_Y, string Ax_Z)
+        {
+            if (int.Parse(Cmd) == 1)
+            {
+                if(int.Parse(AxGrip) == 1)
+                {
+                    GripAxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.GRIP, "HOME", "");
+                }
+                if (int.Parse(AxHam) == 1)
+                {
+                    HamAxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.HAM, "HOME", "");
+                }
+                if (int.Parse(AxCov) == 1)
+                {
+                    CoverAxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.COVER, "HOME", "");
+                }
+                if (int.Parse(Ax_X) == 1)
+                {
+                    Step0AxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.STEP0, "HOME", "");
+                }
+                if (int.Parse(Ax_Y) == 1)
+                {
+                    Step1AxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.STEP1, "HOME", "");
+                }
+                if (int.Parse(Ax_Z) == 1)
+                {
+                    Step2AxState.bHOME_COMP = false;
+                    StepMotorHomeMove(MOTOR.STEP2, "HOME", "");
+                }
+            }
+            else if (int.Parse(Cmd) == 2)
+            {
+                bStepMotorInitDoneState = false;
+
+                GripAxState.bHOME_COMP = false;
+                HamAxState.bHOME_COMP = false;
+                Step2AxState.bHOME_COMP = false;
+                CoverAxState.bHOME_COMP = false;
+                Step1AxState.bHOME_COMP = false;
+                Step0AxState.bHOME_COMP = false;
+
+                if (MoveHomeStepMotor(bStateCheck: false) == false)
+                {
+                    iPrintf("Step Motor Init Fail!");
+                    return false;
+                }
+            }
+
+            return true;
+         }
 
         public bool WaitForServoStop()
         {
@@ -893,9 +1069,9 @@ namespace CytoDx
                 bMotionDoneWait = true;
 
                 ReadMotorPosition(true, bSilent: true);
-                Thread.Sleep(200);
+                Thread.Sleep(100);
                 ServoMonitor(MotorMon.RPM, bSilent: true);
-                Thread.Sleep(200);
+                Thread.Sleep(100);
 
                 diffPosServo = Math.Abs(CurrentPos.Servo - dbCurPosServo_old);
 
@@ -910,7 +1086,7 @@ namespace CytoDx
                     if (isRunningSingle == true)
                         isRunningSingle = false;
                     DisplayStatusMessage("[Wait for Servo Stop] System Alarm !!!", TEST.FAIL);
-                    EnableControls(true);
+                    //EnableControls(true);
                     break;
                 }
 
@@ -988,7 +1164,7 @@ namespace CytoDx
                     if (isRunningSingle == true)
                         isRunningSingle = false;
                     DisplayStatusMessage("[Wait for Step Stop] System Alarm !!!", TEST.FAIL);
-                    EnableControls(true);
+                    //EnableControls(true);
                     break;
                 }
 
@@ -1107,13 +1283,12 @@ namespace CytoDx
         }
 
 
-        //param_cnt = 6, param1 = "Start=1/Stop=2", param2 = "Sensitivity", param3 = "Dir Plus=1/Minus=2",
+        //param_cnt = 6, param1 = "Start=1/Stop=2/Start&Air=3", param2 = "Sensitivity=1~4", param3 = "Dir Plus=1/Minus=2",
         //param4 = "Axis X=1/Y=2/Z=3", param5 = "Speed", param6 = "Max Position", param7 = ""
         private bool FindLiquidSurface(string StartStop, string Sensitivity, string Dir, 
                                        string Axis, string Spd, string MaxPos)
         {
             int dir = 0;
-            int timeout = 1000;
             int i = 0;
             bLLD_Stop_Flag = false;
 
@@ -1130,24 +1305,41 @@ namespace CytoDx
             }
             int trg_axis = int.Parse(Axis) + 3;
 
-            if (int.Parse(StartStop) == 1)
+            MonitorStepMotorStatus();
+            double start_Zpos = CurrentPos.Step2AxisZ;
+            int FindSampleingTime = 5;
+            double timeout = 1.5 * (double.Parse(MaxPos) / (double.Parse(Spd) * 0.001));
+            double bv = 0.1;    // 액체 흡입 전 공기 흡입 (mL)
+            double AirFlowrate = 0.5 * 10000; // mL/sec
+
+            if (int.Parse(StartStop) == 1 || int.Parse(StartStop) == 3)
             {
+                if(int.Parse(StartStop) == 3)
+                {
+                    // 속도 향상을 위해 액체 흡입과 함께 하드 코딩함
+                    RunPer2_HamiltonPipett("AB", (int)(bv * 10000), 0, (int) AirFlowrate, 0, TIP_TYPE.NONE); // Air Aspirate
+                }
+
+                Run_Hamilton_cLLD((byte)'L', int.Parse(Sensitivity));
+                Thread.Sleep(50);
+                SystemCmd("ESCAPE", "", "");
+                Thread.Sleep(50);
+
                 MoveStepMotor(STEP_CMD.MOVE, (MOTOR)trg_axis,
                     int.Parse(Spd), dir * double.Parse(MaxPos),
                     3, 3, POS_OPT.REL, HOLD_STATE.NONE);
-                Thread.Sleep(20);
-                Run_Hamilton_cLLD((byte)'L', int.Parse(Sensitivity));
-
+                //Thread.Sleep(20);
+                
                 while (i < timeout)
                 {
                     if (bLLD_Stop_Flag == true)
                         break;
                     
-                    if(i == 0)
-                        RunPer2_HamiltonPipett("RE", 0, 0, 0, 0, TIP_TYPE.NONE);    // error code check
+                    //if(i == 0)
+                    //    RunPer2_HamiltonPipett("RE", 0, 0, 0, 0, TIP_TYPE.NONE);    // error code check
 
                     i++;
-                    Thread.Sleep(1);
+                    Thread.Sleep(FindSampleingTime);
                     if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
                     {
                         RunPer2_HamiltonPipett("RE", 0, 0, 0, 0, TIP_TYPE.NONE);    // error code check
@@ -1185,8 +1377,10 @@ namespace CytoDx
                     //if (ConfirmcLLD_State() == true)
                     if (bcLLD_IO == true || bcLLD_Detected == true)
                     {
-                        iPrintf(String.Format("level I/O: {0}, detected msg: {1}", bcLLD_IO, bcLLD_Detected));
+                        iPrintf(String.Format("level I/O: {0}, detected msg: {1}, cnt: {2}, timeout: {3}, sampling: {4}", 
+                                              bcLLD_IO, bcLLD_Detected, i, timeout, FindSampleingTime));
 
+                        Thread.Sleep(20);
                         MoveStepMotor(STEP_CMD.STOP, (MOTOR)trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
                         Run_Hamilton_cLLD((byte)'P', 0);
                         iPrintf("Liquid Level Detection Success!");
@@ -1229,14 +1423,28 @@ namespace CytoDx
                         break;
                     }
 
+                    //MonitorStepMotorStatus();
+                    //ReadMotorPosition(waitReceive: false, bSilent: true);
+
+                    //if (i >= timeout || 
+                    //   ((MOTOR) trg_axis == MOTOR.STEP2 && Math.Abs(CurrentPos.Step2AxisZ - start_Zpos) >= double.Parse(MaxPos)))
                     if (i >= timeout)
                     {
-                        MoveStepMotor(STEP_CMD.STOP, (MOTOR)trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-                        Run_Hamilton_cLLD((byte)'P', 0);
-                        iPrintf("Liquid Level Not Detected!");
-                        DisplayStatusMessage("Hamilton Pipett Liquid Level Not Detected!", TEST.FAIL);
-                        MonitorStepMotorStatus();
+                        //SystemCmd("ESCAPE", "", "");
+                        //Thread.Sleep(50);
 
+                        MoveStepMotor(STEP_CMD.STOP, (MOTOR)trg_axis, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+                        Thread.Sleep(20);
+                        Run_Hamilton_cLLD((byte)'P', 0);
+                        Thread.Sleep(20);
+
+                        ReadMotorPosition(waitReceive: false, bSilent: true);
+                        Thread.Sleep(50);
+                        iPrintf("Liquid Level Not Detected!");
+                        iPrintf(string.Format("current: {0}, start: {1}, mov dist: {2}, max pos: {3}, cnt: {4}, timeout: {5}",
+                            CurrentPos.Step2AxisZ, start_Zpos, Math.Abs(CurrentPos.Step2AxisZ - start_Zpos), double.Parse(MaxPos), i, timeout));
+                        DisplayStatusMessage("Hamilton Pipett Liquid Level Not Detected!", TEST.FAIL);
+                        
                         return false;
                     }
                 }
@@ -1359,48 +1567,54 @@ namespace CytoDx
             return true;
         }
 
-
-        //  param1 = "Asp=1/Disp=2/ADC=3/MA=4/MD=5", param2 = "Follow NA=0/1.5=1/15=2/50=3(ml)",
-        //  param3 = "FlowRate 0.01 ~ 15 (0.1mL/s)",param4 = "Asp/Disp Vol(0~1.1mL)", 
-        //  param5 = "StopBackVol(0~0.0325mL)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)" 
+        //  param1 = "Asp=1/Disp=2/ADC=3/EndAsp=4", param2 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3",
+        //  param3 = "FlowRate 0.001 ~ 1.5 (mL/s)",param4 = "Asp/Disp Vol(0~1.1mL)", 
+        //  param5 = "StBk(0~0.0325),EndVol(~2,End)", param6 = "OverAspVol(0~1mL)", param7 = "StopSpd(0.01 ~ 15 mL/sec)" 
         private bool OperateHamiltonPipettLiquid(string Func1, string Tube, string FlowRate, string AspDisp,
-                                                 string SB_Vol, string OA_Vol, string StopSpd)
+                                                 string EndVol, string SB_Vol, string OA_Vol, string StopSpd)
         {
-            int stop_spd = int.Parse(StopSpd) * 1000;
-            double flowrate = double.Parse(FlowRate) * 1000;
+            double dbEndVol = double.Parse(EndVol);
+            double dbAspDisp = double.Parse(AspDisp);
+            double stop_spd = double.Parse(StopSpd) * 1000;
+            double flowrate = double.Parse(FlowRate) * 10000;
             double volume = double.Parse(AspDisp) * 10000;
             double stopback_volume = double.Parse(SB_Vol) * 10000;
             double overAsp_volume = double.Parse(OA_Vol) * 10000;
             double trg_tube_Ham = 0;
-            int duration_ms = (int)Math.Round((volume / flowrate) * 1000) - 200;
+            //int duration_ms = (int)Math.Round((volume / flowrate) * 1000) - 200;
+            int duration_ms = (int)Math.Round((volume / flowrate) * 1000) + 200;
 
-            if (int.Parse(Tube) == 1)
+            if (double.Parse(Tube) == 1)
             {
                 trg_tube_Ham = Tube_ID_1_5ml;
             }
-            else if (int.Parse(Tube) == 2)
+            else if (double.Parse(Tube) == 2)
             {
                 trg_tube_Ham = Tube_ID_15ml;
             }
-            else if (int.Parse(Tube) == 3)
+            else if (double.Parse(Tube) == 3)
             {
                 trg_tube_Ham = Tube_ID_50ml;
             }
-
-            if (int.Parse(Func1) == 1)
+            else if (double.Parse(Tube) > 3)
             {
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                trg_tube_Ham = double.Parse(Tube);
+            }
+                        
+            if (int.Parse(Func1) == 1)  // asp
+            {
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
                     Liquid_Z_Follow_Move(volume*0.0001, flowrate*0.0001, trg_tube_Ham, Lead_AxisZ, Z_FOLLOW_DIR.DOWN, PERIPHERAL.HAM_PIPETT);
                     bMotionDoneWait = true;
                 }                
 
-                RunPer2_HamiltonPipett("AL", (int) volume, (int) overAsp_volume, (int) flowrate, stop_spd, 0);  //Liquid Aspirate
+                RunPer2_HamiltonPipett("AL", (int) volume, (int) overAsp_volume, (int) flowrate, (int) stop_spd, 0);  //Liquid Aspirate
 
                 //if (SensorStatus.ham_pipett_errNo != 0)
                 if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
                 {
-                    if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                    if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                     {
                         MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
                     }
@@ -1421,20 +1635,20 @@ namespace CytoDx
                 bStepRunState = false;
                 bPipettMotion = false;
             }
-            else if (int.Parse(Func1) == 2)
+            else if (int.Parse(Func1) == 2) // disp
             {
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
                     Liquid_Z_Follow_Move(volume*0.0001, flowrate*0.0001, trg_tube_Ham, Lead_AxisZ, Z_FOLLOW_DIR.UP, PERIPHERAL.HAM_PIPETT);
                     bMotionDoneWait = true;
                 }                
 
-                RunPer2_HamiltonPipett("DL", (int) volume, (int) stopback_volume, (int) flowrate, stop_spd, 0);  //Liquid Dispense
+                RunPer2_HamiltonPipett("DL", (int) volume, (int) stopback_volume, (int) flowrate, (int) stop_spd, 0);  //Liquid Dispense
 
                 //if (SensorStatus.ham_pipett_errNo != 0)
                 if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
                 {
-                    if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                    if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                     {
                         MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
                     }
@@ -1459,14 +1673,75 @@ namespace CytoDx
             {
                 RunPer2_HamiltonPipett("AX", 0, 0, 0, 0, TIP_TYPE.NONE);     // ADC ON
             }
-            else if (int.Parse(Func1) == 4)
+            else if (int.Parse(Func1) == 4)  // EndAsp
             {
-                RunPer2_HamiltonPipett("MA", (int) volume, 0, (int) flowrate, 0, TIP_TYPE.NONE);     // Mixing Asp
+                double travel_dist = 0;
+                if (dbEndVol > dbAspDisp)
+                    travel_dist = DetermineTravelDist(Tube, dbEndVol) - DetermineTravelDist(Tube, Math.Abs(dbEndVol - dbAspDisp));
+                else
+                    travel_dist = DetermineTravelDist(Tube, dbEndVol);
+
+                ReadMotorPosition(true, bSilent: true);
+                Thread.Sleep(100);
+                double init_pos = CurrentPos.Step2AxisZ;
+
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                {
+                    Liquid_Z_Follow_Move(volume * 0.0001, flowrate * 0.0001, trg_tube_Ham, Lead_AxisZ, 
+                                         Z_FOLLOW_DIR.DOWN, PERIPHERAL.HAM_PIPETT, true, travel_dist);
+                    bMotionDoneWait = true;
+                }
+
+                iPrintf(string.Format(string.Format("{0}", Environment.NewLine)));
+                RunPer2_HamiltonPipett("AL", (int)volume, (int)overAsp_volume, (int)flowrate, (int) stop_spd, 0);  //Liquid Aspirate
+                
+                iPrintf(string.Format(string.Format("{0}", Environment.NewLine)));
+                
+                Thread.Sleep(10);
+                SystemCmd("ESCAPE", "", "");
+                //SystemCmd("PUMP", "PE2_SKIP", "");
+
+                iPrintf(string.Format(string.Format("{0}", Environment.NewLine)));
+
+                iPrintf(string.Format("flowrate(ml/s): {0}, vol_ml: {1}, dist: {2}",
+                              flowrate, volume * 0.0001, travel_dist));
+
+                //if (SensorStatus.ham_pipett_errNo != 0)
+                if (SensorStatus.AlarmPeri2_ham_pipett == Status.ON)
+                {
+                    if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                    {
+                        MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+                    }
+
+                    iPrintf("Hamilton Pipett Error! Aspirate Aborted!");
+                    bStepRunState = false;
+                    if (bMotionDoneWait == true)
+                        bMotionDoneWait = false;
+                    bPipettMotion = false;
+                    MonitorStepMotorStatus();
+                    return false;
+                }
+                else
+                {
+                    ChangeZ_Spd(dbEndVol, Tube, travel_dist, init_pos);
+                }                
+
+                //Thread.Sleep(duration_ms);
+                MonitorStepMotorStatus();
+                if (bMotionDoneWait == true)
+                    bMotionDoneWait = false;
+                bStepRunState = false;
+                bPipettMotion = false;
             }
-            else if (int.Parse(Func1) == 5)
-            {
-                RunPer2_HamiltonPipett("MD", 0, 0, (int) flowrate, 0, TIP_TYPE.NONE);     // Mixing Disp
-            }
+            //else if (int.Parse(Func1) == 4)
+            //{
+            //    RunPer2_HamiltonPipett("MA", (int) volume, 0, (int) flowrate, 0, TIP_TYPE.NONE);     // Mixing Asp
+            //}
+            //else if (int.Parse(Func1) == 5)
+            //{
+            //    RunPer2_HamiltonPipett("MD", 0, 0, (int) flowrate, 0, TIP_TYPE.NONE);     // Mixing Disp
+            //}
             else
             {
                 DisplayStatusMessage("Hamilton Pipett Parameter Input Error! Check 1st Param", TEST.FAIL);
@@ -1482,8 +1757,8 @@ namespace CytoDx
         private bool OperateHamiltonPipettDry(string Func1, string TipFunc, string Tip, string AirFunc, 
                                               string FlowRate, string AirVol, string State)
         {
-            double airFlowrate = double.Parse(FlowRate) * 100;
-            double airVol = double.Parse(AirVol) * 1000;
+            double airFlowrate = double.Parse(FlowRate) * 1000;
+            double airVol = double.Parse(AirVol) * 10000;
 
             if (int.Parse(Func1) == 1)
             {
@@ -1549,13 +1824,345 @@ namespace CytoDx
             return true;
         }
 
+        // Tube 끝단의 면적을 3단 혹은 2단으로 분리하여 체적에 따른 '진행거리 = a * 체적 + b'의 1차 방정식으로 분리함
+        private double DetermineTravelDist(string Tube, double dbEndVol)
+        {
+            double travel_dist = 0;
+            double dbEndOffsetDist_50ml = 1.0;   //0.5
+            double dbEndOffsetDist_15ml = 1.2;   //0.5
+            double dbEndOffsetDist_1p5ml = 1.2;   //0.5
 
-        //param1 = "No=0/Abs=1/Kill=2/Init=3/Pos?=4", param2 = "AbsPos(if Abs=1)", param3 = "No=0/Asp=1/Disp=2",
-        //param4 = "Follow NA=0/1.5=1/15=2/50=3(ml)", param5 = "FlowRate(0.01~22.85 mL/sec)",
+            if (dbEndVol == 0)
+                return 0;
+
+            if (int.Parse(Tube) == 3)   // 50ml
+            {
+                if (dbEndVol >= 2 && dbEndVol <= 5)
+                {
+                    //travel_dist = (2.667 * dbEndVol + 6.667) - dbEndOffsetDist;
+                    travel_dist = (2 * dbEndVol + 8) - dbEndOffsetDist_50ml;
+                }
+                else if (dbEndVol >= 1 && dbEndVol < 2)
+                {
+                    travel_dist = (3 * dbEndVol + 6) - dbEndOffsetDist_50ml;
+                }
+                else if (dbEndVol >= 0.5 && dbEndVol < 1)
+                {
+                    travel_dist = (4 * dbEndVol + 5) - dbEndOffsetDist_50ml;
+                }
+                else if (dbEndVol < 0.5)
+                {
+                    travel_dist = (14 * dbEndVol) - dbEndOffsetDist_50ml;
+                    if (travel_dist <= dbEndOffsetDist_50ml)
+                        travel_dist = dbEndOffsetDist_50ml;
+                }
+            }
+            else if (int.Parse(Tube) == 2)  // 15ml
+            {
+                if (dbEndVol >= 1 && dbEndVol <= 2)
+                {
+                    travel_dist = (7 * dbEndVol + 11) - dbEndOffsetDist_15ml;
+                }
+                else if (dbEndVol >= 0.5 && dbEndVol < 1)
+                {
+                    travel_dist = (9 * dbEndVol + 9) - dbEndOffsetDist_15ml;
+                }
+                else if (dbEndVol < 0.5)
+                {
+                    travel_dist = (27 * dbEndVol) - dbEndOffsetDist_15ml;
+                    if (travel_dist <= dbEndOffsetDist_15ml)
+                        travel_dist = dbEndOffsetDist_15ml;
+                }
+            }
+            else if (int.Parse(Tube) == 1)  // 1.5ml
+            {
+                if (dbEndVol >= 0.25 && dbEndVol <= 0.5)
+                {
+                    travel_dist = (22 * dbEndVol + 4.8) - dbEndOffsetDist_1p5ml;
+                }
+                else if (dbEndVol >= 0.1 && dbEndVol < 0.25)
+                {
+                    travel_dist = (30 * dbEndVol + 2.8) - dbEndOffsetDist_1p5ml;
+                }
+                else if (dbEndVol < 0.1)
+                {
+                    travel_dist = (58 * dbEndVol) - dbEndOffsetDist_1p5ml;
+                    if (travel_dist <= dbEndOffsetDist_1p5ml)
+                        travel_dist = dbEndOffsetDist_1p5ml;
+                }
+            }
+
+            return travel_dist;
+        }
+
+        private void ChangeZ_Spd(double dbEndVol, string Tube, double travel_dist, double init_pos)
+        {
+            int cnt = 0;
+            double curr_dist = 0;
+            int nVelStep = 0;
+
+            do
+            {
+                if (cnt >= 60) break;
+                bMotionDoneWait = true;
+
+                //GetStatus(true, bSilent: true);
+                ReadMotorPosition(true, bSilent: true);
+                Thread.Sleep(300);  //300
+
+                curr_dist = Math.Abs(CurrentPos.Step2AxisZ - init_pos);
+
+                // 속도의 배수는 각 스텝별 한번만 보내야됨. 변수변경 조건추가로 처리
+                if (int.Parse(Tube) == 3)   // 50ml
+                {
+                    if (dbEndVol > 4 && dbEndVol <= 5)
+                    {
+                        if((curr_dist >=0 && curr_dist < 6) && nVelStep == 0)
+                        {
+                            nVelStep = 1;
+                        }
+                        else if((curr_dist >= 6 && curr_dist < 9) && nVelStep == 1)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.21");
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.05");    //1.21
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 9 && curr_dist < 11) && nVelStep == 2)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "2.98");
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.8");    //2.46
+                            nVelStep = 3;
+                        }
+                        else if ((curr_dist >= 11 && curr_dist <= 18) && nVelStep == 3)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "3.52");
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.0");    //1.18
+                            nVelStep = 4;
+                        }
+                    }
+                    if (dbEndVol > 3 && dbEndVol <= 4)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 4) && nVelStep == 0)
+                        {
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 4 && curr_dist < 7) && nVelStep == 1)
+                        {
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 7 && curr_dist < 9) && nVelStep == 2)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.8");    //2.46
+                            nVelStep = 3;
+                        }
+                        else if ((curr_dist >= 9 && curr_dist <= 16) && nVelStep == 3)
+                        {
+                            nVelStep = 4;
+                        }
+                    }
+                    if (dbEndVol > 2 && dbEndVol <= 3)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 4) && nVelStep == 0)
+                        {
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 4 && curr_dist < 6) && nVelStep == 1)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.8");    //2.46
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 6 && curr_dist <= 13) && nVelStep == 2)
+                        {
+                            nVelStep = 3;
+                        }
+                    }
+                    else if (dbEndVol > 1 && dbEndVol <= 2)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 2) && nVelStep == 0)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.21");
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.2");    //1.21
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 2 && curr_dist < 5) && nVelStep == 1)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "2.98");
+                            SystemCmd("STEP 2", "SPD_SCALE", "2.5");    //2.46
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 5 && curr_dist <= 12) && nVelStep == 2)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "3.52");
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.5");    //1.18
+                            nVelStep = 3;
+                        }
+                    }
+                    else if (dbEndVol > 0.5 && dbEndVol <= 1)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 2) && nVelStep == 0)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "2.98");
+                            SystemCmd("STEP 2", "SPD_SCALE", "2.5");    //2.46
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 2 && curr_dist <= 9) && nVelStep == 1)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "3.52");
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.5");    //1.18
+                            nVelStep = 2;
+                        }
+                    }
+                    else if (dbEndVol <= 0.5)
+                    {
+                        if (curr_dist > 0 && nVelStep == 0)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "3.52");
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.1");    //1.18
+                            SystemCmd("STEP 2", "SPD_SCALE", "2.6");    //2.46
+                            nVelStep = 1;
+                        }
+                    }
+                }
+                else if (int.Parse(Tube) == 2)  // 15ml
+                {
+                    if (dbEndVol > 1 && dbEndVol <= 2)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 7) && nVelStep == 0)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.1");
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 7 && curr_dist < 11.5) && nVelStep == 1)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.17");
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 11.5 && curr_dist <= 25) && nVelStep == 2)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.41");
+                            nVelStep = 3;
+                        }
+                    }
+                    else if (dbEndVol > 0.5 && dbEndVol <= 1)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 4.5) && nVelStep == 0)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.17");
+                            SystemCmd("STEP 2", "SPD_SCALE", "2.6");
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 4.5 && curr_dist <= 18) && nVelStep == 1)
+                        {
+                            //SystemCmd("STEP 2", "SPD_SCALE", "1.41");
+                            SystemCmd("STEP 2", "SPD_SCALE", "3.0");
+                            nVelStep = 2;
+                        }
+                    }
+                    else if (dbEndVol <= 0.5)
+                    {
+                        if (curr_dist > 0 && nVelStep == 0)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "3.8");
+                            nVelStep = 1;
+                        }
+                    }
+                }
+                else if (int.Parse(Tube) == 1)  // 1.5ml
+                {
+                    if (dbEndVol >= 0.25 && dbEndVol <= 0.5)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 5.5) && nVelStep == 0)
+                        {
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 5.5 && curr_dist < 10) && nVelStep == 1)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.21");
+                            nVelStep = 2;
+                        }
+                        else if ((curr_dist >= 10 && curr_dist <= 15.8) && nVelStep == 2)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.46");
+                            nVelStep = 3;
+                        }
+                    }
+                    else if (dbEndVol >= 0.1 && dbEndVol < 0.25)
+                    {
+                        if ((curr_dist >= 0 && curr_dist < 4.5) && nVelStep == 0)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.21");
+                            nVelStep = 1;
+                        }
+                        else if ((curr_dist >= 4.5 && curr_dist <= 10.3) && nVelStep == 1)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.46");
+                            nVelStep = 2;
+                        }
+                    }
+                    else if (dbEndVol < 0.1)
+                    {
+                        if (curr_dist > 0 && nVelStep == 0)
+                        {
+                            SystemCmd("STEP 2", "SPD_SCALE", "1.46");
+                            nVelStep = 1;
+                        }
+                    }
+                }
+
+                iPrintf(string.Format("Trg: {0}, CurDist: {1}, Z Moving: {2} ({3})", 
+                        travel_dist, curr_dist, Step2AxState.bMOVE, cnt));
+                cnt++;
+
+                if (SensorStatus.Alarm)
+                {
+                    if (isRunningSingle == true)
+                    {
+                        isRunningSingle = false;
+                    }
+                    DisplayStatusMessage("System Alarm !!!", TEST.FAIL);
+                    break;
+                }
+
+                if (!Serial.IsOpen || bStopFlag == true)
+                {
+                    if (isRunningSingle == true)
+                    {
+                        isRunningSingle = false;
+                    }
+                    if (Serial.IsOpen == false)
+                    {
+                        DisplayStatusMessage("Serial Not Opened !!!", TEST.FAIL);
+                    }
+                    if (bStopFlag == true)
+                    {
+                        DisplayStatusMessage("Recipe Stopped !!!", TEST.FAIL);
+                    }
+                    break;
+                }
+                //} while (Step2AxState.bMOVE == true || );
+            } while (curr_dist <= (Math.Abs(travel_dist) - 1));
+
+            nVelStep = 0;
+            //GetStatus(true, bSilent: true);
+            //Thread.Sleep(100);
+            bMotionDoneWait = false;
+            //iPrintf(string.Format("[Exit] Z Moving: {0}", Step2AxState.bMOVE));
+
+            iPrintf(string.Format("[Exit] Trg: {0}, CurDist: {1}, Z Moving: {2} ({3})",
+                        travel_dist, curr_dist, Step2AxState.bMOVE, cnt));
+
+            if (bAxisMovingFlag[2] == true) bAxisMovingFlag[2] = false;
+        }
+
+        //param1 = "No=0/Abs=1/End=2/Init=3/Pos?=4", param2 = "Pos(~1600,Abs),EndVol(~5,End)", param3 = "No=0/Asp=1/Disp=2",
+        //param4 = "Zmov 0/1.5=1/15=2/50=3/Keyin>3", param5 = "FlowRate(0.01~22.85 mL/sec)",
         //param6 = "Vol(0~5mL)", param7 = "Offset Vol(0~0.5mL)" 
-        private bool OperateTricontinentalPipett(string Func1, string AbsPos, string AspDisp, string Tube, 
+        private bool OperateTricontinentalPipett(string Func1, string AbsPos, string EndVol, string AspDisp, string Tube, 
                                                  string FlowRate, string Vol, string OffsetVol)
         {
+            double dbEndVol = double.Parse(EndVol);
+            double dbAspDisp = double.Parse(Vol);
+
             // Volume값을 incremental(step) 값으로 전환
             double Volume_mL = pipett_scale * (double.Parse(Vol) + double.Parse(OffsetVol));
             double Vol_mL_per_Inc = (TriPipett_Vol * 0.001) / TriPipett_Max_Increment;
@@ -1568,21 +2175,48 @@ namespace CytoDx
             double FlowRate_IncPerSecResult = FlowRate_uL_per_sec / TriPipett_ul_per_inc;
             double FlowRate_inc_per_sec = Math.Round(FlowRate_IncPerSecResult, 0);
 
-            int duration_ms = (int) Math.Round((Volume_inc / FlowRate_inc_per_sec) * 1000, 0);
+            //int duration_ms = (int) Math.Round((Volume_inc / FlowRate_inc_per_sec) * 1000, 0) + 500;    // 충돌방지를 위해 500ms 추가함
+            int duration_ms = (int)Math.Round((Volume_inc / FlowRate_inc_per_sec) * 1000, 0);
 
             double trg_tube_Tri = 0;
-            if (int.Parse(Tube) == 1)
+            double trg_z = 0;
+            double travel_dist = 0;
+
+            if (double.Parse(Tube) == 1)
             {
                 trg_tube_Tri = Tube_ID_1_5ml;
             }
-            else if (int.Parse(Tube) == 2)
+            else if (double.Parse(Tube) == 2)
             {
                 trg_tube_Tri = Tube_ID_15ml;
             }
-            else if (int.Parse(Tube) == 3)
+            else if (double.Parse(Tube) == 3)
             {
                 trg_tube_Tri = Tube_ID_50ml;
             }
+            else if (double.Parse(Tube) > 3)
+            {
+                trg_tube_Tri = double.Parse(Tube);
+            }
+
+            if (int.Parse(Func1) == 2)
+            {
+                if (dbEndVol > dbAspDisp)
+                    travel_dist = DetermineTravelDist(Tube, dbEndVol) - DetermineTravelDist(Tube, Math.Abs(dbEndVol - dbAspDisp));
+                else
+                    travel_dist = DetermineTravelDist(Tube, dbEndVol);
+            }
+            else
+            {
+                travel_dist = Math.Round((Volume_mL * 1000) / (Math.Pow(trg_tube_Tri, 2) * (Math.PI / 4)), 2);    // mm
+            }
+
+            double travel_time = Volume_mL / FlowRate_mL_per_sec;   // sec
+
+            if (int.Parse(AspDisp) == 1) // asp
+                trg_z = CurrentPos.Step2AxisZ + travel_dist;
+            else if (int.Parse(AspDisp) == 1) // disp
+                trg_z = CurrentPos.Step2AxisZ - travel_dist;
 
             if (Volume_inc < 0 || Volume_inc > TriPipett_Max_Increment)
             {
@@ -1590,20 +2224,11 @@ namespace CytoDx
                 iPrintf(String.Format("Invalid Value! Pipett Volume Pulse Count range = 0 ~ 1600 (input: {0})", Volume_inc));
                 return false;
             }
-
-            double trg_z = 0;
-            double travel_dist = Math.Round((Volume_mL * 1000) / (Math.Pow(trg_tube_Tri, 2) * (Math.PI / 4)), 2);    // mm
-            double travel_time = Volume_mL / FlowRate_mL_per_sec;   // sec
-
+            
             ConfirmPlungerPosition();
-            Thread.Sleep(200);
-                        
-            if(int.Parse(AspDisp) == 1) // asp
-                trg_z = CurrentPos.Step2AxisZ + travel_dist;
-            else if(int.Parse(AspDisp) == 1) // disp
-                trg_z = CurrentPos.Step2AxisZ - travel_dist;
+            //Thread.Sleep(200);            
 
-            if (int.Parse(Tube) != 0)
+            if (double.Parse(Tube) != 0)
             {
                 if (axis_stroke.Z_max < trg_z || axis_stroke.Z_min > trg_z)
                 {
@@ -1616,7 +2241,7 @@ namespace CytoDx
 
             int PlungerTrg = 0;
 
-            if (int.Parse(Func1) == 0 && int.Parse(AspDisp) == 1)   // asp
+            if ((int.Parse(Func1) == 0 || int.Parse(Func1) == 2) && int.Parse(AspDisp) == 1)   // asp
             {
                 PlungerTrg = PE1PlungerPosInc - (int)Volume_inc;
                 if (PlungerTrg < 0)
@@ -1627,18 +2252,39 @@ namespace CytoDx
                     Thread.Sleep(duration_ms);
                 }
 
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
-                    Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, Z_FOLLOW_DIR.DOWN, PERIPHERAL.TRI_PIPETT);
+                    if (int.Parse(Func1) == 2)
+                    {
+                        ReadMotorPosition(true, bSilent: true);
+                        Thread.Sleep(100);  //300
+                        double init_pos = CurrentPos.Step2AxisZ;
 
-                    RunPer1_TricontinentPipett((byte)' ', 0,     // N/A
-                              (int)FlowRate_inc_per_sec,     // Plunger Speed 설정
-                              (byte)'P', (int)Volume_inc, timeout: 120);   // aspiration 방향으로 volume값 만큼 이동
+                        Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, 
+                                             Z_FOLLOW_DIR.DOWN, PERIPHERAL.TRI_PIPETT, true, travel_dist);
 
-                    iPrintf(string.Format("flowrate(inc/sec): {0}, vol_inc: {1}, flowrate(ml/sec): {2}, vol_ml: {3}, time:{4}",
-                                  FlowRate_inc_per_sec, Volume_inc, FlowRate_mL_per_sec, Volume_mL, travel_time));
+                        RunPer1_TricontinentPipett((byte)' ', 0,     // N/A
+                                  (int)(FlowRate_inc_per_sec * 0.8),     // Plunger Speed 설정
+                                  (byte)'P', (int)Volume_inc, timeout: 20);   // aspiration 방향으로 volume값 만큼 이동
 
-                    Thread.Sleep(duration_ms);
+                        iPrintf(string.Format("flowrate(inc/s): {0}, vol_inc: {1}, flowrate(ml/s): {2}, vol_ml: {3}, time:{4}, dist: {5}",
+                                      FlowRate_inc_per_sec, Volume_inc, FlowRate_mL_per_sec, Volume_mL, travel_time, travel_dist));
+                        ChangeZ_Spd(dbEndVol, Tube, travel_dist, init_pos);
+                    }
+                    else
+                    {
+                        Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, Z_FOLLOW_DIR.DOWN, PERIPHERAL.TRI_PIPETT);
+
+                        RunPer1_TricontinentPipett((byte)' ', 0,     // N/A
+                                  (int)FlowRate_inc_per_sec,     // Plunger Speed 설정
+                                  (byte)'P', (int)Volume_inc, timeout: 120);   // aspiration 방향으로 volume값 만큼 이동
+
+                        iPrintf(string.Format("fr(inc/s): {0}, vol_inc: {1}, fr(ml/s): {2}, vol_ml: {3}, movtime:{4}, dist: {5}, slptime: {6}",
+                                      FlowRate_inc_per_sec, Volume_inc, FlowRate_mL_per_sec, Volume_mL, travel_time, travel_dist, duration_ms));
+
+                        Thread.Sleep(duration_ms);
+                    }
+
                     ConfirmPlungerPosition();
                     bStepRunState = false;
                     bPipettMotion = false;
@@ -1652,7 +2298,7 @@ namespace CytoDx
                     ConfirmPlungerPosition();
                 }
             }
-            else if (int.Parse(Func1) == 0 && int.Parse(AspDisp) == 2)  //disp
+            else if ((int.Parse(Func1) == 0 || int.Parse(Func1) == 2) && int.Parse(AspDisp) == 2)  //disp
             {
                 PlungerTrg = PE1PlungerPosInc + (int)Volume_inc;
                 if (PlungerTrg > (int)TriPipett_Max_Increment)
@@ -1663,7 +2309,7 @@ namespace CytoDx
                     Thread.Sleep(duration_ms);
                 }
 
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
                     Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, Z_FOLLOW_DIR.UP, PERIPHERAL.TRI_PIPETT);
 
@@ -1671,10 +2317,11 @@ namespace CytoDx
                                (int)FlowRate_inc_per_sec,    // Plunger Speed 설정
                                (byte)'D', (int)Volume_inc, timeout: 120);  // dispense 방향으로 volume값 만큼 이동
 
-                    iPrintf(string.Format("flowrate(inc/sec): {0}, vol_inc: {1}, flowrate(ml/sec): {2}, vol_ml: {3}, time:{4}",
-                                  FlowRate_inc_per_sec, Volume_inc, FlowRate_mL_per_sec, Volume_mL, travel_time));
+                    iPrintf(string.Format("fr(inc/s): {0}, vol_inc: {1}, fr(ml/s): {2}, vol_ml: {3}, movtime:{4}, dist: {5}, slptime: {6}",
+                                  FlowRate_inc_per_sec, Volume_inc, FlowRate_mL_per_sec, Volume_mL, travel_time, travel_dist, duration_ms));
 
                     Thread.Sleep(duration_ms);
+
                     ConfirmPlungerPosition();
                     bStepRunState = false;
                     bPipettMotion = false;
@@ -1704,7 +2351,7 @@ namespace CytoDx
                                 (byte)'P', (int)Volume_inc, timeout: 60);   // aspiration 방향으로 volume값 만큼 이동
                 }
 
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
                     Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, Z_FOLLOW_DIR.DOWN, PERIPHERAL.TRI_PIPETT);
                     //Thread.Sleep(duration_ms);
@@ -1734,7 +2381,7 @@ namespace CytoDx
                                     (byte)'D', (int)Volume_inc, timeout: 60);     // dispense 방향으로 volume값 만큼 이동
                 }
 
-                if (int.Parse(Tube) >= (int)Z_FOLLOW.ON)
+                if (double.Parse(Tube) >= (int)Z_FOLLOW.ON)
                 {
                     Liquid_Z_Follow_Move(Volume_mL, FlowRate_mL_per_sec, trg_tube_Tri, Lead_AxisZ, Z_FOLLOW_DIR.UP, PERIPHERAL.TRI_PIPETT);
                     //Thread.Sleep(duration_ms);
@@ -1748,12 +2395,12 @@ namespace CytoDx
                     ConfirmPlungerPosition();
                 }
             }
-            else if (int.Parse(Func1) == 2)
-            {
-                RunPer1_TricontinentPipett((byte)'T', 0,        // Terminate Executing Command
-                               0,                               // N/A
-                               (byte)' ', 0);                   // N/A
-            }
+            //else if (int.Parse(Func1) == 2)
+            //{
+            //    RunPer1_TricontinentPipett((byte)'T', 0,        // Terminate Executing Command
+            //                   0,                               // N/A
+            //                   (byte)' ', 0);                   // N/A
+            //}
             else if (int.Parse(Func1) == 3)
             {
                 RunPer1_TricontinentPipett((byte)'Z', 0,        // Initialize Pipett
@@ -1814,14 +2461,14 @@ namespace CytoDx
         }
 
         // param1 = "Speed", param2 = "Z Pos", param3 = "Gripper Pos", param4 = "Ham Pos" ,
-        // param5 = "None=0/Z MoveUp=1", param6 = "", param7 = ""
-        public bool MoveZAxes(string Spd, string TrgZ, string TrgGrip, string TrgHam)
+        // param5 = "No=0/MoveUp=1/TipInsert=2/cLLD=3", param6 = "No=0/10ul=1/300ul=2/1ml=3", param7 = "cLLD Max Pos"
+        public bool MoveZAxes(string Spd, string TrgZ, string TrgGrip, string TrgHam, string Opt, string Tip, string MaxPos)
         {
             double TrgposZ = double.Parse(TrgZ);
             double TrgposGripper = double.Parse(TrgGrip);
             double TrgposPipett = double.Parse(TrgHam);
 
-            double scaleZ = 1.0f;
+            double scaleZ = 3.3f;   //1.0   //1.8
             double scaleGripper = 5.5f;
             double scalePipett = 5.5f;
 
@@ -1843,6 +2490,7 @@ namespace CytoDx
             {
                 DisplayStatusMessage("Teaching Point Z Move Done", TEST.PASS);
             }
+            Thread.Sleep(10);
 
             // Gripper Move
             if (MoveStepMotor(STEP_CMD.MOVE, MOTOR.GRIP, Convert.ToInt32(spdGripper), TrgposGripper,
@@ -1855,6 +2503,7 @@ namespace CytoDx
             {
                 DisplayStatusMessage("Teaching Point Gripper Move Done", TEST.PASS);
             }
+            Thread.Sleep(10);
 
             // Pipett Move
             if (MoveStepMotor(STEP_CMD.MOVE, MOTOR.HAM, Convert.ToInt32(spdPipett), TrgposPipett,
@@ -1866,6 +2515,33 @@ namespace CytoDx
             else
             {
                 DisplayStatusMessage("Teaching Point Pipett Move Done", TEST.PASS);
+            }
+            Thread.Sleep(10);
+
+            if (int.Parse(Opt) == 2 && (int.Parse(Tip) >= 1 && int.Parse(Tip) <= 3))
+            {
+                int tiptype = -1;
+                if (int.Parse(Tip) == 1)
+                {
+                    tiptype = 0;
+                    label_TipType.Text = "10 uL";
+                }
+                else if (int.Parse(Tip) == 2)
+                {
+                    tiptype = 4;
+                    label_TipType.Text = "300 uL";
+                }
+                else if (int.Parse(Tip) == 3)
+                {
+                    tiptype = 6;
+                    label_TipType.Text = "1000 uL";
+                }
+
+                RunPer2_HamiltonPipett("TP", 0, 0, 0, 0, (TIP_TYPE)tiptype); // Tip Insert
+            }
+            else if (int.Parse(Opt) == 3)
+            {
+                FindLiquidSurface("1", "1", "1", "3", editcLLD_Speed.Text, MaxPos);
             }
 
             return true;
@@ -1886,11 +2562,11 @@ namespace CytoDx
 
             // 각 축의 scale value를 적절한 속도 비율로 조절해야 함.
             // XY의 경우는 직선 운동이 되도록 검증 및 튜닝 필요 - calibration
-            double scaleX = Math.Cos(AngVect * Math.PI / 180) * 1.0f;
-            double scaleY = Math.Sin(AngVect * Math.PI / 180) * 1.0f;
-            double scaleZ = 1.0f;
-            double scaleGripper = 5.5f;
-            double scalePipett = 5.5f;
+            double scaleX = Math.Cos(AngVect * Math.PI / 180) * 5.0f;
+            double scaleY = Math.Sin(AngVect * Math.PI / 180) * 5.0f;
+            double scaleZ = 2.0f;
+            double scaleGripper = 3.5f;
+            double scalePipett = 3.5f;
 
             double spdX = scaleX * Convert.ToDouble(Spd);
             double spdY = scaleY * Convert.ToDouble(Spd);
@@ -1941,6 +2617,8 @@ namespace CytoDx
                 DisplayStatusMessage("Teaching Point Z Move Done", TEST.PASS);
             }
 
+            Thread.Sleep(100);
+
             // Gripper Move
             if (MoveStepMotor(STEP_CMD.MOVE, MOTOR.GRIP, Convert.ToInt32(spdGripper), TrgposGripper,
                 config.StepAxisGripper_Acc, config.StepAxisGripper_Dec, POS_OPT.ABS, HOLD_STATE.NONE) != COM_Status.ACK)
@@ -1952,6 +2630,8 @@ namespace CytoDx
             {
                 DisplayStatusMessage("Teaching Point Gripper Move Done", TEST.PASS);
             }
+
+            Thread.Sleep(20);
 
             // Pipett Move
             if (MoveStepMotor(STEP_CMD.MOVE, MOTOR.HAM, Convert.ToInt32(spdPipett), TrgposPipett,
@@ -2881,7 +3561,6 @@ namespace CytoDx
         // Row Header에 Number를 자동입력
         private void DataGridView_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-
             var grid = sender as DataGridView;
             var rowIdx = (e.RowIndex + 1).ToString();
 
@@ -2891,10 +3570,9 @@ namespace CytoDx
                 Alignment = StringAlignment.Center,
                 LineAlignment = StringAlignment.Center
             };
-
+            
             var headerBounds = new Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height);
             e.Graphics.DrawString(rowIdx, this.Font, SystemBrushes.ControlText, headerBounds, centerFormat);
-
         }
 
         private void DV_CTC_Vertical_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -3063,7 +3741,8 @@ namespace CytoDx
                     m_current_running_row = -1;
                     DV_Recipe.Rows[idx].Selected = true;
                 }
-                DV_Recipe.Refresh();
+                //DV_Recipe.Refresh();  // 속도 개선을 위해 주석 처리함. 기능 이상 여부 확인 필요
+                DV_Recipe.Update();
             }
             catch (Exception ex)
             {
@@ -3110,7 +3789,6 @@ namespace CytoDx
 
         private void btnRecipeTest_Click(object sender, EventArgs e)
         {
-            //if ((isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF) && config.bDebugMode == false)
             if (isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF)
                 return;
             RunFullProcess();
@@ -3118,7 +3796,6 @@ namespace CytoDx
 
         public async void RunRecipeTable()
         {
-            //if ((isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF) && config.bDebugMode == false)
             if (isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF)
                 return;
 
@@ -3133,7 +3810,7 @@ namespace CytoDx
             if (bSerialTimerState == false)
                 btnTimer_Click(this, null);
 
-            EnableControls(false);
+            //EnableControls(false);
             EnableElapsedTimeLables(true);
             isRunning = true;
             DeleteOldFiles();
@@ -3142,7 +3819,7 @@ namespace CytoDx
             await taskTurnTable;
             //TestRun();
 
-            EnableControls(true);
+            //EnableControls(true);
             UpdateDiskInformation();
             if (bStatusOk)
                 DisplayStatusMessage("Test Finished", TEST.PASS);
@@ -3155,7 +3832,6 @@ namespace CytoDx
 
         public async void RunSelectedRecipeTable(int SelectedRowIdx)
         {
-            //if ((isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF) && config.bDebugMode == false)
             if (isRunning || Serial.IsOpen == false || SensorStatus.RunSwitch == Status.OFF)
                 return;
 
@@ -3170,7 +3846,7 @@ namespace CytoDx
             if (bSerialTimerState == false)
                 btnTimer_Click(this, null);
 
-            EnableControls(false);
+            //EnableControls(false);
             EnableElapsedTimeLables(true);
             isRunning = true;
             DeleteOldFiles();
@@ -3179,7 +3855,7 @@ namespace CytoDx
             await taskTurnTable;
             //TestRun();
 
-            EnableControls(true);
+            //EnableControls(true);
             UpdateDiskInformation();
             if (bStatusOk)
                 DisplayStatusMessage("Test Finished", TEST.PASS);
@@ -3221,6 +3897,207 @@ namespace CytoDx
             checkedListBox_DGM_Weight.SetItemChecked(1, false);
         }
 
+        private void CheckMotionDone()
+        {
+            double[] in_position = new double[6];
+            in_position[0] = dbStepMovingSpd[0] * 0.0005;    //0.001
+            in_position[1] = dbStepMovingSpd[1] * 0.0005;
+            in_position[2] = dbStepMovingSpd[2] * 0.0005;
+            in_position[3] = dbStepMovingSpd[3] * 0.0005;
+            in_position[4] = dbStepMovingSpd[4] * 0.0005;
+            in_position[5] = dbStepMovingSpd[5] * 0.0005;
+
+            if (in_position[0] <= 1.0) in_position[0] = 1.0;
+            if (in_position[1] <= 1.0) in_position[1] = 1.0;
+            if (in_position[2] <= 1.0) in_position[2] = 1.0;
+            if (in_position[3] <= 1.0) in_position[3] = 1.0;
+            if (in_position[4] <= 1.0) in_position[4] = 1.0;
+            if (in_position[5] <= 1.0) in_position[5] = 1.0;
+
+            diffPosX = Math.Abs(CurrentPos.Step0AxisX - dbCurPosX_old);
+            diffPosY = Math.Abs(CurrentPos.Step1AxisY - dbCurPosY_old);
+            diffPosZ = Math.Abs(CurrentPos.Step2AxisZ - dbCurPosZ_old);
+
+            diffPosHam = Math.Abs(CurrentPos.StepHamAxis - dbCurPosHam_old);
+            diffPosGrip = Math.Abs(CurrentPos.StepGripAxis - dbCurPosGrip_old);
+            diffPosCover = Math.Abs(CurrentPos.StepRotCover - dbCurPosCover_old);
+
+            // recipe run 상태일 때
+            //if ((isRunning == true || isRunningSingle == true || isRunningManual == true) && bStepRunState == true)
+            if (bStepRunState == true)
+            {
+                if (MovOpt[0] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[0] == true && ((diffPosX >= 0 && diffPosX < in_position[0]) && diffPosX_old > 0))
+                    if (bAxisMovingFlag[0] == true && (Math.Abs(dbStepTrgPos[0] - CurrentPos.Step0AxisX) <= in_position[0]))
+                    {
+                        bAxisMovingFlag[0] = false;
+                    }
+                }
+                else if (MovOpt[0] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[0] == true && (Step0AxState.bMOVE == false && bStep0Move_old == true))
+                    {
+                        bAxisMovingFlag[0] = false;
+                    }
+                    else if (bAxisMovingFlag[0] == true && (Step0AxState.bMOVE == false && bStep0Move_old == false))
+                    {
+                        bAxisMovingFlag[0] = false;
+                    }
+                }
+
+                if (MovOpt[1] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[1] == true && ((diffPosY >= 0 && diffPosY < in_position[1]) && diffPosY_old > 0))
+                    if (bAxisMovingFlag[1] == true && (Math.Abs(dbStepTrgPos[1] - CurrentPos.Step1AxisY) <= in_position[1]))
+                    {
+                        bAxisMovingFlag[1] = false;
+                    }
+                }
+                else if (MovOpt[1] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[1] == true && (Step1AxState.bMOVE == false && bStep1Move_old == true))
+                    {
+                        bAxisMovingFlag[1] = false;
+                    }
+                    else if (bAxisMovingFlag[1] == true && (Step1AxState.bMOVE == false && bStep1Move_old == false))
+                    {
+                        bAxisMovingFlag[1] = false;
+                    }
+                }
+
+                if (MovOpt[2] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[2] == true && ((diffPosZ >= 0 && diffPosZ < in_position[2]) && diffPosZ_old > 0))
+                    if (bAxisMovingFlag[2] == true && (Math.Abs(dbStepTrgPos[2] - CurrentPos.Step2AxisZ) <= in_position[2]))
+                    {
+                        bAxisMovingFlag[2] = false;
+                    }
+                }
+                else if (MovOpt[2] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[2] == true && (Step2AxState.bMOVE == false && bStep2Move_old == true))
+                    {
+                        bAxisMovingFlag[2] = false;
+                    }
+                    else if (bAxisMovingFlag[2] == true && (Step2AxState.bMOVE == false && bStep2Move_old == false))
+                    {
+                        bAxisMovingFlag[2] = false;
+                    }
+                }
+
+                if (MovOpt[3] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[3] == true && ((diffPosGrip >= 0 && diffPosGrip < in_position[3]) && diffPosGrip_old > 0))
+                    if (bAxisMovingFlag[3] == true && (Math.Abs(dbStepTrgPos[3] - CurrentPos.StepGripAxis) <= in_position[3]))
+                    {
+                        bAxisMovingFlag[3] = false;
+                    }
+                }
+                else if (MovOpt[3] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[3] == true && (GripAxState.bMove == false && bStepGripMove_old == true))
+                    {
+                        bAxisMovingFlag[3] = false;
+                    }
+                    else if (bAxisMovingFlag[3] == true && (GripAxState.bMove == false && bStepGripMove_old == false))
+                    {
+                        bAxisMovingFlag[3] = false;
+                    }
+                }
+
+                if (MovOpt[4] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[4] == true && ((diffPosHam >= 0 && diffPosHam < in_position[4]) && diffPosHam_old > 0))
+                    if (bAxisMovingFlag[4] == true && (Math.Abs(dbStepTrgPos[4] - CurrentPos.StepHamAxis) <= in_position[4]))
+                    {
+                        bAxisMovingFlag[4] = false;
+                    }
+                }
+                else if (MovOpt[4] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[4] == true && (HamAxState.bMove == false && bStepHamMove_old == true))
+                    {
+                        bAxisMovingFlag[4] = false;
+                    }
+                    else if (bAxisMovingFlag[4] == true && (HamAxState.bMove == false && bStepHamMove_old == false))
+                    {
+                        bAxisMovingFlag[4] = false;
+                    }
+                }
+
+                if (MovOpt[5] == POS_OPT.ABS)
+                {
+                    //if (bAxisMovingFlag[5] == true && ((diffPosCover >= 0 && diffPosCover < in_position[5]) && diffPosCover_old > 0))
+                    if (bAxisMovingFlag[5] == true && (Math.Abs(dbStepTrgPos[5] - CurrentPos.StepRotCover) <= in_position[5]))
+                    {
+                        bAxisMovingFlag[5] = false;
+                    }
+                }
+                else if (MovOpt[5] == POS_OPT.REL)
+                {
+                    if (bAxisMovingFlag[5] == true && (CoverAxState.bMove == false && bStepCoverMove_old == true))
+                    {
+                        bAxisMovingFlag[5] = false;
+                    }
+                    else if (bAxisMovingFlag[5] == true && (CoverAxState.bMove == false && bStepCoverMove_old == false))
+                    {
+                        bAxisMovingFlag[5] = false;
+                    }
+                }
+
+                if (bAxisMovingFlag[0] == false && bAxisMovingFlag[1] == false && bAxisMovingFlag[2] == false &&
+                    bAxisMovingFlag[3] == false && bAxisMovingFlag[4] == false && bAxisMovingFlag[5] == false)
+                {
+                    dbMovingDist = 0;
+                    diffPosX = 0; diffPosX_old = 0;
+                    diffPosY = 0; diffPosY_old = 0;
+                    diffPosZ = 0; diffPosZ_old = 0;
+                    diffPosHam = 0; diffPosHam_old = 0;
+                    diffPosGrip = 0; diffPosGrip_old = 0;
+                    diffPosCover = 0; diffPosCover_old = 0;
+
+                    dbStepMovingSpd[0] = 0; dbStepMovingSpd[1] = 0;
+                    dbStepMovingSpd[2] = 0; dbStepMovingSpd[3] = 0;
+                    dbStepMovingSpd[4] = 0; dbStepMovingSpd[5] = 0;
+
+                    in_position[0] = 0; in_position[1] = 0;
+                    in_position[2] = 0; in_position[3] = 0;
+                    in_position[4] = 0; in_position[5] = 0;
+
+                    dbStepTrgPos[0] = 0; dbStepTrgPos[1] = 0;
+                    dbStepTrgPos[2] = 0; dbStepTrgPos[3] = 0;
+                    dbStepTrgPos[4] = 0; dbStepTrgPos[5] = 0;
+
+                    MovOpt[0] = POS_OPT.NONE;   MovOpt[1] = POS_OPT.NONE;
+                    MovOpt[2] = POS_OPT.NONE;   MovOpt[3] = POS_OPT.NONE;
+                    MovOpt[4] = POS_OPT.NONE;   MovOpt[5] = POS_OPT.NONE;
+
+                    bStep0Move_old = false; bStep1Move_old = false;
+                    bStep2Move_old = false; bStepGripMove_old = false;
+                    bStepHamMove_old = false; bStepCoverMove_old = false;
+
+                    iPrintf("[Recipe] Set Step Run Flag Low!");
+                    bStepRunState = false;
+
+                    return;
+                }
+            }
+
+            bStep0Move_old = Step0AxState.bMOVE; bStep1Move_old = Step1AxState.bMOVE;
+            bStep2Move_old = Step2AxState.bMOVE; bStepGripMove_old = GripAxState.bMove;
+            bStepHamMove_old = HamAxState.bMove; bStepCoverMove_old = CoverAxState.bMove;
+
+            dbCurPosX_old = CurrentPos.Step0AxisX; dbCurPosY_old = CurrentPos.Step1AxisY;
+            dbCurPosZ_old = CurrentPos.Step2AxisZ; diffPosX_old = diffPosX;
+            diffPosY_old = diffPosY; diffPosZ_old = diffPosZ;
+
+            dbCurPosHam_old = CurrentPos.StepHamAxis; dbCurPosGrip_old = CurrentPos.StepGripAxis;
+            dbCurPosCover_old = CurrentPos.StepRotCover;
+            diffPosHam_old = diffPosHam; diffPosGrip_old = diffPosGrip;
+            diffPosCover_old = diffPosCover;
+        }
+
         public bool WaitForStepMotionDone()
         {
             int cnt = 0;
@@ -3228,31 +4105,48 @@ namespace CytoDx
             do
             {
                 //if (cnt >= 15)
-                if (cnt >= 20)
+                if (cnt >= 100)
                 {
                     iPrintf("step wait count full!!");
                     break;
                 }
                 bMotionDoneWait = true;
 
-                GetStatus(waitReceive: true, bSilent: true);
-                Thread.Sleep(150);   //300  //50   //200
-                ReadMotorPosition(waitReceive: true, bSilent: true);
-                Thread.Sleep(150);
+                if (MovOpt[0] == POS_OPT.REL || MovOpt[1] == POS_OPT.REL || MovOpt[2] == POS_OPT.REL ||
+                    MovOpt[3] == POS_OPT.REL || MovOpt[4] == POS_OPT.REL || MovOpt[5] == POS_OPT.REL)
+                {
+                    GetStatus(waitReceive: true, bSilent: true);
+                    Thread.Sleep(50);   //300  //50   //200    //150
+                }
+                if (MovOpt[0] == POS_OPT.ABS || MovOpt[1] == POS_OPT.ABS || MovOpt[2] == POS_OPT.ABS ||
+                    MovOpt[3] == POS_OPT.ABS || MovOpt[4] == POS_OPT.ABS || MovOpt[5] == POS_OPT.ABS)
+                {
+                    ReadMotorPosition(waitReceive: true, bSilent: true);
+                    Thread.Sleep(50);   //80    //150
+                }
 
-                PosThreadMethod();
+                CheckMotionDone();
+                //PosThreadMethod();
                 //iPrintf(string.Format("Wait for Line Step Motion.. (cnt:{0}, flag:{1}, Gip:{2}/{3}, Ham:{4}/{5}, Cov:{6}/{7}, Z:{8}/{9})",
                 //                      cnt, bStepRunState, CurrentPos.StepGripAxis, GripAxState.bMove,
                 //                      CurrentPos.StepHamAxis, HamAxState.bMove, CurrentPos.StepRotCover, CoverAxState.bMove,
                 //                      CurrentPos.Step2AxisZ, Step2AxState.bMOVE));
                 cnt++;
 
+                if (bStepRunState == false)
+                {
+                    ReadMotorPosition(waitReceive: true, bSilent: true);
+                    Thread.Sleep(100);
+                    //iPrintf(string.Format("[4] Y: {0}", CurrentPos.Step1AxisY));    // for test
+                    break;
+                }
+
                 if (SensorStatus.Alarm)
                 {
                     if (isRunningSingle == true)
                         isRunningSingle = false;
                     DisplayStatusMessage("[Wait for Step Done] System Alarm !!!", TEST.FAIL);
-                    EnableControls(true);
+                    //EnableControls(true);
                     break;
                 }
 
@@ -3298,7 +4192,7 @@ namespace CytoDx
                 isRunningSingle = false;
                 DisplayStatusMessage("Not Run State! Run Fail!", TEST.FAIL);
                 iPrintf("Not Run State! Run Fail!");
-                EnableControls(true);
+                //EnableControls(true);
                 return false;
             }
 
@@ -3311,7 +4205,7 @@ namespace CytoDx
                 {
                     isRunningSingle = false;
                     DisplayStatusMessage("[Singline Recipe Run] System Alarm !!!", TEST.FAIL);
-                    EnableControls(true);
+                    //EnableControls(true);
                     return false;
                 }
             }
@@ -3347,7 +4241,7 @@ namespace CytoDx
                 {
                     isRunningSingle = false;
                     DisplayStatusMessage("[Singline Recipe Run] System Alarm !!!", TEST.FAIL);
-                    EnableControls(true);
+                    //EnableControls(true);
                     return false;
                 }
 
@@ -3363,7 +4257,7 @@ namespace CytoDx
                     btnTimer_Click(this, null);
 
                 btnClearImage_Click(this, null);
-                EnableControls(false);
+                //EnableControls(false);
                 EnableElapsedTimeLables(true);
                 Rpm.Current = 0;
             }
@@ -3398,7 +4292,7 @@ namespace CytoDx
             {
                 ReadPeltierTemp();
             }
-            Thread.Sleep(config.RecipeLineDelay);
+            //Thread.Sleep(config.RecipeLineDelay); //실제로 스텝간 sleep을 사용하지 않으므로 삭제
 
             m_current_running_row = -1;
             UpdateRowColor(idx, false);
@@ -3412,7 +4306,7 @@ namespace CytoDx
                         btnTimer_Click(this, null);
                 }
 
-                EnableControls(true);
+                //EnableControls(true);
                 isRunningSingle = false;
             }
 
@@ -3438,7 +4332,7 @@ namespace CytoDx
                 btnTimer_Click(this, null);
 
             timer_music.Enabled = false;
-            EnableControls(false);
+            //EnableControls(false);
             EnableElapsedTimeLables(true);
             DeleteOldFiles();
             btnMusicForward_Click(this, null);
@@ -3448,7 +4342,7 @@ namespace CytoDx
             //RunButtons();
 
             //TestRun();
-            EnableControls(true);
+            //EnableControls(true);
             StopMusic();
             UpdateDiskInformation();
 
@@ -3498,7 +4392,7 @@ namespace CytoDx
                         if (isRunningSingle == true)
                             isRunningSingle = false;
                         DisplayStatusMessage("[Wait for Servo Run] System Alarm !!!", TEST.FAIL);
-                        EnableControls(true);
+                        //EnableControls(true);
                         break;
                     }
 
@@ -3506,9 +4400,9 @@ namespace CytoDx
                     {
                         if (isRunningSingle == true)
                             isRunningSingle = false;
-                        if(Serial.IsOpen == false)
+                        if (Serial.IsOpen == false)
                             DisplayStatusMessage("Serial Not Opened !!!", TEST.FAIL);
-                        if(bStopFlag == true)
+                        if (bStopFlag == true)
                             DisplayStatusMessage("Recipe Stopped !!!", TEST.FAIL);
                         break;
                     }
@@ -3956,42 +4850,65 @@ namespace CytoDx
 
         private void btnRecipeStop_Click(object sender, EventArgs e)
         {
-            //if (btnTimer.Text == "Stop Timer")
-            if(bSerialTimerState == true)
+            if (bSerialTimerState == true)
                 btnTimer_Click(this, null);
 
-            //BuildCmdPacket(bCommandSendBuffer, "ESCAPE", "", "");
-            //SerialByteSend(bCommandSendBuffer, nSendBufferLength);      // Send Cmd to Serial Port
+            // 각 축별 구동 상태를 확인 후 구동 축인 축만 정지하기 위한 코드 - 불확실성으로 인해 전체 축 정지로 변경
+            //GetStatus(true);
+
+            //if (GripAxState.bMove == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.GRIP, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            //if (HamAxState.bMove == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.HAM, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            //if (CoverAxState.bMove == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.COVER, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            //if (Step0AxState.bMOVE == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP0, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            //if (Step1AxState.bMOVE == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP1, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            //if (Step2AxState.bMOVE == true)
+            //    MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP0, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(10);
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP1, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(10);
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(10);
+
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.GRIP, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(10);
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.HAM, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(10);
+            MoveStepMotor(STEP_CMD.STOP, MOTOR.COVER, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            Thread.Sleep(20);
 
             GetStatus(true);
+            Thread.Sleep(100);
+            SwitchControl(SwitchState.STATUS, Status.NONE);
 
-            if (GripAxState.bMove == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.GRIP, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-            if (HamAxState.bMove == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.HAM, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-            if (CoverAxState.bMove == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.COVER, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-            if (Step0AxState.bMOVE == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP0, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-            if (Step1AxState.bMOVE == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP1, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
-            if (Step2AxState.bMOVE == true)
-                MoveStepMotor(STEP_CMD.STOP, MOTOR.STEP2, 0, 0, 0, 0, POS_OPT.NONE, HOLD_STATE.NONE);
+            SerCmd_Spin(CMD.STOP, 0);
+
+            Thread.Sleep(500);
+            ServoMonitor(MotorMon.RPM);
+            ReadMotorPosition(true, bSilent: true);
+            Thread.Sleep(100);
 
             SystemCmd("ESCAPE", "", "");
+            Thread.Sleep(50);
 
             EnableControls(true);
             bStopFlag = true;
             bSerialStop = true;
             isForcedStop = true;
             bLLD_Stop_Flag = true;
+            Run_Hamilton_cLLD((byte)'P', 0);
             StopMusic();
         }
 
 
         private void btnErrorReset_Click(object sender, EventArgs e)
         {
-            //GetStatus(true);
             SwitchControl(SwitchState.STATUS, Status.NONE);
             if (SensorStatus.Alarm)
             {
@@ -4002,6 +4919,11 @@ namespace CytoDx
             if(SensorStatus.Alarm == false)
             {
                 DisplayStatusMessage("Error Reset Done !!!", TEST.PASS);
+                EnableControls(true);
+                bStopFlag = false;
+                bSerialStop = false;
+                isForcedStop = false;
+                bLLD_Stop_Flag = false;
             }
             else
             {
@@ -4103,7 +5025,7 @@ namespace CytoDx
                 if (SetRecipeDialog(strCmd, row) == false)
                     return;
                 patternInput.StartPosition = FormStartPosition.Manual;
-                patternInput.Location = new System.Drawing.Point(this.Left + (this.Width / 2), this.Top + (this.Height / 2));
+                patternInput.Location = new System.Drawing.Point(this.Left + (this.Width / 5), this.Top + (this.Height / 4));
                 if (patternInput.ShowDialog() == DialogResult.OK)
                 {
                     GetRecipeDialog(row);
@@ -4140,7 +5062,6 @@ namespace CytoDx
 
             if((string) DV_Recipe.Rows[row].Cells[(int)Recipe_COL.Command1].Value == PROCESS_CMD.SEL_TOOL.ToString())
             {
-                //DV_Recipe.Rows[row].Cells[(int)Recipe_COL.Command2].Value = patternInput.combo_cmd4.Text;
                 DV_Recipe.Rows[row].Cells[(int)Recipe_COL.Command2].Value =
                                        patternInput.combo_cmd2.Text + "/" + patternInput.combo_cmd4.Text;
             }
@@ -4191,6 +5112,30 @@ namespace CytoDx
             }
         }
 
+        CommandParam g_copyParam = new CommandParam();
+
+        private void btnRecipeCopy_Click(object sender, EventArgs e)
+        {
+            int idx = DV_Recipe.SelectedRows[0].Index;
+            g_copyParam = GetRowParam(idx);
+
+            iPrintf(String.Format("Copied [{0}] {1} / {2} / {3}/ {4} / {5} / {6} / {7} / {8} / {9} / {10} / {11}/ {12}",
+                idx, g_copyParam.strCmd1, g_copyParam.strCmd2, g_copyParam.enable,
+                g_copyParam.param1, g_copyParam.param2, g_copyParam.param3, g_copyParam.param4, g_copyParam.param5,
+                g_copyParam.param6, g_copyParam.param7, g_copyParam.sleep, g_copyParam.comment));
+        }
+
+        private void btnRecipePaste_Click(object sender, EventArgs e)
+        {
+            int idx = DV_Recipe.SelectedRows[0].Index;
+            SetRowParam(idx, g_copyParam);
+
+            iPrintf(String.Format("Pasted [{0}] {1} / {2} / {3}/ {4} / {5} / {6} / {7} / {8} / {9} / {10} / {11}/ {12}",
+                idx, g_copyParam.strCmd1, g_copyParam.strCmd2, g_copyParam.enable,
+                g_copyParam.param1, g_copyParam.param2, g_copyParam.param3, g_copyParam.param4, g_copyParam.param5,
+                g_copyParam.param6, g_copyParam.param7, g_copyParam.sleep, g_copyParam.comment));
+        }
+
         private void btnRecipeDown_Click(object sender, EventArgs e)
         {
             try
@@ -4238,6 +5183,7 @@ namespace CytoDx
                 int index = GetSelectedButtonIndex();
                 GetRecipeFromListView(index);
                 config.ReadWriteRecipe(RW.WRITE, ListButtonRecipe[index].button.AccessibleName, ref ListButtonRecipe[index].recipe);
+                iPrintf("recipe cmd save done!!");
             }
             catch (Exception ex)
             {
@@ -4340,7 +5286,6 @@ namespace CytoDx
                     btn.BackColor = materialSkinManager.ColorScheme.PrimaryColor;
                 }
                 DefineButtons[index].BackColor = ButtonSelectColor;
-                Application.DoEvents();
                 RefreshRecipeDataView(index);
                 return true;
             }

@@ -488,8 +488,8 @@ namespace CytoDx
                     editParam3.Text = param.param3;
                     editParam4.Text = param.param4;
                     editParam5.Text = param.param5;
-                    editParam6.Text = param.param6 = "";
-                    editParam7.Text = param.param7 = "";
+                    editParam6.Text = param.param6;
+                    editParam7.Text = param.param7;
                     break;
                 case MainWindow.PROCESS_CMD.MOV_T_PNT:
                     combo_cmd2.DataSource = GetPosNames(cmd).ToString().Split(new[] { Environment.NewLine },

@@ -171,6 +171,8 @@ namespace CytoDx
             this.btnRecipeSave = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnRecipeSelectedRun = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialRaisedButton13 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnRecipeCopy = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnRecipePaste = new MaterialSkin.Controls.MaterialRaisedButton();
             this.label_add_volume = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tableLayout_button = new System.Windows.Forms.TableLayoutPanel();
@@ -381,6 +383,7 @@ namespace CytoDx
             this.label25 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.editZMoveSpdScale = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.materialRaisedButton17 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.tableLayoutPanel42 = new System.Windows.Forms.TableLayoutPanel();
             this.btnHamADC_toggle = new System.Windows.Forms.RadioButton();
             this.btnHamZmove_toggle = new System.Windows.Forms.RadioButton();
@@ -1021,6 +1024,10 @@ namespace CytoDx
             this.btnVolume = new MaterialSkin.Controls.MaterialFlatButton();
             this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel82 = new System.Windows.Forms.TableLayoutPanel();
+            this.btn_ErrorReset = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialRaisedButton15 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.materialRaisedButton16 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox37 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel81 = new System.Windows.Forms.TableLayoutPanel();
@@ -1061,10 +1068,9 @@ namespace CytoDx
             this.materialLabel60 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel61 = new MaterialSkin.Controls.MaterialLabel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel82 = new System.Windows.Forms.TableLayoutPanel();
-            this.btn_ErrorReset = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialRaisedButton15 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialRaisedButton16 = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.tableLayoutPanel83 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnInitializeAll = new System.Windows.Forms.RadioButton();
+            this.btnInitializeCover = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.TrackBar_Video = new System.Windows.Forms.TrackBar();
@@ -1089,7 +1095,6 @@ namespace CytoDx
             this.btnRecipeStop = new System.Windows.Forms.Label();
             this.labelPanelRunState = new System.Windows.Forms.Label();
             this.btnRecipeTest = new System.Windows.Forms.Label();
-            this.btnInitializeAll = new System.Windows.Forms.RadioButton();
             this.btnDoorActive = new System.Windows.Forms.RadioButton();
             this.label_rpm_title = new MaterialSkin.Controls.MaterialLabel();
             this.label_rpm = new MaterialSkin.Controls.MaterialLabel();
@@ -1257,6 +1262,7 @@ namespace CytoDx
             this.panel1.SuspendLayout();
             this.tableLayoutMain.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel82.SuspendLayout();
             this.panel4.SuspendLayout();
             this.groupBox37.SuspendLayout();
             this.tableLayoutPanel81.SuspendLayout();
@@ -1265,7 +1271,7 @@ namespace CytoDx
             this.groupBox36.SuspendLayout();
             this.tableLayoutPanel80.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.tableLayoutPanel82.SuspendLayout();
+            this.tableLayoutPanel83.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Video)).BeginInit();
@@ -1923,6 +1929,7 @@ namespace CytoDx
             this.DV_Recipe.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DV_Recipe_CellDoubleClick);
             this.DV_Recipe.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_Recipe_CellMouseClick);
             this.DV_Recipe.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_Recipe_RowHeaderMouseDoubleClick);
+            this.DV_Recipe.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
             // 
             // Column1
             // 
@@ -2140,8 +2147,8 @@ namespace CytoDx
             this.tableLayoutPanel4.SetRowSpan(this.tableLayoutPanel10, 3);
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 202F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 298F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 322F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 22F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 109F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
@@ -2286,10 +2293,10 @@ namespace CytoDx
             this.groupBox6.Controls.Add(this.tableLayoutPanel14);
             this.groupBox6.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F);
             this.groupBox6.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox6.Location = new System.Drawing.Point(3, 275);
+            this.groupBox6.Location = new System.Drawing.Point(3, 251);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(7, 3, 7, 3);
-            this.groupBox6.Size = new System.Drawing.Size(158, 286);
+            this.groupBox6.Size = new System.Drawing.Size(158, 316);
             this.groupBox6.TabIndex = 1;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Command";
@@ -2301,25 +2308,29 @@ namespace CytoDx
             this.tableLayoutPanel14.Controls.Add(this.btnRecipeInsert, 0, 1);
             this.tableLayoutPanel14.Controls.Add(this.btnRecipeRemove, 0, 2);
             this.tableLayoutPanel14.Controls.Add(this.btnRecipeEdit, 0, 0);
-            this.tableLayoutPanel14.Controls.Add(this.btnRecipeUp, 0, 3);
-            this.tableLayoutPanel14.Controls.Add(this.btnRecipeDown, 0, 4);
-            this.tableLayoutPanel14.Controls.Add(this.btnRecipeSave, 0, 5);
-            this.tableLayoutPanel14.Controls.Add(this.btnRecipeSelectedRun, 0, 7);
-            this.tableLayoutPanel14.Controls.Add(this.materialRaisedButton13, 0, 6);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipeUp, 0, 5);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipeDown, 0, 6);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipeSave, 0, 7);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipeSelectedRun, 0, 9);
+            this.tableLayoutPanel14.Controls.Add(this.materialRaisedButton13, 0, 8);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipeCopy, 0, 3);
+            this.tableLayoutPanel14.Controls.Add(this.btnRecipePaste, 0, 4);
             this.tableLayoutPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel14.Location = new System.Drawing.Point(7, 22);
             this.tableLayoutPanel14.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
-            this.tableLayoutPanel14.RowCount = 8;
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(144, 261);
+            this.tableLayoutPanel14.RowCount = 10;
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(144, 291);
             this.tableLayoutPanel14.TabIndex = 0;
             // 
             // btnRecipeInsert
@@ -2328,12 +2339,12 @@ namespace CytoDx
             this.btnRecipeInsert.Depth = 0;
             this.btnRecipeInsert.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRecipeInsert.Icon = null;
-            this.btnRecipeInsert.Location = new System.Drawing.Point(6, 38);
+            this.btnRecipeInsert.Location = new System.Drawing.Point(6, 35);
             this.btnRecipeInsert.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeInsert.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeInsert.Name = "btnRecipeInsert";
             this.btnRecipeInsert.Primary = true;
-            this.btnRecipeInsert.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeInsert.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeInsert.TabIndex = 3;
             this.btnRecipeInsert.Text = "Insert";
             this.btnRecipeInsert.UseVisualStyleBackColor = true;
@@ -2344,12 +2355,12 @@ namespace CytoDx
             this.btnRecipeRemove.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnRecipeRemove.Depth = 0;
             this.btnRecipeRemove.Icon = null;
-            this.btnRecipeRemove.Location = new System.Drawing.Point(6, 70);
+            this.btnRecipeRemove.Location = new System.Drawing.Point(6, 64);
             this.btnRecipeRemove.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeRemove.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeRemove.Name = "btnRecipeRemove";
             this.btnRecipeRemove.Primary = true;
-            this.btnRecipeRemove.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeRemove.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeRemove.TabIndex = 4;
             this.btnRecipeRemove.Text = "Remove";
             this.btnRecipeRemove.UseVisualStyleBackColor = true;
@@ -2366,7 +2377,7 @@ namespace CytoDx
             this.btnRecipeEdit.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeEdit.Name = "btnRecipeEdit";
             this.btnRecipeEdit.Primary = true;
-            this.btnRecipeEdit.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeEdit.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeEdit.TabIndex = 3;
             this.btnRecipeEdit.Text = "Edit";
             this.btnRecipeEdit.UseVisualStyleBackColor = true;
@@ -2378,12 +2389,12 @@ namespace CytoDx
             this.btnRecipeUp.Depth = 0;
             this.btnRecipeUp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRecipeUp.Icon = null;
-            this.btnRecipeUp.Location = new System.Drawing.Point(6, 102);
+            this.btnRecipeUp.Location = new System.Drawing.Point(6, 151);
             this.btnRecipeUp.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeUp.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeUp.Name = "btnRecipeUp";
             this.btnRecipeUp.Primary = true;
-            this.btnRecipeUp.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeUp.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeUp.TabIndex = 4;
             this.btnRecipeUp.Text = "UP";
             this.btnRecipeUp.UseVisualStyleBackColor = true;
@@ -2395,12 +2406,12 @@ namespace CytoDx
             this.btnRecipeDown.Depth = 0;
             this.btnRecipeDown.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRecipeDown.Icon = null;
-            this.btnRecipeDown.Location = new System.Drawing.Point(6, 134);
+            this.btnRecipeDown.Location = new System.Drawing.Point(6, 180);
             this.btnRecipeDown.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeDown.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeDown.Name = "btnRecipeDown";
             this.btnRecipeDown.Primary = true;
-            this.btnRecipeDown.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeDown.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeDown.TabIndex = 4;
             this.btnRecipeDown.Text = "DOWN";
             this.btnRecipeDown.UseVisualStyleBackColor = true;
@@ -2412,12 +2423,12 @@ namespace CytoDx
             this.btnRecipeSave.Depth = 0;
             this.btnRecipeSave.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRecipeSave.Icon = null;
-            this.btnRecipeSave.Location = new System.Drawing.Point(6, 166);
+            this.btnRecipeSave.Location = new System.Drawing.Point(6, 209);
             this.btnRecipeSave.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeSave.Name = "btnRecipeSave";
             this.btnRecipeSave.Primary = true;
-            this.btnRecipeSave.Size = new System.Drawing.Size(132, 20);
+            this.btnRecipeSave.Size = new System.Drawing.Size(132, 17);
             this.btnRecipeSave.TabIndex = 4;
             this.btnRecipeSave.Text = "Save";
             this.btnRecipeSave.UseVisualStyleBackColor = true;
@@ -2429,12 +2440,12 @@ namespace CytoDx
             this.btnRecipeSelectedRun.Depth = 0;
             this.btnRecipeSelectedRun.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRecipeSelectedRun.Icon = null;
-            this.btnRecipeSelectedRun.Location = new System.Drawing.Point(6, 230);
+            this.btnRecipeSelectedRun.Location = new System.Drawing.Point(6, 267);
             this.btnRecipeSelectedRun.Margin = new System.Windows.Forms.Padding(6);
             this.btnRecipeSelectedRun.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRecipeSelectedRun.Name = "btnRecipeSelectedRun";
             this.btnRecipeSelectedRun.Primary = true;
-            this.btnRecipeSelectedRun.Size = new System.Drawing.Size(132, 25);
+            this.btnRecipeSelectedRun.Size = new System.Drawing.Size(132, 18);
             this.btnRecipeSelectedRun.TabIndex = 12;
             this.btnRecipeSelectedRun.Text = "Select/Cont. Run";
             this.btnRecipeSelectedRun.UseVisualStyleBackColor = true;
@@ -2446,16 +2457,48 @@ namespace CytoDx
             this.materialRaisedButton13.Depth = 0;
             this.materialRaisedButton13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialRaisedButton13.Icon = null;
-            this.materialRaisedButton13.Location = new System.Drawing.Point(6, 198);
+            this.materialRaisedButton13.Location = new System.Drawing.Point(6, 238);
             this.materialRaisedButton13.Margin = new System.Windows.Forms.Padding(6);
             this.materialRaisedButton13.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton13.Name = "materialRaisedButton13";
             this.materialRaisedButton13.Primary = true;
-            this.materialRaisedButton13.Size = new System.Drawing.Size(132, 20);
+            this.materialRaisedButton13.Size = new System.Drawing.Size(132, 17);
             this.materialRaisedButton13.TabIndex = 4;
             this.materialRaisedButton13.Text = "Step Run";
             this.materialRaisedButton13.UseVisualStyleBackColor = true;
             this.materialRaisedButton13.Click += new System.EventHandler(this.btnRecipeStepRun_Click);
+            // 
+            // btnRecipeCopy
+            // 
+            this.btnRecipeCopy.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRecipeCopy.Depth = 0;
+            this.btnRecipeCopy.Icon = null;
+            this.btnRecipeCopy.Location = new System.Drawing.Point(6, 93);
+            this.btnRecipeCopy.Margin = new System.Windows.Forms.Padding(6);
+            this.btnRecipeCopy.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnRecipeCopy.Name = "btnRecipeCopy";
+            this.btnRecipeCopy.Primary = true;
+            this.btnRecipeCopy.Size = new System.Drawing.Size(132, 17);
+            this.btnRecipeCopy.TabIndex = 4;
+            this.btnRecipeCopy.Text = "Copy";
+            this.btnRecipeCopy.UseVisualStyleBackColor = true;
+            this.btnRecipeCopy.Click += new System.EventHandler(this.btnRecipeCopy_Click);
+            // 
+            // btnRecipePaste
+            // 
+            this.btnRecipePaste.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRecipePaste.Depth = 0;
+            this.btnRecipePaste.Icon = null;
+            this.btnRecipePaste.Location = new System.Drawing.Point(6, 122);
+            this.btnRecipePaste.Margin = new System.Windows.Forms.Padding(6);
+            this.btnRecipePaste.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnRecipePaste.Name = "btnRecipePaste";
+            this.btnRecipePaste.Primary = true;
+            this.btnRecipePaste.Size = new System.Drawing.Size(132, 17);
+            this.btnRecipePaste.TabIndex = 4;
+            this.btnRecipePaste.Text = "Paste";
+            this.btnRecipePaste.UseVisualStyleBackColor = true;
+            this.btnRecipePaste.Click += new System.EventHandler(this.btnRecipePaste_Click);
             // 
             // label_add_volume
             // 
@@ -2577,7 +2620,7 @@ namespace CytoDx
             this.tableLayoutPanel23.ColumnCount = 3;
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.94215F));
             this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.05785F));
-            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 600F));
+            this.tableLayoutPanel23.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 614F));
             this.tableLayoutPanel23.Controls.Add(this.groupBox14, 2, 0);
             this.tableLayoutPanel23.Controls.Add(this.groupBox22, 2, 2);
             this.tableLayoutPanel23.Controls.Add(this.groupBox2, 0, 0);
@@ -2605,11 +2648,11 @@ namespace CytoDx
             this.groupBox14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox14.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F);
             this.groupBox14.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox14.Location = new System.Drawing.Point(468, 0);
+            this.groupBox14.Location = new System.Drawing.Point(454, 0);
             this.groupBox14.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Padding = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.groupBox14.Size = new System.Drawing.Size(601, 79);
+            this.groupBox14.Size = new System.Drawing.Size(615, 79);
             this.groupBox14.TabIndex = 33;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Teach Point Manage";
@@ -2758,10 +2801,10 @@ namespace CytoDx
             this.groupBox22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox22.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F);
             this.groupBox22.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox22.Location = new System.Drawing.Point(468, 648);
+            this.groupBox22.Location = new System.Drawing.Point(454, 648);
             this.groupBox22.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(601, 49);
+            this.groupBox22.Size = new System.Drawing.Size(615, 49);
             this.groupBox22.TabIndex = 65;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Hamilton Pipett State";
@@ -2775,7 +2818,7 @@ namespace CytoDx
             this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 21.13095F));
             this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
             this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 92F));
+            this.tableLayoutPanel34.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 106F));
             this.tableLayoutPanel34.Controls.Add(this.label_TipPresence, 0, 0);
             this.tableLayoutPanel34.Controls.Add(this.btncLLDState, 2, 0);
             this.tableLayoutPanel34.Controls.Add(this.btnTipPresence, 0, 0);
@@ -2788,7 +2831,7 @@ namespace CytoDx
             this.tableLayoutPanel34.Name = "tableLayoutPanel34";
             this.tableLayoutPanel34.RowCount = 1;
             this.tableLayoutPanel34.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel34.Size = new System.Drawing.Size(595, 24);
+            this.tableLayoutPanel34.Size = new System.Drawing.Size(609, 24);
             this.tableLayoutPanel34.TabIndex = 0;
             // 
             // label_TipPresence
@@ -2891,7 +2934,7 @@ namespace CytoDx
             this.btnStopcLLD.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStopcLLD.Name = "btnStopcLLD";
             this.btnStopcLLD.Primary = true;
-            this.btnStopcLLD.Size = new System.Drawing.Size(87, 18);
+            this.btnStopcLLD.Size = new System.Drawing.Size(101, 18);
             this.btnStopcLLD.TabIndex = 60;
             this.btnStopcLLD.Text = "Stop";
             this.btnStopcLLD.UseVisualStyleBackColor = true;
@@ -2909,7 +2952,7 @@ namespace CytoDx
             this.groupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox2.Name = "groupBox2";
             this.tableLayoutPanel23.SetRowSpan(this.groupBox2, 4);
-            this.groupBox2.Size = new System.Drawing.Size(468, 782);
+            this.groupBox2.Size = new System.Drawing.Size(454, 782);
             this.groupBox2.TabIndex = 21;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Axis Movement Control";
@@ -3049,7 +3092,7 @@ namespace CytoDx
             this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13F));
             this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel28.Size = new System.Drawing.Size(453, 750);
+            this.tableLayoutPanel28.Size = new System.Drawing.Size(439, 750);
             this.tableLayoutPanel28.TabIndex = 0;
             // 
             // btnStepAxisZStop
@@ -3064,7 +3107,7 @@ namespace CytoDx
             this.btnStepAxisZStop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepAxisZStop.Name = "btnStepAxisZStop";
             this.btnStepAxisZStop.Primary = true;
-            this.btnStepAxisZStop.Size = new System.Drawing.Size(43, 18);
+            this.btnStepAxisZStop.Size = new System.Drawing.Size(41, 18);
             this.btnStepAxisZStop.TabIndex = 84;
             this.btnStepAxisZStop.Text = "Stop";
             this.btnStepAxisZStop.UseVisualStyleBackColor = true;
@@ -3082,7 +3125,7 @@ namespace CytoDx
             this.btnStepAxisGripStop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepAxisGripStop.Name = "btnStepAxisGripStop";
             this.btnStepAxisGripStop.Primary = true;
-            this.btnStepAxisGripStop.Size = new System.Drawing.Size(43, 18);
+            this.btnStepAxisGripStop.Size = new System.Drawing.Size(41, 18);
             this.btnStepAxisGripStop.TabIndex = 83;
             this.btnStepAxisGripStop.Text = "Stop";
             this.btnStepAxisGripStop.UseVisualStyleBackColor = true;
@@ -3100,7 +3143,7 @@ namespace CytoDx
             this.btnStepAxisYStop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepAxisYStop.Name = "btnStepAxisYStop";
             this.btnStepAxisYStop.Primary = true;
-            this.btnStepAxisYStop.Size = new System.Drawing.Size(43, 18);
+            this.btnStepAxisYStop.Size = new System.Drawing.Size(41, 18);
             this.btnStepAxisYStop.TabIndex = 82;
             this.btnStepAxisYStop.Text = "Stop";
             this.btnStepAxisYStop.UseVisualStyleBackColor = true;
@@ -3118,7 +3161,7 @@ namespace CytoDx
             this.btnStepAxisXStop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepAxisXStop.Name = "btnStepAxisXStop";
             this.btnStepAxisXStop.Primary = true;
-            this.btnStepAxisXStop.Size = new System.Drawing.Size(43, 18);
+            this.btnStepAxisXStop.Size = new System.Drawing.Size(41, 18);
             this.btnStepAxisXStop.TabIndex = 81;
             this.btnStepAxisXStop.Text = "Stop";
             this.btnStepAxisXStop.UseVisualStyleBackColor = true;
@@ -3133,7 +3176,7 @@ namespace CytoDx
             this.label42.Location = new System.Drawing.Point(1, 606);
             this.label42.Margin = new System.Windows.Forms.Padding(1);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(43, 20);
+            this.label42.Size = new System.Drawing.Size(41, 20);
             this.label42.TabIndex = 70;
             this.label42.Text = "Pipett";
             this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3147,7 +3190,7 @@ namespace CytoDx
             this.label40.Location = new System.Drawing.Point(1, 466);
             this.label40.Margin = new System.Windows.Forms.Padding(1);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(43, 20);
+            this.label40.Size = new System.Drawing.Size(41, 20);
             this.label40.TabIndex = 69;
             this.label40.Text = "Grip";
             this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3161,7 +3204,7 @@ namespace CytoDx
             this.label39.Location = new System.Drawing.Point(1, 326);
             this.label39.Margin = new System.Windows.Forms.Padding(1);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(43, 20);
+            this.label39.Size = new System.Drawing.Size(41, 20);
             this.label39.TabIndex = 68;
             this.label39.Text = "Z";
             this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3175,7 +3218,7 @@ namespace CytoDx
             this.label38.Location = new System.Drawing.Point(1, 186);
             this.label38.Margin = new System.Windows.Forms.Padding(1);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(43, 20);
+            this.label38.Size = new System.Drawing.Size(41, 20);
             this.label38.TabIndex = 67;
             this.label38.Text = "Y";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3189,7 +3232,7 @@ namespace CytoDx
             this.label37.Location = new System.Drawing.Point(1, 46);
             this.label37.Margin = new System.Windows.Forms.Padding(1);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(43, 20);
+            this.label37.Size = new System.Drawing.Size(41, 20);
             this.label37.TabIndex = 66;
             this.label37.Text = "X";
             this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3205,7 +3248,7 @@ namespace CytoDx
             this.btnAxisEstop_toggel.Font = new System.Drawing.Font("Franklin Gothic Medium", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAxisEstop_toggel.Location = new System.Drawing.Point(3, 3);
             this.btnAxisEstop_toggel.Name = "btnAxisEstop_toggel";
-            this.btnAxisEstop_toggel.Size = new System.Drawing.Size(84, 39);
+            this.btnAxisEstop_toggel.Size = new System.Drawing.Size(80, 39);
             this.btnAxisEstop_toggel.TabIndex = 65;
             this.btnAxisEstop_toggel.TabStop = true;
             this.btnAxisEstop_toggel.Text = "All Stop";
@@ -3219,10 +3262,10 @@ namespace CytoDx
             this.label_StepHamAxisPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_StepHamAxisPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label_StepHamAxisPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_StepHamAxisPos.Location = new System.Drawing.Point(272, 605);
+            this.label_StepHamAxisPos.Location = new System.Drawing.Point(260, 605);
             this.label_StepHamAxisPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_StepHamAxisPos.Name = "label_StepHamAxisPos";
-            this.label_StepHamAxisPos.Size = new System.Drawing.Size(41, 22);
+            this.label_StepHamAxisPos.Size = new System.Drawing.Size(39, 22);
             this.label_StepHamAxisPos.TabIndex = 64;
             this.label_StepHamAxisPos.Text = "0.0";
             this.label_StepHamAxisPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3257,7 +3300,7 @@ namespace CytoDx
             this.DV_AxisPipett.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DV_AxisPipett.EnableHeadersVisualStyles = false;
             this.DV_AxisPipett.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.DV_AxisPipett.Location = new System.Drawing.Point(48, 630);
+            this.DV_AxisPipett.Location = new System.Drawing.Point(46, 630);
             this.DV_AxisPipett.MultiSelect = false;
             this.DV_AxisPipett.Name = "DV_AxisPipett";
             dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -3274,7 +3317,7 @@ namespace CytoDx
             this.DV_AxisPipett.RowTemplate.Height = 23;
             this.DV_AxisPipett.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_AxisPipett.ShowCellToolTips = false;
-            this.DV_AxisPipett.Size = new System.Drawing.Size(309, 117);
+            this.DV_AxisPipett.Size = new System.Drawing.Size(295, 117);
             this.DV_AxisPipett.TabIndex = 63;
             this.DV_AxisPipett.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_AxisPipett_RowHeaderMouseDoubleClick);
             this.DV_AxisPipett.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -3371,10 +3414,10 @@ namespace CytoDx
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label8.Location = new System.Drawing.Point(271, 1);
+            this.label8.Location = new System.Drawing.Point(259, 1);
             this.label8.Margin = new System.Windows.Forms.Padding(1);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(43, 43);
+            this.label8.Size = new System.Drawing.Size(41, 43);
             this.label8.TabIndex = 53;
             this.label8.Text = "CurPos\r\n(mm)";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3385,10 +3428,10 @@ namespace CytoDx
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label5.Location = new System.Drawing.Point(406, 1);
+            this.label5.Location = new System.Drawing.Point(388, 1);
             this.label5.Margin = new System.Windows.Forms.Padding(1);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(46, 43);
+            this.label5.Size = new System.Drawing.Size(50, 43);
             this.label5.TabIndex = 50;
             this.label5.Text = "JogUnit\r\n(mm)";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3399,10 +3442,10 @@ namespace CytoDx
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(226, 1);
+            this.label4.Location = new System.Drawing.Point(216, 1);
             this.label4.Margin = new System.Windows.Forms.Padding(1);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 43);
+            this.label4.Size = new System.Drawing.Size(41, 43);
             this.label4.TabIndex = 49;
             this.label4.Text = "TgtPos\r\n(mm)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3413,10 +3456,10 @@ namespace CytoDx
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(181, 1);
+            this.label3.Location = new System.Drawing.Point(173, 1);
             this.label3.Margin = new System.Windows.Forms.Padding(1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 43);
+            this.label3.Size = new System.Drawing.Size(41, 43);
             this.label3.TabIndex = 48;
             this.label3.Text = "Speed\r\n(mm/s)";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3428,11 +3471,11 @@ namespace CytoDx
             this.btnMoveStepGripper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMoveStepGripper.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnMoveStepGripper.Icon = null;
-            this.btnMoveStepGripper.Location = new System.Drawing.Point(138, 468);
+            this.btnMoveStepGripper.Location = new System.Drawing.Point(132, 468);
             this.btnMoveStepGripper.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnMoveStepGripper.Name = "btnMoveStepGripper";
             this.btnMoveStepGripper.Primary = true;
-            this.btnMoveStepGripper.Size = new System.Drawing.Size(39, 16);
+            this.btnMoveStepGripper.Size = new System.Drawing.Size(37, 16);
             this.btnMoveStepGripper.TabIndex = 11;
             this.btnMoveStepGripper.Text = "Move";
             this.btnMoveStepGripper.UseVisualStyleBackColor = true;
@@ -3445,11 +3488,11 @@ namespace CytoDx
             this.btnMoveStepAxisY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMoveStepAxisY.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnMoveStepAxisY.Icon = null;
-            this.btnMoveStepAxisY.Location = new System.Drawing.Point(138, 188);
+            this.btnMoveStepAxisY.Location = new System.Drawing.Point(132, 188);
             this.btnMoveStepAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnMoveStepAxisY.Name = "btnMoveStepAxisY";
             this.btnMoveStepAxisY.Primary = true;
-            this.btnMoveStepAxisY.Size = new System.Drawing.Size(39, 16);
+            this.btnMoveStepAxisY.Size = new System.Drawing.Size(37, 16);
             this.btnMoveStepAxisY.TabIndex = 25;
             this.btnMoveStepAxisY.Text = "Move";
             this.btnMoveStepAxisY.UseVisualStyleBackColor = true;
@@ -3461,7 +3504,7 @@ namespace CytoDx
             this.editStepAxisY_Speed.Depth = 0;
             this.editStepAxisY_Speed.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisY_Speed.Hint = "";
-            this.editStepAxisY_Speed.Location = new System.Drawing.Point(183, 188);
+            this.editStepAxisY_Speed.Location = new System.Drawing.Point(175, 188);
             this.editStepAxisY_Speed.MaxLength = 32767;
             this.editStepAxisY_Speed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisY_Speed.Name = "editStepAxisY_Speed";
@@ -3469,7 +3512,7 @@ namespace CytoDx
             this.editStepAxisY_Speed.SelectedText = "";
             this.editStepAxisY_Speed.SelectionLength = 0;
             this.editStepAxisY_Speed.SelectionStart = 0;
-            this.editStepAxisY_Speed.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisY_Speed.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisY_Speed.TabIndex = 24;
             this.editStepAxisY_Speed.TabStop = false;
             this.editStepAxisY_Speed.Text = "10";
@@ -3481,7 +3524,7 @@ namespace CytoDx
             this.editStepGripper_Speed.Depth = 0;
             this.editStepGripper_Speed.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepGripper_Speed.Hint = "";
-            this.editStepGripper_Speed.Location = new System.Drawing.Point(183, 468);
+            this.editStepGripper_Speed.Location = new System.Drawing.Point(175, 468);
             this.editStepGripper_Speed.MaxLength = 32767;
             this.editStepGripper_Speed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepGripper_Speed.Name = "editStepGripper_Speed";
@@ -3489,7 +3532,7 @@ namespace CytoDx
             this.editStepGripper_Speed.SelectedText = "";
             this.editStepGripper_Speed.SelectionLength = 0;
             this.editStepGripper_Speed.SelectionStart = 0;
-            this.editStepGripper_Speed.Size = new System.Drawing.Size(39, 22);
+            this.editStepGripper_Speed.Size = new System.Drawing.Size(37, 22);
             this.editStepGripper_Speed.TabIndex = 22;
             this.editStepGripper_Speed.TabStop = false;
             this.editStepGripper_Speed.Text = "10";
@@ -3501,7 +3544,7 @@ namespace CytoDx
             this.editStepGripper_Pos.Depth = 0;
             this.editStepGripper_Pos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepGripper_Pos.Hint = "";
-            this.editStepGripper_Pos.Location = new System.Drawing.Point(228, 468);
+            this.editStepGripper_Pos.Location = new System.Drawing.Point(218, 468);
             this.editStepGripper_Pos.MaxLength = 32767;
             this.editStepGripper_Pos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepGripper_Pos.Name = "editStepGripper_Pos";
@@ -3509,7 +3552,7 @@ namespace CytoDx
             this.editStepGripper_Pos.SelectedText = "";
             this.editStepGripper_Pos.SelectionLength = 0;
             this.editStepGripper_Pos.SelectionStart = 0;
-            this.editStepGripper_Pos.Size = new System.Drawing.Size(39, 22);
+            this.editStepGripper_Pos.Size = new System.Drawing.Size(37, 22);
             this.editStepGripper_Pos.TabIndex = 12;
             this.editStepGripper_Pos.TabStop = false;
             this.editStepGripper_Pos.Text = "10.0";
@@ -3521,7 +3564,7 @@ namespace CytoDx
             this.editStepAxisY_Pos.Depth = 0;
             this.editStepAxisY_Pos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisY_Pos.Hint = "";
-            this.editStepAxisY_Pos.Location = new System.Drawing.Point(228, 188);
+            this.editStepAxisY_Pos.Location = new System.Drawing.Point(218, 188);
             this.editStepAxisY_Pos.MaxLength = 32767;
             this.editStepAxisY_Pos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisY_Pos.Name = "editStepAxisY_Pos";
@@ -3529,7 +3572,7 @@ namespace CytoDx
             this.editStepAxisY_Pos.SelectedText = "";
             this.editStepAxisY_Pos.SelectionLength = 0;
             this.editStepAxisY_Pos.SelectionStart = 0;
-            this.editStepAxisY_Pos.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisY_Pos.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisY_Pos.TabIndex = 16;
             this.editStepAxisY_Pos.TabStop = false;
             this.editStepAxisY_Pos.Text = "10.0";
@@ -3541,10 +3584,10 @@ namespace CytoDx
             this.label_Step1AxisYPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Step1AxisYPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label_Step1AxisYPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_Step1AxisYPos.Location = new System.Drawing.Point(272, 185);
+            this.label_Step1AxisYPos.Location = new System.Drawing.Point(260, 185);
             this.label_Step1AxisYPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Step1AxisYPos.Name = "label_Step1AxisYPos";
-            this.label_Step1AxisYPos.Size = new System.Drawing.Size(41, 22);
+            this.label_Step1AxisYPos.Size = new System.Drawing.Size(39, 22);
             this.label_Step1AxisYPos.TabIndex = 55;
             this.label_Step1AxisYPos.Text = "0.0";
             this.label_Step1AxisYPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3555,10 +3598,10 @@ namespace CytoDx
             this.label_StepGripAxisPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_StepGripAxisPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label_StepGripAxisPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_StepGripAxisPos.Location = new System.Drawing.Point(272, 465);
+            this.label_StepGripAxisPos.Location = new System.Drawing.Point(260, 465);
             this.label_StepGripAxisPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_StepGripAxisPos.Name = "label_StepGripAxisPos";
-            this.label_StepGripAxisPos.Size = new System.Drawing.Size(41, 22);
+            this.label_StepGripAxisPos.Size = new System.Drawing.Size(39, 22);
             this.label_StepGripAxisPos.TabIndex = 52;
             this.label_StepGripAxisPos.Text = "0.0";
             this.label_StepGripAxisPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3569,7 +3612,7 @@ namespace CytoDx
             this.editStepAxisY_Jog.Depth = 0;
             this.editStepAxisY_Jog.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisY_Jog.Hint = "";
-            this.editStepAxisY_Jog.Location = new System.Drawing.Point(408, 188);
+            this.editStepAxisY_Jog.Location = new System.Drawing.Point(390, 188);
             this.editStepAxisY_Jog.MaxLength = 32767;
             this.editStepAxisY_Jog.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisY_Jog.Name = "editStepAxisY_Jog";
@@ -3577,7 +3620,7 @@ namespace CytoDx
             this.editStepAxisY_Jog.SelectedText = "";
             this.editStepAxisY_Jog.SelectionLength = 0;
             this.editStepAxisY_Jog.SelectionStart = 0;
-            this.editStepAxisY_Jog.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisY_Jog.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisY_Jog.TabIndex = 36;
             this.editStepAxisY_Jog.TabStop = false;
             this.editStepAxisY_Jog.Text = "10.0";
@@ -3589,7 +3632,7 @@ namespace CytoDx
             this.editStepGripper_Jog.Depth = 0;
             this.editStepGripper_Jog.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepGripper_Jog.Hint = "";
-            this.editStepGripper_Jog.Location = new System.Drawing.Point(408, 468);
+            this.editStepGripper_Jog.Location = new System.Drawing.Point(390, 468);
             this.editStepGripper_Jog.MaxLength = 32767;
             this.editStepGripper_Jog.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepGripper_Jog.Name = "editStepGripper_Jog";
@@ -3597,7 +3640,7 @@ namespace CytoDx
             this.editStepGripper_Jog.SelectedText = "";
             this.editStepGripper_Jog.SelectionLength = 0;
             this.editStepGripper_Jog.SelectionStart = 0;
-            this.editStepGripper_Jog.Size = new System.Drawing.Size(42, 22);
+            this.editStepGripper_Jog.Size = new System.Drawing.Size(46, 22);
             this.editStepGripper_Jog.TabIndex = 33;
             this.editStepGripper_Jog.TabStop = false;
             this.editStepGripper_Jog.Text = "10.0";
@@ -3610,11 +3653,11 @@ namespace CytoDx
             this.btnMoveStepAxisZ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMoveStepAxisZ.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnMoveStepAxisZ.Icon = null;
-            this.btnMoveStepAxisZ.Location = new System.Drawing.Point(138, 328);
+            this.btnMoveStepAxisZ.Location = new System.Drawing.Point(132, 328);
             this.btnMoveStepAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnMoveStepAxisZ.Name = "btnMoveStepAxisZ";
             this.btnMoveStepAxisZ.Primary = true;
-            this.btnMoveStepAxisZ.Size = new System.Drawing.Size(39, 16);
+            this.btnMoveStepAxisZ.Size = new System.Drawing.Size(37, 16);
             this.btnMoveStepAxisZ.TabIndex = 2;
             this.btnMoveStepAxisZ.Text = "Move";
             this.btnMoveStepAxisZ.UseVisualStyleBackColor = true;
@@ -3627,11 +3670,11 @@ namespace CytoDx
             this.btnMoveStepAxisX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMoveStepAxisX.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnMoveStepAxisX.Icon = null;
-            this.btnMoveStepAxisX.Location = new System.Drawing.Point(138, 48);
+            this.btnMoveStepAxisX.Location = new System.Drawing.Point(132, 48);
             this.btnMoveStepAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnMoveStepAxisX.Name = "btnMoveStepAxisX";
             this.btnMoveStepAxisX.Primary = true;
-            this.btnMoveStepAxisX.Size = new System.Drawing.Size(39, 16);
+            this.btnMoveStepAxisX.Size = new System.Drawing.Size(37, 16);
             this.btnMoveStepAxisX.TabIndex = 13;
             this.btnMoveStepAxisX.Text = "Move";
             this.btnMoveStepAxisX.UseVisualStyleBackColor = true;
@@ -3643,7 +3686,7 @@ namespace CytoDx
             this.editStepAxisX_Speed.Depth = 0;
             this.editStepAxisX_Speed.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisX_Speed.Hint = "";
-            this.editStepAxisX_Speed.Location = new System.Drawing.Point(183, 48);
+            this.editStepAxisX_Speed.Location = new System.Drawing.Point(175, 48);
             this.editStepAxisX_Speed.MaxLength = 32767;
             this.editStepAxisX_Speed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisX_Speed.Name = "editStepAxisX_Speed";
@@ -3651,7 +3694,7 @@ namespace CytoDx
             this.editStepAxisX_Speed.SelectedText = "";
             this.editStepAxisX_Speed.SelectionLength = 0;
             this.editStepAxisX_Speed.SelectionStart = 0;
-            this.editStepAxisX_Speed.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisX_Speed.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisX_Speed.TabIndex = 23;
             this.editStepAxisX_Speed.TabStop = false;
             this.editStepAxisX_Speed.Text = "10";
@@ -3663,7 +3706,7 @@ namespace CytoDx
             this.editStepAxisZ_Speed.Depth = 0;
             this.editStepAxisZ_Speed.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisZ_Speed.Hint = "";
-            this.editStepAxisZ_Speed.Location = new System.Drawing.Point(183, 328);
+            this.editStepAxisZ_Speed.Location = new System.Drawing.Point(175, 328);
             this.editStepAxisZ_Speed.MaxLength = 32767;
             this.editStepAxisZ_Speed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisZ_Speed.Name = "editStepAxisZ_Speed";
@@ -3671,7 +3714,7 @@ namespace CytoDx
             this.editStepAxisZ_Speed.SelectedText = "";
             this.editStepAxisZ_Speed.SelectionLength = 0;
             this.editStepAxisZ_Speed.SelectionStart = 0;
-            this.editStepAxisZ_Speed.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisZ_Speed.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisZ_Speed.TabIndex = 21;
             this.editStepAxisZ_Speed.TabStop = false;
             this.editStepAxisZ_Speed.Text = "10";
@@ -3683,7 +3726,7 @@ namespace CytoDx
             this.editStepAxisZ_Pos.Depth = 0;
             this.editStepAxisZ_Pos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisZ_Pos.Hint = "";
-            this.editStepAxisZ_Pos.Location = new System.Drawing.Point(228, 328);
+            this.editStepAxisZ_Pos.Location = new System.Drawing.Point(218, 328);
             this.editStepAxisZ_Pos.MaxLength = 32767;
             this.editStepAxisZ_Pos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisZ_Pos.Name = "editStepAxisZ_Pos";
@@ -3691,7 +3734,7 @@ namespace CytoDx
             this.editStepAxisZ_Pos.SelectedText = "";
             this.editStepAxisZ_Pos.SelectionLength = 0;
             this.editStepAxisZ_Pos.SelectionStart = 0;
-            this.editStepAxisZ_Pos.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisZ_Pos.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisZ_Pos.TabIndex = 3;
             this.editStepAxisZ_Pos.TabStop = false;
             this.editStepAxisZ_Pos.Text = "10.0";
@@ -3703,7 +3746,7 @@ namespace CytoDx
             this.editStepAxisX_Pos.Depth = 0;
             this.editStepAxisX_Pos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisX_Pos.Hint = "";
-            this.editStepAxisX_Pos.Location = new System.Drawing.Point(228, 48);
+            this.editStepAxisX_Pos.Location = new System.Drawing.Point(218, 48);
             this.editStepAxisX_Pos.MaxLength = 32767;
             this.editStepAxisX_Pos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisX_Pos.Name = "editStepAxisX_Pos";
@@ -3711,7 +3754,7 @@ namespace CytoDx
             this.editStepAxisX_Pos.SelectedText = "";
             this.editStepAxisX_Pos.SelectionLength = 0;
             this.editStepAxisX_Pos.SelectionStart = 0;
-            this.editStepAxisX_Pos.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisX_Pos.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisX_Pos.TabIndex = 14;
             this.editStepAxisX_Pos.TabStop = false;
             this.editStepAxisX_Pos.Text = "10.0";
@@ -3723,10 +3766,10 @@ namespace CytoDx
             this.label_Step0AxisXPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Step0AxisXPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label_Step0AxisXPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_Step0AxisXPos.Location = new System.Drawing.Point(272, 45);
+            this.label_Step0AxisXPos.Location = new System.Drawing.Point(260, 45);
             this.label_Step0AxisXPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Step0AxisXPos.Name = "label_Step0AxisXPos";
-            this.label_Step0AxisXPos.Size = new System.Drawing.Size(41, 22);
+            this.label_Step0AxisXPos.Size = new System.Drawing.Size(39, 22);
             this.label_Step0AxisXPos.TabIndex = 54;
             this.label_Step0AxisXPos.Text = "0.0";
             this.label_Step0AxisXPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3737,10 +3780,10 @@ namespace CytoDx
             this.label_Step2AxisZPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_Step2AxisZPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label_Step2AxisZPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_Step2AxisZPos.Location = new System.Drawing.Point(272, 325);
+            this.label_Step2AxisZPos.Location = new System.Drawing.Point(260, 325);
             this.label_Step2AxisZPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_Step2AxisZPos.Name = "label_Step2AxisZPos";
-            this.label_Step2AxisZPos.Size = new System.Drawing.Size(41, 22);
+            this.label_Step2AxisZPos.Size = new System.Drawing.Size(39, 22);
             this.label_Step2AxisZPos.TabIndex = 51;
             this.label_Step2AxisZPos.Text = "0.0";
             this.label_Step2AxisZPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3751,7 +3794,7 @@ namespace CytoDx
             this.editStepAxisZ_Jog.Depth = 0;
             this.editStepAxisZ_Jog.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisZ_Jog.Hint = "";
-            this.editStepAxisZ_Jog.Location = new System.Drawing.Point(408, 328);
+            this.editStepAxisZ_Jog.Location = new System.Drawing.Point(390, 328);
             this.editStepAxisZ_Jog.MaxLength = 32767;
             this.editStepAxisZ_Jog.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisZ_Jog.Name = "editStepAxisZ_Jog";
@@ -3759,7 +3802,7 @@ namespace CytoDx
             this.editStepAxisZ_Jog.SelectedText = "";
             this.editStepAxisZ_Jog.SelectionLength = 0;
             this.editStepAxisZ_Jog.SelectionStart = 0;
-            this.editStepAxisZ_Jog.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisZ_Jog.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisZ_Jog.TabIndex = 34;
             this.editStepAxisZ_Jog.TabStop = false;
             this.editStepAxisZ_Jog.Text = "10.0";
@@ -3771,7 +3814,7 @@ namespace CytoDx
             this.editStepAxisX_Jog.Depth = 0;
             this.editStepAxisX_Jog.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepAxisX_Jog.Hint = "";
-            this.editStepAxisX_Jog.Location = new System.Drawing.Point(408, 48);
+            this.editStepAxisX_Jog.Location = new System.Drawing.Point(390, 48);
             this.editStepAxisX_Jog.MaxLength = 32767;
             this.editStepAxisX_Jog.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisX_Jog.Name = "editStepAxisX_Jog";
@@ -3779,7 +3822,7 @@ namespace CytoDx
             this.editStepAxisX_Jog.SelectedText = "";
             this.editStepAxisX_Jog.SelectionLength = 0;
             this.editStepAxisX_Jog.SelectionStart = 0;
-            this.editStepAxisX_Jog.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisX_Jog.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisX_Jog.TabIndex = 35;
             this.editStepAxisX_Jog.TabStop = false;
             this.editStepAxisX_Jog.Text = "10.0";
@@ -3815,7 +3858,7 @@ namespace CytoDx
             this.DV_AxisGripper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DV_AxisGripper.EnableHeadersVisualStyles = false;
             this.DV_AxisGripper.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.DV_AxisGripper.Location = new System.Drawing.Point(48, 490);
+            this.DV_AxisGripper.Location = new System.Drawing.Point(46, 490);
             this.DV_AxisGripper.MultiSelect = false;
             this.DV_AxisGripper.Name = "DV_AxisGripper";
             dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -3834,7 +3877,7 @@ namespace CytoDx
             this.DV_AxisGripper.RowTemplate.Height = 23;
             this.DV_AxisGripper.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_AxisGripper.ShowCellToolTips = false;
-            this.DV_AxisGripper.Size = new System.Drawing.Size(309, 112);
+            this.DV_AxisGripper.Size = new System.Drawing.Size(295, 112);
             this.DV_AxisGripper.TabIndex = 62;
             this.DV_AxisGripper.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_AxisGripper_RowHeaderMouseDoubleClick);
             this.DV_AxisGripper.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -3906,7 +3949,7 @@ namespace CytoDx
             this.DV_AxisZ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DV_AxisZ.EnableHeadersVisualStyles = false;
             this.DV_AxisZ.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.DV_AxisZ.Location = new System.Drawing.Point(48, 350);
+            this.DV_AxisZ.Location = new System.Drawing.Point(46, 350);
             this.DV_AxisZ.MultiSelect = false;
             this.DV_AxisZ.Name = "DV_AxisZ";
             dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -3923,7 +3966,7 @@ namespace CytoDx
             this.DV_AxisZ.RowTemplate.Height = 23;
             this.DV_AxisZ.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_AxisZ.ShowCellToolTips = false;
-            this.DV_AxisZ.Size = new System.Drawing.Size(309, 112);
+            this.DV_AxisZ.Size = new System.Drawing.Size(295, 112);
             this.DV_AxisZ.TabIndex = 62;
             this.DV_AxisZ.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_AxisZ_RowHeaderMouseDoubleClick);
             this.DV_AxisZ.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -3994,7 +4037,7 @@ namespace CytoDx
             this.DV_AxisY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DV_AxisY.EnableHeadersVisualStyles = false;
             this.DV_AxisY.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.DV_AxisY.Location = new System.Drawing.Point(48, 210);
+            this.DV_AxisY.Location = new System.Drawing.Point(46, 210);
             this.DV_AxisY.MultiSelect = false;
             this.DV_AxisY.Name = "DV_AxisY";
             dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -4012,7 +4055,7 @@ namespace CytoDx
             this.DV_AxisY.RowTemplate.Height = 23;
             this.DV_AxisY.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_AxisY.ShowCellToolTips = false;
-            this.DV_AxisY.Size = new System.Drawing.Size(309, 112);
+            this.DV_AxisY.Size = new System.Drawing.Size(295, 112);
             this.DV_AxisY.TabIndex = 62;
             this.DV_AxisY.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_AxisY_RowHeaderMouseDoubleClick);
             this.DV_AxisY.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -4085,7 +4128,7 @@ namespace CytoDx
             this.DV_AxisX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DV_AxisX.EnableHeadersVisualStyles = false;
             this.DV_AxisX.Font = new System.Drawing.Font("맑은 고딕", 8F);
-            this.DV_AxisX.Location = new System.Drawing.Point(48, 70);
+            this.DV_AxisX.Location = new System.Drawing.Point(46, 70);
             this.DV_AxisX.MultiSelect = false;
             this.DV_AxisX.Name = "DV_AxisX";
             dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -4104,7 +4147,7 @@ namespace CytoDx
             this.DV_AxisX.RowTemplate.Height = 23;
             this.DV_AxisX.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_AxisX.ShowCellToolTips = false;
-            this.DV_AxisX.Size = new System.Drawing.Size(309, 112);
+            this.DV_AxisX.Size = new System.Drawing.Size(295, 112);
             this.DV_AxisX.TabIndex = 62;
             this.DV_AxisX.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_AxisX_RowHeaderMouseDoubleClick);
             this.DV_AxisX.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -4155,11 +4198,11 @@ namespace CytoDx
             this.btnMoveStepPipett.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMoveStepPipett.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnMoveStepPipett.Icon = null;
-            this.btnMoveStepPipett.Location = new System.Drawing.Point(138, 608);
+            this.btnMoveStepPipett.Location = new System.Drawing.Point(132, 608);
             this.btnMoveStepPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnMoveStepPipett.Name = "btnMoveStepPipett";
             this.btnMoveStepPipett.Primary = true;
-            this.btnMoveStepPipett.Size = new System.Drawing.Size(39, 16);
+            this.btnMoveStepPipett.Size = new System.Drawing.Size(37, 16);
             this.btnMoveStepPipett.TabIndex = 11;
             this.btnMoveStepPipett.Text = "Move";
             this.btnMoveStepPipett.UseVisualStyleBackColor = true;
@@ -4171,7 +4214,7 @@ namespace CytoDx
             this.editStepPipett_Speed.Depth = 0;
             this.editStepPipett_Speed.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepPipett_Speed.Hint = "";
-            this.editStepPipett_Speed.Location = new System.Drawing.Point(183, 608);
+            this.editStepPipett_Speed.Location = new System.Drawing.Point(175, 608);
             this.editStepPipett_Speed.MaxLength = 32767;
             this.editStepPipett_Speed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepPipett_Speed.Name = "editStepPipett_Speed";
@@ -4179,7 +4222,7 @@ namespace CytoDx
             this.editStepPipett_Speed.SelectedText = "";
             this.editStepPipett_Speed.SelectionLength = 0;
             this.editStepPipett_Speed.SelectionStart = 0;
-            this.editStepPipett_Speed.Size = new System.Drawing.Size(39, 22);
+            this.editStepPipett_Speed.Size = new System.Drawing.Size(37, 22);
             this.editStepPipett_Speed.TabIndex = 22;
             this.editStepPipett_Speed.TabStop = false;
             this.editStepPipett_Speed.Text = "10";
@@ -4191,7 +4234,7 @@ namespace CytoDx
             this.editStepPipett_Pos.Depth = 0;
             this.editStepPipett_Pos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepPipett_Pos.Hint = "";
-            this.editStepPipett_Pos.Location = new System.Drawing.Point(228, 608);
+            this.editStepPipett_Pos.Location = new System.Drawing.Point(218, 608);
             this.editStepPipett_Pos.MaxLength = 32767;
             this.editStepPipett_Pos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepPipett_Pos.Name = "editStepPipett_Pos";
@@ -4199,7 +4242,7 @@ namespace CytoDx
             this.editStepPipett_Pos.SelectedText = "";
             this.editStepPipett_Pos.SelectionLength = 0;
             this.editStepPipett_Pos.SelectionStart = 0;
-            this.editStepPipett_Pos.Size = new System.Drawing.Size(39, 22);
+            this.editStepPipett_Pos.Size = new System.Drawing.Size(37, 22);
             this.editStepPipett_Pos.TabIndex = 12;
             this.editStepPipett_Pos.TabStop = false;
             this.editStepPipett_Pos.Text = "10.0";
@@ -4211,7 +4254,7 @@ namespace CytoDx
             this.editStepPipett_Jog.Depth = 0;
             this.editStepPipett_Jog.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editStepPipett_Jog.Hint = "";
-            this.editStepPipett_Jog.Location = new System.Drawing.Point(408, 608);
+            this.editStepPipett_Jog.Location = new System.Drawing.Point(390, 608);
             this.editStepPipett_Jog.MaxLength = 32767;
             this.editStepPipett_Jog.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepPipett_Jog.Name = "editStepPipett_Jog";
@@ -4219,7 +4262,7 @@ namespace CytoDx
             this.editStepPipett_Jog.SelectedText = "";
             this.editStepPipett_Jog.SelectionLength = 0;
             this.editStepPipett_Jog.SelectionStart = 0;
-            this.editStepPipett_Jog.Size = new System.Drawing.Size(42, 22);
+            this.editStepPipett_Jog.Size = new System.Drawing.Size(46, 22);
             this.editStepPipett_Jog.TabIndex = 33;
             this.editStepPipett_Jog.TabStop = false;
             this.editStepPipett_Jog.Text = "10.0";
@@ -4232,12 +4275,12 @@ namespace CytoDx
             this.btnHomeStepAxisX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHomeStepAxisX.Font = new System.Drawing.Font("Franklin Gothic Medium", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHomeStepAxisX.Icon = null;
-            this.btnHomeStepAxisX.Location = new System.Drawing.Point(46, 46);
+            this.btnHomeStepAxisX.Location = new System.Drawing.Point(44, 46);
             this.btnHomeStepAxisX.Margin = new System.Windows.Forms.Padding(1);
             this.btnHomeStepAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepAxisX.Name = "btnHomeStepAxisX";
             this.btnHomeStepAxisX.Primary = true;
-            this.btnHomeStepAxisX.Size = new System.Drawing.Size(43, 20);
+            this.btnHomeStepAxisX.Size = new System.Drawing.Size(41, 20);
             this.btnHomeStepAxisX.TabIndex = 9;
             this.btnHomeStepAxisX.Text = "Home";
             this.btnHomeStepAxisX.UseVisualStyleBackColor = true;
@@ -4250,12 +4293,12 @@ namespace CytoDx
             this.btnHomeStepAxisY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHomeStepAxisY.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnHomeStepAxisY.Icon = null;
-            this.btnHomeStepAxisY.Location = new System.Drawing.Point(46, 186);
+            this.btnHomeStepAxisY.Location = new System.Drawing.Point(44, 186);
             this.btnHomeStepAxisY.Margin = new System.Windows.Forms.Padding(1);
             this.btnHomeStepAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepAxisY.Name = "btnHomeStepAxisY";
             this.btnHomeStepAxisY.Primary = true;
-            this.btnHomeStepAxisY.Size = new System.Drawing.Size(43, 20);
+            this.btnHomeStepAxisY.Size = new System.Drawing.Size(41, 20);
             this.btnHomeStepAxisY.TabIndex = 10;
             this.btnHomeStepAxisY.Text = "Home";
             this.btnHomeStepAxisY.UseVisualStyleBackColor = true;
@@ -4268,12 +4311,12 @@ namespace CytoDx
             this.btnHomeStepAxisZ.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHomeStepAxisZ.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnHomeStepAxisZ.Icon = null;
-            this.btnHomeStepAxisZ.Location = new System.Drawing.Point(46, 326);
+            this.btnHomeStepAxisZ.Location = new System.Drawing.Point(44, 326);
             this.btnHomeStepAxisZ.Margin = new System.Windows.Forms.Padding(1);
             this.btnHomeStepAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepAxisZ.Name = "btnHomeStepAxisZ";
             this.btnHomeStepAxisZ.Primary = true;
-            this.btnHomeStepAxisZ.Size = new System.Drawing.Size(43, 20);
+            this.btnHomeStepAxisZ.Size = new System.Drawing.Size(41, 20);
             this.btnHomeStepAxisZ.TabIndex = 1;
             this.btnHomeStepAxisZ.Text = "Home";
             this.btnHomeStepAxisZ.UseVisualStyleBackColor = true;
@@ -4286,12 +4329,12 @@ namespace CytoDx
             this.btnHomeStepGripper.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHomeStepGripper.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnHomeStepGripper.Icon = null;
-            this.btnHomeStepGripper.Location = new System.Drawing.Point(46, 466);
+            this.btnHomeStepGripper.Location = new System.Drawing.Point(44, 466);
             this.btnHomeStepGripper.Margin = new System.Windows.Forms.Padding(1);
             this.btnHomeStepGripper.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepGripper.Name = "btnHomeStepGripper";
             this.btnHomeStepGripper.Primary = true;
-            this.btnHomeStepGripper.Size = new System.Drawing.Size(43, 20);
+            this.btnHomeStepGripper.Size = new System.Drawing.Size(41, 20);
             this.btnHomeStepGripper.TabIndex = 8;
             this.btnHomeStepGripper.Text = "Home";
             this.btnHomeStepGripper.UseVisualStyleBackColor = true;
@@ -4304,12 +4347,12 @@ namespace CytoDx
             this.btnHomeStepPipett.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnHomeStepPipett.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnHomeStepPipett.Icon = null;
-            this.btnHomeStepPipett.Location = new System.Drawing.Point(46, 606);
+            this.btnHomeStepPipett.Location = new System.Drawing.Point(44, 606);
             this.btnHomeStepPipett.Margin = new System.Windows.Forms.Padding(1);
             this.btnHomeStepPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepPipett.Name = "btnHomeStepPipett";
             this.btnHomeStepPipett.Primary = true;
-            this.btnHomeStepPipett.Size = new System.Drawing.Size(43, 20);
+            this.btnHomeStepPipett.Size = new System.Drawing.Size(41, 20);
             this.btnHomeStepPipett.TabIndex = 8;
             this.btnHomeStepPipett.Text = "Home";
             this.btnHomeStepPipett.UseVisualStyleBackColor = true;
@@ -4323,11 +4366,11 @@ namespace CytoDx
             this.btnResetAllAxis.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnResetAllAxis.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetAllAxis.Icon = null;
-            this.btnResetAllAxis.Location = new System.Drawing.Point(93, 3);
+            this.btnResetAllAxis.Location = new System.Drawing.Point(89, 3);
             this.btnResetAllAxis.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetAllAxis.Name = "btnResetAllAxis";
             this.btnResetAllAxis.Primary = true;
-            this.btnResetAllAxis.Size = new System.Drawing.Size(84, 39);
+            this.btnResetAllAxis.Size = new System.Drawing.Size(80, 39);
             this.btnResetAllAxis.TabIndex = 19;
             this.btnResetAllAxis.Text = "All Reset";
             this.btnResetAllAxis.UseVisualStyleBackColor = true;
@@ -4345,7 +4388,7 @@ namespace CytoDx
             this.btnStepAxisHamStop.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepAxisHamStop.Name = "btnStepAxisHamStop";
             this.btnStepAxisHamStop.Primary = true;
-            this.btnStepAxisHamStop.Size = new System.Drawing.Size(43, 18);
+            this.btnStepAxisHamStop.Size = new System.Drawing.Size(41, 18);
             this.btnStepAxisHamStop.TabIndex = 85;
             this.btnStepAxisHamStop.Text = "Stop";
             this.btnStepAxisHamStop.UseVisualStyleBackColor = true;
@@ -4356,11 +4399,11 @@ namespace CytoDx
             this.btnStepDecAxisX.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepDecAxisX.Depth = 0;
             this.btnStepDecAxisX.Icon = null;
-            this.btnStepDecAxisX.Location = new System.Drawing.Point(363, 70);
+            this.btnStepDecAxisX.Location = new System.Drawing.Point(347, 70);
             this.btnStepDecAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecAxisX.Name = "btnStepDecAxisX";
             this.btnStepDecAxisX.Primary = true;
-            this.btnStepDecAxisX.Size = new System.Drawing.Size(39, 16);
+            this.btnStepDecAxisX.Size = new System.Drawing.Size(37, 16);
             this.btnStepDecAxisX.TabIndex = 31;
             this.btnStepDecAxisX.Text = "－";
             this.btnStepDecAxisX.UseVisualStyleBackColor = true;
@@ -4371,11 +4414,11 @@ namespace CytoDx
             this.btnStepIncAxisX.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepIncAxisX.Depth = 0;
             this.btnStepIncAxisX.Icon = null;
-            this.btnStepIncAxisX.Location = new System.Drawing.Point(363, 48);
+            this.btnStepIncAxisX.Location = new System.Drawing.Point(347, 48);
             this.btnStepIncAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncAxisX.Name = "btnStepIncAxisX";
             this.btnStepIncAxisX.Primary = true;
-            this.btnStepIncAxisX.Size = new System.Drawing.Size(39, 16);
+            this.btnStepIncAxisX.Size = new System.Drawing.Size(37, 16);
             this.btnStepIncAxisX.TabIndex = 27;
             this.btnStepIncAxisX.Text = "＋";
             this.btnStepIncAxisX.UseVisualStyleBackColor = true;
@@ -4386,11 +4429,11 @@ namespace CytoDx
             this.btnStepDecAxisY.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepDecAxisY.Depth = 0;
             this.btnStepDecAxisY.Icon = null;
-            this.btnStepDecAxisY.Location = new System.Drawing.Point(363, 210);
+            this.btnStepDecAxisY.Location = new System.Drawing.Point(347, 210);
             this.btnStepDecAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecAxisY.Name = "btnStepDecAxisY";
             this.btnStepDecAxisY.Primary = true;
-            this.btnStepDecAxisY.Size = new System.Drawing.Size(39, 16);
+            this.btnStepDecAxisY.Size = new System.Drawing.Size(37, 16);
             this.btnStepDecAxisY.TabIndex = 32;
             this.btnStepDecAxisY.Text = "－";
             this.btnStepDecAxisY.UseVisualStyleBackColor = true;
@@ -4401,11 +4444,11 @@ namespace CytoDx
             this.btnStepIncAxisY.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepIncAxisY.Depth = 0;
             this.btnStepIncAxisY.Icon = null;
-            this.btnStepIncAxisY.Location = new System.Drawing.Point(363, 188);
+            this.btnStepIncAxisY.Location = new System.Drawing.Point(347, 188);
             this.btnStepIncAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncAxisY.Name = "btnStepIncAxisY";
             this.btnStepIncAxisY.Primary = true;
-            this.btnStepIncAxisY.Size = new System.Drawing.Size(39, 16);
+            this.btnStepIncAxisY.Size = new System.Drawing.Size(37, 16);
             this.btnStepIncAxisY.TabIndex = 30;
             this.btnStepIncAxisY.Text = "＋";
             this.btnStepIncAxisY.UseVisualStyleBackColor = true;
@@ -4416,11 +4459,11 @@ namespace CytoDx
             this.btnStepDecAxisZ.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepDecAxisZ.Depth = 0;
             this.btnStepDecAxisZ.Icon = null;
-            this.btnStepDecAxisZ.Location = new System.Drawing.Point(363, 350);
+            this.btnStepDecAxisZ.Location = new System.Drawing.Point(347, 350);
             this.btnStepDecAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecAxisZ.Name = "btnStepDecAxisZ";
             this.btnStepDecAxisZ.Primary = true;
-            this.btnStepDecAxisZ.Size = new System.Drawing.Size(39, 16);
+            this.btnStepDecAxisZ.Size = new System.Drawing.Size(37, 16);
             this.btnStepDecAxisZ.TabIndex = 29;
             this.btnStepDecAxisZ.Text = "－";
             this.btnStepDecAxisZ.UseVisualStyleBackColor = true;
@@ -4431,11 +4474,11 @@ namespace CytoDx
             this.btnStepIncAxisZ.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepIncAxisZ.Depth = 0;
             this.btnStepIncAxisZ.Icon = null;
-            this.btnStepIncAxisZ.Location = new System.Drawing.Point(363, 328);
+            this.btnStepIncAxisZ.Location = new System.Drawing.Point(347, 328);
             this.btnStepIncAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncAxisZ.Name = "btnStepIncAxisZ";
             this.btnStepIncAxisZ.Primary = true;
-            this.btnStepIncAxisZ.Size = new System.Drawing.Size(39, 16);
+            this.btnStepIncAxisZ.Size = new System.Drawing.Size(37, 16);
             this.btnStepIncAxisZ.TabIndex = 15;
             this.btnStepIncAxisZ.Text = "＋";
             this.btnStepIncAxisZ.UseVisualStyleBackColor = true;
@@ -4446,11 +4489,11 @@ namespace CytoDx
             this.btnStepDecAxisGripper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepDecAxisGripper.Depth = 0;
             this.btnStepDecAxisGripper.Icon = null;
-            this.btnStepDecAxisGripper.Location = new System.Drawing.Point(363, 490);
+            this.btnStepDecAxisGripper.Location = new System.Drawing.Point(347, 490);
             this.btnStepDecAxisGripper.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecAxisGripper.Name = "btnStepDecAxisGripper";
             this.btnStepDecAxisGripper.Primary = true;
-            this.btnStepDecAxisGripper.Size = new System.Drawing.Size(39, 16);
+            this.btnStepDecAxisGripper.Size = new System.Drawing.Size(37, 16);
             this.btnStepDecAxisGripper.TabIndex = 28;
             this.btnStepDecAxisGripper.Text = "－";
             this.btnStepDecAxisGripper.UseVisualStyleBackColor = true;
@@ -4461,11 +4504,11 @@ namespace CytoDx
             this.btnStepIncAxisGripper.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepIncAxisGripper.Depth = 0;
             this.btnStepIncAxisGripper.Icon = null;
-            this.btnStepIncAxisGripper.Location = new System.Drawing.Point(363, 468);
+            this.btnStepIncAxisGripper.Location = new System.Drawing.Point(347, 468);
             this.btnStepIncAxisGripper.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncAxisGripper.Name = "btnStepIncAxisGripper";
             this.btnStepIncAxisGripper.Primary = true;
-            this.btnStepIncAxisGripper.Size = new System.Drawing.Size(39, 16);
+            this.btnStepIncAxisGripper.Size = new System.Drawing.Size(37, 16);
             this.btnStepIncAxisGripper.TabIndex = 26;
             this.btnStepIncAxisGripper.Text = "＋";
             this.btnStepIncAxisGripper.UseVisualStyleBackColor = true;
@@ -4476,11 +4519,11 @@ namespace CytoDx
             this.btnStepDecAxisPipett.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepDecAxisPipett.Depth = 0;
             this.btnStepDecAxisPipett.Icon = null;
-            this.btnStepDecAxisPipett.Location = new System.Drawing.Point(363, 630);
+            this.btnStepDecAxisPipett.Location = new System.Drawing.Point(347, 630);
             this.btnStepDecAxisPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecAxisPipett.Name = "btnStepDecAxisPipett";
             this.btnStepDecAxisPipett.Primary = true;
-            this.btnStepDecAxisPipett.Size = new System.Drawing.Size(39, 16);
+            this.btnStepDecAxisPipett.Size = new System.Drawing.Size(37, 16);
             this.btnStepDecAxisPipett.TabIndex = 28;
             this.btnStepDecAxisPipett.Text = "－";
             this.btnStepDecAxisPipett.UseVisualStyleBackColor = true;
@@ -4491,11 +4534,11 @@ namespace CytoDx
             this.btnStepIncAxisPipett.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnStepIncAxisPipett.Depth = 0;
             this.btnStepIncAxisPipett.Icon = null;
-            this.btnStepIncAxisPipett.Location = new System.Drawing.Point(363, 608);
+            this.btnStepIncAxisPipett.Location = new System.Drawing.Point(347, 608);
             this.btnStepIncAxisPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncAxisPipett.Name = "btnStepIncAxisPipett";
             this.btnStepIncAxisPipett.Primary = true;
-            this.btnStepIncAxisPipett.Size = new System.Drawing.Size(39, 16);
+            this.btnStepIncAxisPipett.Size = new System.Drawing.Size(37, 16);
             this.btnStepIncAxisPipett.TabIndex = 26;
             this.btnStepIncAxisPipett.Text = "＋";
             this.btnStepIncAxisPipett.UseVisualStyleBackColor = true;
@@ -4507,7 +4550,7 @@ namespace CytoDx
             this.editStepAxisX_Dec.Depth = 0;
             this.editStepAxisX_Dec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisX_Dec.Hint = "";
-            this.editStepAxisX_Dec.Location = new System.Drawing.Point(408, 154);
+            this.editStepAxisX_Dec.Location = new System.Drawing.Point(390, 154);
             this.editStepAxisX_Dec.MaxLength = 32767;
             this.editStepAxisX_Dec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisX_Dec.Name = "editStepAxisX_Dec";
@@ -4515,7 +4558,7 @@ namespace CytoDx
             this.editStepAxisX_Dec.SelectedText = "";
             this.editStepAxisX_Dec.SelectionLength = 0;
             this.editStepAxisX_Dec.SelectionStart = 0;
-            this.editStepAxisX_Dec.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisX_Dec.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisX_Dec.TabIndex = 97;
             this.editStepAxisX_Dec.TabStop = false;
             this.editStepAxisX_Dec.Text = "10";
@@ -4527,7 +4570,7 @@ namespace CytoDx
             this.editStepAxisX_Acc.Depth = 0;
             this.editStepAxisX_Acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisX_Acc.Hint = "";
-            this.editStepAxisX_Acc.Location = new System.Drawing.Point(363, 154);
+            this.editStepAxisX_Acc.Location = new System.Drawing.Point(347, 154);
             this.editStepAxisX_Acc.MaxLength = 32767;
             this.editStepAxisX_Acc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisX_Acc.Name = "editStepAxisX_Acc";
@@ -4535,7 +4578,7 @@ namespace CytoDx
             this.editStepAxisX_Acc.SelectedText = "";
             this.editStepAxisX_Acc.SelectionLength = 0;
             this.editStepAxisX_Acc.SelectionStart = 0;
-            this.editStepAxisX_Acc.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisX_Acc.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisX_Acc.TabIndex = 96;
             this.editStepAxisX_Acc.TabStop = false;
             this.editStepAxisX_Acc.Text = "10";
@@ -4547,10 +4590,10 @@ namespace CytoDx
             this.label46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label46.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label46.Location = new System.Drawing.Point(406, 126);
+            this.label46.Location = new System.Drawing.Point(388, 126);
             this.label46.Margin = new System.Windows.Forms.Padding(1);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(46, 18);
+            this.label46.Size = new System.Drawing.Size(50, 18);
             this.label46.TabIndex = 87;
             this.label46.Text = "Dec";
             this.label46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4561,10 +4604,10 @@ namespace CytoDx
             this.label34.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label34.Location = new System.Drawing.Point(361, 126);
+            this.label34.Location = new System.Drawing.Point(345, 126);
             this.label34.Margin = new System.Windows.Forms.Padding(1);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(43, 18);
+            this.label34.Size = new System.Drawing.Size(41, 18);
             this.label34.TabIndex = 86;
             this.label34.Text = "Acc";
             this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4575,10 +4618,10 @@ namespace CytoDx
             this.label48.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label48.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label48.Location = new System.Drawing.Point(406, 266);
+            this.label48.Location = new System.Drawing.Point(388, 266);
             this.label48.Margin = new System.Windows.Forms.Padding(1);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(46, 18);
+            this.label48.Size = new System.Drawing.Size(50, 18);
             this.label48.TabIndex = 89;
             this.label48.Text = "Dec";
             this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4589,10 +4632,10 @@ namespace CytoDx
             this.label47.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label47.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label47.Location = new System.Drawing.Point(361, 266);
+            this.label47.Location = new System.Drawing.Point(345, 266);
             this.label47.Margin = new System.Windows.Forms.Padding(1);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(43, 18);
+            this.label47.Size = new System.Drawing.Size(41, 18);
             this.label47.TabIndex = 88;
             this.label47.Text = "Acc";
             this.label47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4603,7 +4646,7 @@ namespace CytoDx
             this.editStepAxisY_Dec.Depth = 0;
             this.editStepAxisY_Dec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisY_Dec.Hint = "";
-            this.editStepAxisY_Dec.Location = new System.Drawing.Point(408, 294);
+            this.editStepAxisY_Dec.Location = new System.Drawing.Point(390, 294);
             this.editStepAxisY_Dec.MaxLength = 32767;
             this.editStepAxisY_Dec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisY_Dec.Name = "editStepAxisY_Dec";
@@ -4611,7 +4654,7 @@ namespace CytoDx
             this.editStepAxisY_Dec.SelectedText = "";
             this.editStepAxisY_Dec.SelectionLength = 0;
             this.editStepAxisY_Dec.SelectionStart = 0;
-            this.editStepAxisY_Dec.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisY_Dec.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisY_Dec.TabIndex = 97;
             this.editStepAxisY_Dec.TabStop = false;
             this.editStepAxisY_Dec.Text = "10";
@@ -4623,7 +4666,7 @@ namespace CytoDx
             this.editStepAxisY_Acc.Depth = 0;
             this.editStepAxisY_Acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisY_Acc.Hint = "";
-            this.editStepAxisY_Acc.Location = new System.Drawing.Point(363, 294);
+            this.editStepAxisY_Acc.Location = new System.Drawing.Point(347, 294);
             this.editStepAxisY_Acc.MaxLength = 32767;
             this.editStepAxisY_Acc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisY_Acc.Name = "editStepAxisY_Acc";
@@ -4631,7 +4674,7 @@ namespace CytoDx
             this.editStepAxisY_Acc.SelectedText = "";
             this.editStepAxisY_Acc.SelectionLength = 0;
             this.editStepAxisY_Acc.SelectionStart = 0;
-            this.editStepAxisY_Acc.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisY_Acc.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisY_Acc.TabIndex = 96;
             this.editStepAxisY_Acc.TabStop = false;
             this.editStepAxisY_Acc.Text = "10";
@@ -4643,7 +4686,7 @@ namespace CytoDx
             this.editStepAxisZ_Dec.Depth = 0;
             this.editStepAxisZ_Dec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisZ_Dec.Hint = "";
-            this.editStepAxisZ_Dec.Location = new System.Drawing.Point(408, 434);
+            this.editStepAxisZ_Dec.Location = new System.Drawing.Point(390, 434);
             this.editStepAxisZ_Dec.MaxLength = 32767;
             this.editStepAxisZ_Dec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisZ_Dec.Name = "editStepAxisZ_Dec";
@@ -4651,7 +4694,7 @@ namespace CytoDx
             this.editStepAxisZ_Dec.SelectedText = "";
             this.editStepAxisZ_Dec.SelectionLength = 0;
             this.editStepAxisZ_Dec.SelectionStart = 0;
-            this.editStepAxisZ_Dec.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisZ_Dec.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisZ_Dec.TabIndex = 97;
             this.editStepAxisZ_Dec.TabStop = false;
             this.editStepAxisZ_Dec.Text = "10";
@@ -4663,7 +4706,7 @@ namespace CytoDx
             this.editStepAxisZ_Acc.Depth = 0;
             this.editStepAxisZ_Acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisZ_Acc.Hint = "";
-            this.editStepAxisZ_Acc.Location = new System.Drawing.Point(363, 434);
+            this.editStepAxisZ_Acc.Location = new System.Drawing.Point(347, 434);
             this.editStepAxisZ_Acc.MaxLength = 32767;
             this.editStepAxisZ_Acc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisZ_Acc.Name = "editStepAxisZ_Acc";
@@ -4671,7 +4714,7 @@ namespace CytoDx
             this.editStepAxisZ_Acc.SelectedText = "";
             this.editStepAxisZ_Acc.SelectionLength = 0;
             this.editStepAxisZ_Acc.SelectionStart = 0;
-            this.editStepAxisZ_Acc.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisZ_Acc.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisZ_Acc.TabIndex = 96;
             this.editStepAxisZ_Acc.TabStop = false;
             this.editStepAxisZ_Acc.Text = "10";
@@ -4683,10 +4726,10 @@ namespace CytoDx
             this.label85.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label85.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label85.Location = new System.Drawing.Point(406, 406);
+            this.label85.Location = new System.Drawing.Point(388, 406);
             this.label85.Margin = new System.Windows.Forms.Padding(1);
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(46, 18);
+            this.label85.Size = new System.Drawing.Size(50, 18);
             this.label85.TabIndex = 93;
             this.label85.Text = "Dec";
             this.label85.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4697,10 +4740,10 @@ namespace CytoDx
             this.label59.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label59.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label59.Location = new System.Drawing.Point(361, 406);
+            this.label59.Location = new System.Drawing.Point(345, 406);
             this.label59.Margin = new System.Windows.Forms.Padding(1);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(43, 18);
+            this.label59.Size = new System.Drawing.Size(41, 18);
             this.label59.TabIndex = 90;
             this.label59.Text = "Acc";
             this.label59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4711,10 +4754,10 @@ namespace CytoDx
             this.label91.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label91.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label91.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label91.Location = new System.Drawing.Point(406, 546);
+            this.label91.Location = new System.Drawing.Point(388, 546);
             this.label91.Margin = new System.Windows.Forms.Padding(1);
             this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(46, 18);
+            this.label91.Size = new System.Drawing.Size(50, 18);
             this.label91.TabIndex = 94;
             this.label91.Text = "Dec";
             this.label91.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4725,10 +4768,10 @@ namespace CytoDx
             this.label64.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label64.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label64.Location = new System.Drawing.Point(361, 546);
+            this.label64.Location = new System.Drawing.Point(345, 546);
             this.label64.Margin = new System.Windows.Forms.Padding(1);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(43, 18);
+            this.label64.Size = new System.Drawing.Size(41, 18);
             this.label64.TabIndex = 91;
             this.label64.Text = "Acc";
             this.label64.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4739,7 +4782,7 @@ namespace CytoDx
             this.editStepAxisGripper_Dec.Depth = 0;
             this.editStepAxisGripper_Dec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisGripper_Dec.Hint = "";
-            this.editStepAxisGripper_Dec.Location = new System.Drawing.Point(408, 574);
+            this.editStepAxisGripper_Dec.Location = new System.Drawing.Point(390, 574);
             this.editStepAxisGripper_Dec.MaxLength = 32767;
             this.editStepAxisGripper_Dec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisGripper_Dec.Name = "editStepAxisGripper_Dec";
@@ -4747,7 +4790,7 @@ namespace CytoDx
             this.editStepAxisGripper_Dec.SelectedText = "";
             this.editStepAxisGripper_Dec.SelectionLength = 0;
             this.editStepAxisGripper_Dec.SelectionStart = 0;
-            this.editStepAxisGripper_Dec.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisGripper_Dec.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisGripper_Dec.TabIndex = 97;
             this.editStepAxisGripper_Dec.TabStop = false;
             this.editStepAxisGripper_Dec.Text = "10";
@@ -4759,7 +4802,7 @@ namespace CytoDx
             this.editStepAxisGripper_Acc.Depth = 0;
             this.editStepAxisGripper_Acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisGripper_Acc.Hint = "";
-            this.editStepAxisGripper_Acc.Location = new System.Drawing.Point(363, 574);
+            this.editStepAxisGripper_Acc.Location = new System.Drawing.Point(347, 574);
             this.editStepAxisGripper_Acc.MaxLength = 32767;
             this.editStepAxisGripper_Acc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisGripper_Acc.Name = "editStepAxisGripper_Acc";
@@ -4767,7 +4810,7 @@ namespace CytoDx
             this.editStepAxisGripper_Acc.SelectedText = "";
             this.editStepAxisGripper_Acc.SelectionLength = 0;
             this.editStepAxisGripper_Acc.SelectionStart = 0;
-            this.editStepAxisGripper_Acc.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisGripper_Acc.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisGripper_Acc.TabIndex = 96;
             this.editStepAxisGripper_Acc.TabStop = false;
             this.editStepAxisGripper_Acc.Text = "10";
@@ -4779,10 +4822,10 @@ namespace CytoDx
             this.label92.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label92.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label92.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label92.Location = new System.Drawing.Point(406, 686);
+            this.label92.Location = new System.Drawing.Point(388, 686);
             this.label92.Margin = new System.Windows.Forms.Padding(1);
             this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(46, 18);
+            this.label92.Size = new System.Drawing.Size(50, 18);
             this.label92.TabIndex = 95;
             this.label92.Text = "Dec";
             this.label92.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4793,10 +4836,10 @@ namespace CytoDx
             this.label84.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label84.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label84.Location = new System.Drawing.Point(361, 686);
+            this.label84.Location = new System.Drawing.Point(345, 686);
             this.label84.Margin = new System.Windows.Forms.Padding(1);
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(43, 18);
+            this.label84.Size = new System.Drawing.Size(41, 18);
             this.label84.TabIndex = 92;
             this.label84.Text = "Acc";
             this.label84.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -4807,7 +4850,7 @@ namespace CytoDx
             this.editStepAxisHam_Dec.Depth = 0;
             this.editStepAxisHam_Dec.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisHam_Dec.Hint = "";
-            this.editStepAxisHam_Dec.Location = new System.Drawing.Point(408, 716);
+            this.editStepAxisHam_Dec.Location = new System.Drawing.Point(390, 716);
             this.editStepAxisHam_Dec.MaxLength = 32767;
             this.editStepAxisHam_Dec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisHam_Dec.Name = "editStepAxisHam_Dec";
@@ -4815,7 +4858,7 @@ namespace CytoDx
             this.editStepAxisHam_Dec.SelectedText = "";
             this.editStepAxisHam_Dec.SelectionLength = 0;
             this.editStepAxisHam_Dec.SelectionStart = 0;
-            this.editStepAxisHam_Dec.Size = new System.Drawing.Size(42, 22);
+            this.editStepAxisHam_Dec.Size = new System.Drawing.Size(46, 22);
             this.editStepAxisHam_Dec.TabIndex = 97;
             this.editStepAxisHam_Dec.TabStop = false;
             this.editStepAxisHam_Dec.Text = "10";
@@ -4827,7 +4870,7 @@ namespace CytoDx
             this.editStepAxisHam_Acc.Depth = 0;
             this.editStepAxisHam_Acc.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editStepAxisHam_Acc.Hint = "";
-            this.editStepAxisHam_Acc.Location = new System.Drawing.Point(363, 716);
+            this.editStepAxisHam_Acc.Location = new System.Drawing.Point(347, 716);
             this.editStepAxisHam_Acc.MaxLength = 32767;
             this.editStepAxisHam_Acc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepAxisHam_Acc.Name = "editStepAxisHam_Acc";
@@ -4835,7 +4878,7 @@ namespace CytoDx
             this.editStepAxisHam_Acc.SelectedText = "";
             this.editStepAxisHam_Acc.SelectionLength = 0;
             this.editStepAxisHam_Acc.SelectionStart = 0;
-            this.editStepAxisHam_Acc.Size = new System.Drawing.Size(39, 22);
+            this.editStepAxisHam_Acc.Size = new System.Drawing.Size(37, 22);
             this.editStepAxisHam_Acc.TabIndex = 96;
             this.editStepAxisHam_Acc.TabStop = false;
             this.editStepAxisHam_Acc.Text = "10";
@@ -4853,7 +4896,7 @@ namespace CytoDx
             this.btnHoldStepAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHoldStepAxisX.Name = "btnHoldStepAxisX";
             this.btnHoldStepAxisX.Primary = true;
-            this.btnHoldStepAxisX.Size = new System.Drawing.Size(43, 18);
+            this.btnHoldStepAxisX.Size = new System.Drawing.Size(41, 18);
             this.btnHoldStepAxisX.TabIndex = 71;
             this.btnHoldStepAxisX.Text = "Hold";
             this.btnHoldStepAxisX.UseVisualStyleBackColor = true;
@@ -4871,7 +4914,7 @@ namespace CytoDx
             this.btnHoldStepAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHoldStepAxisY.Name = "btnHoldStepAxisY";
             this.btnHoldStepAxisY.Primary = true;
-            this.btnHoldStepAxisY.Size = new System.Drawing.Size(43, 18);
+            this.btnHoldStepAxisY.Size = new System.Drawing.Size(41, 18);
             this.btnHoldStepAxisY.TabIndex = 73;
             this.btnHoldStepAxisY.Text = "Hold";
             this.btnHoldStepAxisY.UseVisualStyleBackColor = true;
@@ -4889,7 +4932,7 @@ namespace CytoDx
             this.btnHoldStepAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHoldStepAxisZ.Name = "btnHoldStepAxisZ";
             this.btnHoldStepAxisZ.Primary = true;
-            this.btnHoldStepAxisZ.Size = new System.Drawing.Size(43, 18);
+            this.btnHoldStepAxisZ.Size = new System.Drawing.Size(41, 18);
             this.btnHoldStepAxisZ.TabIndex = 74;
             this.btnHoldStepAxisZ.Text = "Hold";
             this.btnHoldStepAxisZ.UseVisualStyleBackColor = true;
@@ -4907,7 +4950,7 @@ namespace CytoDx
             this.btnHoldStepAxisGrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHoldStepAxisGrip.Name = "btnHoldStepAxisGrip";
             this.btnHoldStepAxisGrip.Primary = true;
-            this.btnHoldStepAxisGrip.Size = new System.Drawing.Size(43, 18);
+            this.btnHoldStepAxisGrip.Size = new System.Drawing.Size(41, 18);
             this.btnHoldStepAxisGrip.TabIndex = 75;
             this.btnHoldStepAxisGrip.Text = "Hold";
             this.btnHoldStepAxisGrip.UseVisualStyleBackColor = true;
@@ -4925,7 +4968,7 @@ namespace CytoDx
             this.btnHoldStepAxisHam.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHoldStepAxisHam.Name = "btnHoldStepAxisHam";
             this.btnHoldStepAxisHam.Primary = true;
-            this.btnHoldStepAxisHam.Size = new System.Drawing.Size(43, 18);
+            this.btnHoldStepAxisHam.Size = new System.Drawing.Size(41, 18);
             this.btnHoldStepAxisHam.TabIndex = 76;
             this.btnHoldStepAxisHam.Text = "Hold";
             this.btnHoldStepAxisHam.UseVisualStyleBackColor = true;
@@ -4943,7 +4986,7 @@ namespace CytoDx
             this.btnFreeStepAxisHam.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFreeStepAxisHam.Name = "btnFreeStepAxisHam";
             this.btnFreeStepAxisHam.Primary = true;
-            this.btnFreeStepAxisHam.Size = new System.Drawing.Size(43, 18);
+            this.btnFreeStepAxisHam.Size = new System.Drawing.Size(41, 18);
             this.btnFreeStepAxisHam.TabIndex = 80;
             this.btnFreeStepAxisHam.Text = "Free";
             this.btnFreeStepAxisHam.UseVisualStyleBackColor = true;
@@ -4961,7 +5004,7 @@ namespace CytoDx
             this.btnFreeStepAxisGrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFreeStepAxisGrip.Name = "btnFreeStepAxisGrip";
             this.btnFreeStepAxisGrip.Primary = true;
-            this.btnFreeStepAxisGrip.Size = new System.Drawing.Size(43, 18);
+            this.btnFreeStepAxisGrip.Size = new System.Drawing.Size(41, 18);
             this.btnFreeStepAxisGrip.TabIndex = 79;
             this.btnFreeStepAxisGrip.Text = "Free";
             this.btnFreeStepAxisGrip.UseVisualStyleBackColor = true;
@@ -4979,7 +5022,7 @@ namespace CytoDx
             this.btnFreeStepAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFreeStepAxisZ.Name = "btnFreeStepAxisZ";
             this.btnFreeStepAxisZ.Primary = true;
-            this.btnFreeStepAxisZ.Size = new System.Drawing.Size(43, 18);
+            this.btnFreeStepAxisZ.Size = new System.Drawing.Size(41, 18);
             this.btnFreeStepAxisZ.TabIndex = 78;
             this.btnFreeStepAxisZ.Text = "Free";
             this.btnFreeStepAxisZ.UseVisualStyleBackColor = true;
@@ -4997,7 +5040,7 @@ namespace CytoDx
             this.btnFreeStepAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFreeStepAxisY.Name = "btnFreeStepAxisY";
             this.btnFreeStepAxisY.Primary = true;
-            this.btnFreeStepAxisY.Size = new System.Drawing.Size(43, 18);
+            this.btnFreeStepAxisY.Size = new System.Drawing.Size(41, 18);
             this.btnFreeStepAxisY.TabIndex = 77;
             this.btnFreeStepAxisY.Text = "Free";
             this.btnFreeStepAxisY.UseVisualStyleBackColor = true;
@@ -5015,7 +5058,7 @@ namespace CytoDx
             this.btnFreeStepAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnFreeStepAxisX.Name = "btnFreeStepAxisX";
             this.btnFreeStepAxisX.Primary = true;
-            this.btnFreeStepAxisX.Size = new System.Drawing.Size(43, 18);
+            this.btnFreeStepAxisX.Size = new System.Drawing.Size(41, 18);
             this.btnFreeStepAxisX.TabIndex = 72;
             this.btnFreeStepAxisX.Text = "Free";
             this.btnFreeStepAxisX.UseVisualStyleBackColor = true;
@@ -5028,12 +5071,12 @@ namespace CytoDx
             this.btnResetStepAxisX.Depth = 0;
             this.btnResetStepAxisX.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetStepAxisX.Icon = null;
-            this.btnResetStepAxisX.Location = new System.Drawing.Point(406, 87);
+            this.btnResetStepAxisX.Location = new System.Drawing.Point(388, 87);
             this.btnResetStepAxisX.Margin = new System.Windows.Forms.Padding(1);
             this.btnResetStepAxisX.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetStepAxisX.Name = "btnResetStepAxisX";
             this.btnResetStepAxisX.Primary = true;
-            this.btnResetStepAxisX.Size = new System.Drawing.Size(46, 18);
+            this.btnResetStepAxisX.Size = new System.Drawing.Size(50, 18);
             this.btnResetStepAxisX.TabIndex = 19;
             this.btnResetStepAxisX.Text = "Reset";
             this.btnResetStepAxisX.UseVisualStyleBackColor = true;
@@ -5046,12 +5089,12 @@ namespace CytoDx
             this.btnResetStepAxisY.Depth = 0;
             this.btnResetStepAxisY.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetStepAxisY.Icon = null;
-            this.btnResetStepAxisY.Location = new System.Drawing.Point(406, 227);
+            this.btnResetStepAxisY.Location = new System.Drawing.Point(388, 227);
             this.btnResetStepAxisY.Margin = new System.Windows.Forms.Padding(1);
             this.btnResetStepAxisY.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetStepAxisY.Name = "btnResetStepAxisY";
             this.btnResetStepAxisY.Primary = true;
-            this.btnResetStepAxisY.Size = new System.Drawing.Size(46, 18);
+            this.btnResetStepAxisY.Size = new System.Drawing.Size(50, 18);
             this.btnResetStepAxisY.TabIndex = 20;
             this.btnResetStepAxisY.Text = "Reset";
             this.btnResetStepAxisY.UseVisualStyleBackColor = true;
@@ -5064,12 +5107,12 @@ namespace CytoDx
             this.btnResetStepAxisZ.Depth = 0;
             this.btnResetStepAxisZ.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetStepAxisZ.Icon = null;
-            this.btnResetStepAxisZ.Location = new System.Drawing.Point(406, 367);
+            this.btnResetStepAxisZ.Location = new System.Drawing.Point(388, 367);
             this.btnResetStepAxisZ.Margin = new System.Windows.Forms.Padding(1);
             this.btnResetStepAxisZ.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetStepAxisZ.Name = "btnResetStepAxisZ";
             this.btnResetStepAxisZ.Primary = true;
-            this.btnResetStepAxisZ.Size = new System.Drawing.Size(46, 18);
+            this.btnResetStepAxisZ.Size = new System.Drawing.Size(50, 18);
             this.btnResetStepAxisZ.TabIndex = 17;
             this.btnResetStepAxisZ.Text = "Reset";
             this.btnResetStepAxisZ.UseVisualStyleBackColor = true;
@@ -5082,12 +5125,12 @@ namespace CytoDx
             this.btnResetStepGripper.Depth = 0;
             this.btnResetStepGripper.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetStepGripper.Icon = null;
-            this.btnResetStepGripper.Location = new System.Drawing.Point(406, 507);
+            this.btnResetStepGripper.Location = new System.Drawing.Point(388, 507);
             this.btnResetStepGripper.Margin = new System.Windows.Forms.Padding(1);
             this.btnResetStepGripper.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetStepGripper.Name = "btnResetStepGripper";
             this.btnResetStepGripper.Primary = true;
-            this.btnResetStepGripper.Size = new System.Drawing.Size(46, 18);
+            this.btnResetStepGripper.Size = new System.Drawing.Size(50, 18);
             this.btnResetStepGripper.TabIndex = 18;
             this.btnResetStepGripper.Text = "Reset";
             this.btnResetStepGripper.UseVisualStyleBackColor = true;
@@ -5100,12 +5143,12 @@ namespace CytoDx
             this.btnResetStepPipett.Depth = 0;
             this.btnResetStepPipett.Font = new System.Drawing.Font("Franklin Gothic Medium", 11F);
             this.btnResetStepPipett.Icon = null;
-            this.btnResetStepPipett.Location = new System.Drawing.Point(406, 647);
+            this.btnResetStepPipett.Location = new System.Drawing.Point(388, 647);
             this.btnResetStepPipett.Margin = new System.Windows.Forms.Padding(1);
             this.btnResetStepPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnResetStepPipett.Name = "btnResetStepPipett";
             this.btnResetStepPipett.Primary = true;
-            this.btnResetStepPipett.Size = new System.Drawing.Size(46, 18);
+            this.btnResetStepPipett.Size = new System.Drawing.Size(50, 18);
             this.btnResetStepPipett.TabIndex = 18;
             this.btnResetStepPipett.Text = "Reset";
             this.btnResetStepPipett.UseVisualStyleBackColor = true;
@@ -5121,7 +5164,7 @@ namespace CytoDx
             this.groupBox7.Location = new System.Drawing.Point(3, 785);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Size = new System.Drawing.Size(307, 151);
+            this.groupBox7.Size = new System.Drawing.Size(298, 151);
             this.groupBox7.TabIndex = 23;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Tricontinent Pipett Control";
@@ -5164,7 +5207,7 @@ namespace CytoDx
             this.tableLayoutPanel30.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45F));
             this.tableLayoutPanel30.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel30.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel30.Size = new System.Drawing.Size(303, 128);
+            this.tableLayoutPanel30.Size = new System.Drawing.Size(294, 128);
             this.tableLayoutPanel30.TabIndex = 0;
             // 
             // btnLiquidDispenseTriPipett
@@ -5178,7 +5221,7 @@ namespace CytoDx
             this.btnLiquidDispenseTriPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnLiquidDispenseTriPipett.Name = "btnLiquidDispenseTriPipett";
             this.btnLiquidDispenseTriPipett.Primary = true;
-            this.btnLiquidDispenseTriPipett.Size = new System.Drawing.Size(43, 21);
+            this.btnLiquidDispenseTriPipett.Size = new System.Drawing.Size(42, 21);
             this.btnLiquidDispenseTriPipett.TabIndex = 19;
             this.btnLiquidDispenseTriPipett.Text = "Disp.";
             this.btnLiquidDispenseTriPipett.UseVisualStyleBackColor = true;
@@ -5190,7 +5233,7 @@ namespace CytoDx
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label12.Location = new System.Drawing.Point(57, 32);
+            this.label12.Location = new System.Drawing.Point(55, 32);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(33, 30);
@@ -5205,11 +5248,11 @@ namespace CytoDx
             this.btnLiquidAspirateTriPipett.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLiquidAspirateTriPipett.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLiquidAspirateTriPipett.Icon = null;
-            this.btnLiquidAspirateTriPipett.Location = new System.Drawing.Point(52, 104);
+            this.btnLiquidAspirateTriPipett.Location = new System.Drawing.Point(51, 104);
             this.btnLiquidAspirateTriPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnLiquidAspirateTriPipett.Name = "btnLiquidAspirateTriPipett";
             this.btnLiquidAspirateTriPipett.Primary = true;
-            this.btnLiquidAspirateTriPipett.Size = new System.Drawing.Size(43, 21);
+            this.btnLiquidAspirateTriPipett.Size = new System.Drawing.Size(42, 21);
             this.btnLiquidAspirateTriPipett.TabIndex = 18;
             this.btnLiquidAspirateTriPipett.Text = "Asp.";
             this.btnLiquidAspirateTriPipett.UseVisualStyleBackColor = true;
@@ -5236,11 +5279,11 @@ namespace CytoDx
             this.btnStopTriPipett.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStopTriPipett.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStopTriPipett.Icon = null;
-            this.btnStopTriPipett.Location = new System.Drawing.Point(101, 104);
+            this.btnStopTriPipett.Location = new System.Drawing.Point(99, 104);
             this.btnStopTriPipett.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStopTriPipett.Name = "btnStopTriPipett";
             this.btnStopTriPipett.Primary = true;
-            this.btnStopTriPipett.Size = new System.Drawing.Size(43, 21);
+            this.btnStopTriPipett.Size = new System.Drawing.Size(42, 21);
             this.btnStopTriPipett.TabIndex = 1;
             this.btnStopTriPipett.Text = "Stop";
             this.btnStopTriPipett.UseVisualStyleBackColor = true;
@@ -5253,11 +5296,11 @@ namespace CytoDx
             this.btnTriPipettInitialize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnTriPipettInitialize.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTriPipettInitialize.Icon = null;
-            this.btnTriPipettInitialize.Location = new System.Drawing.Point(251, 104);
+            this.btnTriPipettInitialize.Location = new System.Drawing.Point(245, 104);
             this.btnTriPipettInitialize.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnTriPipettInitialize.Name = "btnTriPipettInitialize";
             this.btnTriPipettInitialize.Primary = true;
-            this.btnTriPipettInitialize.Size = new System.Drawing.Size(49, 21);
+            this.btnTriPipettInitialize.Size = new System.Drawing.Size(46, 21);
             this.btnTriPipettInitialize.TabIndex = 2;
             this.btnTriPipettInitialize.Text = "Init";
             this.btnTriPipettInitialize.UseVisualStyleBackColor = true;
@@ -5287,7 +5330,7 @@ namespace CytoDx
             this.editTriPipettLoadingVolume.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editTriPipettLoadingVolume.Depth = 0;
             this.editTriPipettLoadingVolume.Hint = "";
-            this.editTriPipettLoadingVolume.Location = new System.Drawing.Point(52, 79);
+            this.editTriPipettLoadingVolume.Location = new System.Drawing.Point(51, 79);
             this.editTriPipettLoadingVolume.MaxLength = 32767;
             this.editTriPipettLoadingVolume.MouseState = MaterialSkin.MouseState.HOVER;
             this.editTriPipettLoadingVolume.Name = "editTriPipettLoadingVolume";
@@ -5306,7 +5349,7 @@ namespace CytoDx
             this.editTriPipettOffsetVolume.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editTriPipettOffsetVolume.Depth = 0;
             this.editTriPipettOffsetVolume.Hint = "";
-            this.editTriPipettOffsetVolume.Location = new System.Drawing.Point(101, 79);
+            this.editTriPipettOffsetVolume.Location = new System.Drawing.Point(99, 79);
             this.editTriPipettOffsetVolume.MaxLength = 32767;
             this.editTriPipettOffsetVolume.MouseState = MaterialSkin.MouseState.HOVER;
             this.editTriPipettOffsetVolume.Name = "editTriPipettOffsetVolume";
@@ -5326,7 +5369,7 @@ namespace CytoDx
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label16.Location = new System.Drawing.Point(103, 25);
+            this.label16.Location = new System.Drawing.Point(101, 25);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(38, 45);
@@ -5340,7 +5383,7 @@ namespace CytoDx
             this.label101.AutoSize = true;
             this.label101.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label101.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label101.Location = new System.Drawing.Point(252, 32);
+            this.label101.Location = new System.Drawing.Point(244, 32);
             this.label101.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label101.Name = "label101";
             this.label101.Size = new System.Drawing.Size(47, 30);
@@ -5354,7 +5397,7 @@ namespace CytoDx
             this.label_PE1_PlungerCurPos.AutoSize = true;
             this.label_PE1_PlungerCurPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_PE1_PlungerCurPos.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_PE1_PlungerCurPos.Location = new System.Drawing.Point(270, 81);
+            this.label_PE1_PlungerCurPos.Location = new System.Drawing.Point(262, 81);
             this.label_PE1_PlungerCurPos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_PE1_PlungerCurPos.Name = "label_PE1_PlungerCurPos";
             this.label_PE1_PlungerCurPos.Size = new System.Drawing.Size(11, 15);
@@ -5369,11 +5412,11 @@ namespace CytoDx
             this.btnTriPipettPosRead.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnTriPipettPosRead.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTriPipettPosRead.Icon = null;
-            this.btnTriPipettPosRead.Location = new System.Drawing.Point(251, 3);
+            this.btnTriPipettPosRead.Location = new System.Drawing.Point(245, 3);
             this.btnTriPipettPosRead.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnTriPipettPosRead.Name = "btnTriPipettPosRead";
             this.btnTriPipettPosRead.Primary = true;
-            this.btnTriPipettPosRead.Size = new System.Drawing.Size(49, 13);
+            this.btnTriPipettPosRead.Size = new System.Drawing.Size(46, 13);
             this.btnTriPipettPosRead.TabIndex = 2;
             this.btnTriPipettPosRead.Text = "Read";
             this.btnTriPipettPosRead.UseVisualStyleBackColor = true;
@@ -5388,7 +5431,7 @@ namespace CytoDx
             this.label29.Location = new System.Drawing.Point(2, 0);
             this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(45, 19);
+            this.label29.Size = new System.Drawing.Size(44, 19);
             this.label29.TabIndex = 53;
             this.label29.Text = "State";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -5400,10 +5443,10 @@ namespace CytoDx
             this.label_TriPipettState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_TriPipettState.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_TriPipettState.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_TriPipettState.Location = new System.Drawing.Point(51, 0);
+            this.label_TriPipettState.Location = new System.Drawing.Point(50, 0);
             this.label_TriPipettState.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_TriPipettState.Name = "label_TriPipettState";
-            this.label_TriPipettState.Size = new System.Drawing.Size(143, 19);
+            this.label_TriPipettState.Size = new System.Drawing.Size(140, 19);
             this.label_TriPipettState.TabIndex = 53;
             this.label_TriPipettState.Text = "-";
             this.label_TriPipettState.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -5414,10 +5457,10 @@ namespace CytoDx
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label30.Location = new System.Drawing.Point(149, 25);
+            this.label30.Location = new System.Drawing.Point(148, 25);
             this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(45, 45);
+            this.label30.Size = new System.Drawing.Size(39, 45);
             this.label30.TabIndex = 53;
             this.label30.Text = "TrgAbsPos\r\n(cnt)";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -5428,7 +5471,7 @@ namespace CytoDx
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label31.Location = new System.Drawing.Point(200, 25);
+            this.label31.Location = new System.Drawing.Point(195, 25);
             this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(44, 45);
@@ -5443,11 +5486,11 @@ namespace CytoDx
             this.btnPE1_PlungerTrgPosRel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPE1_PlungerTrgPosRel.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPE1_PlungerTrgPosRel.Icon = null;
-            this.btnPE1_PlungerTrgPosRel.Location = new System.Drawing.Point(199, 104);
+            this.btnPE1_PlungerTrgPosRel.Location = new System.Drawing.Point(195, 104);
             this.btnPE1_PlungerTrgPosRel.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPE1_PlungerTrgPosRel.Name = "btnPE1_PlungerTrgPosRel";
             this.btnPE1_PlungerTrgPosRel.Primary = true;
-            this.btnPE1_PlungerTrgPosRel.Size = new System.Drawing.Size(46, 21);
+            this.btnPE1_PlungerTrgPosRel.Size = new System.Drawing.Size(44, 21);
             this.btnPE1_PlungerTrgPosRel.TabIndex = 2;
             this.btnPE1_PlungerTrgPosRel.Text = "Move";
             this.btnPE1_PlungerTrgPosRel.UseVisualStyleBackColor = true;
@@ -5460,11 +5503,11 @@ namespace CytoDx
             this.btnPE1_PlungerTrgPosAbs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPE1_PlungerTrgPosAbs.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPE1_PlungerTrgPosAbs.Icon = null;
-            this.btnPE1_PlungerTrgPosAbs.Location = new System.Drawing.Point(150, 104);
+            this.btnPE1_PlungerTrgPosAbs.Location = new System.Drawing.Point(147, 104);
             this.btnPE1_PlungerTrgPosAbs.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPE1_PlungerTrgPosAbs.Name = "btnPE1_PlungerTrgPosAbs";
             this.btnPE1_PlungerTrgPosAbs.Primary = true;
-            this.btnPE1_PlungerTrgPosAbs.Size = new System.Drawing.Size(43, 21);
+            this.btnPE1_PlungerTrgPosAbs.Size = new System.Drawing.Size(42, 21);
             this.btnPE1_PlungerTrgPosAbs.TabIndex = 2;
             this.btnPE1_PlungerTrgPosAbs.Text = "Move";
             this.btnPE1_PlungerTrgPosAbs.UseVisualStyleBackColor = true;
@@ -5475,7 +5518,7 @@ namespace CytoDx
             this.editPE1_PlungerTrgPosRel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editPE1_PlungerTrgPosRel.Depth = 0;
             this.editPE1_PlungerTrgPosRel.Hint = "";
-            this.editPE1_PlungerTrgPosRel.Location = new System.Drawing.Point(200, 79);
+            this.editPE1_PlungerTrgPosRel.Location = new System.Drawing.Point(195, 79);
             this.editPE1_PlungerTrgPosRel.MaxLength = 32767;
             this.editPE1_PlungerTrgPosRel.MouseState = MaterialSkin.MouseState.HOVER;
             this.editPE1_PlungerTrgPosRel.Name = "editPE1_PlungerTrgPosRel";
@@ -5494,7 +5537,7 @@ namespace CytoDx
             this.editPE1_PlungerTrgPosAbs.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editPE1_PlungerTrgPosAbs.Depth = 0;
             this.editPE1_PlungerTrgPosAbs.Hint = "";
-            this.editPE1_PlungerTrgPosAbs.Location = new System.Drawing.Point(150, 79);
+            this.editPE1_PlungerTrgPosAbs.Location = new System.Drawing.Point(147, 79);
             this.editPE1_PlungerTrgPosAbs.MaxLength = 32767;
             this.editPE1_PlungerTrgPosAbs.MouseState = MaterialSkin.MouseState.HOVER;
             this.editPE1_PlungerTrgPosAbs.Name = "editPE1_PlungerTrgPosAbs";
@@ -5514,13 +5557,13 @@ namespace CytoDx
             this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel22.Controls.Add(this.DV_World_T_Pnt, 0, 0);
             this.tableLayoutPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel22.Location = new System.Drawing.Point(471, 82);
+            this.tableLayoutPanel22.Location = new System.Drawing.Point(457, 82);
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 563F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 563F));
             this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 563F));
-            this.tableLayoutPanel22.Size = new System.Drawing.Size(595, 563);
+            this.tableLayoutPanel22.Size = new System.Drawing.Size(609, 563);
             this.tableLayoutPanel22.TabIndex = 28;
             // 
             // DV_World_T_Pnt
@@ -5573,7 +5616,7 @@ namespace CytoDx
             this.DV_World_T_Pnt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.DV_World_T_Pnt.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DV_World_T_Pnt.ShowCellToolTips = false;
-            this.DV_World_T_Pnt.Size = new System.Drawing.Size(589, 557);
+            this.DV_World_T_Pnt.Size = new System.Drawing.Size(603, 557);
             this.DV_World_T_Pnt.TabIndex = 64;
             this.DV_World_T_Pnt.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DV_Wrold_T_Pnt_CellMouseClick);
             this.DV_World_T_Pnt.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DataGridView_RowPostPaint);
@@ -5637,9 +5680,9 @@ namespace CytoDx
             this.groupBox17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox17.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F);
             this.groupBox17.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox17.Location = new System.Drawing.Point(316, 785);
+            this.groupBox17.Location = new System.Drawing.Point(307, 785);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(750, 151);
+            this.groupBox17.Size = new System.Drawing.Size(759, 151);
             this.groupBox17.TabIndex = 29;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Hamilton Pipett Control";
@@ -5676,7 +5719,7 @@ namespace CytoDx
             this.editHamPipettFlowRate.Size = new System.Drawing.Size(56, 22);
             this.editHamPipettFlowRate.TabIndex = 55;
             this.editHamPipettFlowRate.TabStop = false;
-            this.editHamPipettFlowRate.Text = "2";
+            this.editHamPipettFlowRate.Text = "1";
             this.editHamPipettFlowRate.UseSystemPasswordChar = false;
             // 
             // label18
@@ -5690,7 +5733,7 @@ namespace CytoDx
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(62, 30);
             this.label18.TabIndex = 54;
-            this.label18.Text = "Flow Rate\r\n(0.1mL/s)";
+            this.label18.Text = "Flow Rate\r\n(mL/s)";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel47
@@ -5840,6 +5883,7 @@ namespace CytoDx
             this.tableLayoutPanel35.Controls.Add(this.label25, 0, 0);
             this.tableLayoutPanel35.Controls.Add(this.label32, 1, 0);
             this.tableLayoutPanel35.Controls.Add(this.editZMoveSpdScale, 1, 1);
+            this.tableLayoutPanel35.Controls.Add(this.materialRaisedButton17, 1, 2);
             this.tableLayoutPanel35.Location = new System.Drawing.Point(562, 29);
             this.tableLayoutPanel35.Name = "tableLayoutPanel35";
             this.tableLayoutPanel35.RowCount = 3;
@@ -5854,7 +5898,6 @@ namespace CytoDx
             // 
             this.materialRaisedButton10.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.materialRaisedButton10.Depth = 0;
-            this.materialRaisedButton10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialRaisedButton10.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.materialRaisedButton10.Icon = null;
             this.materialRaisedButton10.Location = new System.Drawing.Point(3, 76);
@@ -5883,7 +5926,7 @@ namespace CytoDx
             this.editHamPipettTranportAirVol.Size = new System.Drawing.Size(51, 22);
             this.editHamPipettTranportAirVol.TabIndex = 55;
             this.editHamPipettTranportAirVol.TabStop = false;
-            this.editHamPipettTranportAirVol.Text = "0.01";
+            this.editHamPipettTranportAirVol.Text = "0.0";
             this.editHamPipettTranportAirVol.UseSystemPasswordChar = false;
             // 
             // label25
@@ -5932,6 +5975,22 @@ namespace CytoDx
             this.editZMoveSpdScale.TabStop = false;
             this.editZMoveSpdScale.Text = "1.7";
             this.editZMoveSpdScale.UseSystemPasswordChar = false;
+            // 
+            // materialRaisedButton17
+            // 
+            this.materialRaisedButton17.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton17.Depth = 0;
+            this.materialRaisedButton17.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.materialRaisedButton17.Icon = null;
+            this.materialRaisedButton17.Location = new System.Drawing.Point(60, 76);
+            this.materialRaisedButton17.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton17.Name = "materialRaisedButton17";
+            this.materialRaisedButton17.Primary = true;
+            this.materialRaisedButton17.Size = new System.Drawing.Size(36, 34);
+            this.materialRaisedButton17.TabIndex = 56;
+            this.materialRaisedButton17.Text = "Vol";
+            this.materialRaisedButton17.UseVisualStyleBackColor = true;
+            this.materialRaisedButton17.Click += new System.EventHandler(this.btnVolumeConfirm_HamPipett_Click);
             // 
             // tableLayoutPanel42
             // 
@@ -6079,7 +6138,7 @@ namespace CytoDx
             this.editHamPipettOverAspirateVol.Size = new System.Drawing.Size(56, 22);
             this.editHamPipettOverAspirateVol.TabIndex = 57;
             this.editHamPipettOverAspirateVol.TabStop = false;
-            this.editHamPipettOverAspirateVol.Text = "0.05";
+            this.editHamPipettOverAspirateVol.Text = "0.0";
             this.editHamPipettOverAspirateVol.UseSystemPasswordChar = false;
             // 
             // label22
@@ -6210,7 +6269,7 @@ namespace CytoDx
             this.editHamPipettStopBackVol.Size = new System.Drawing.Size(56, 22);
             this.editHamPipettStopBackVol.TabIndex = 57;
             this.editHamPipettStopBackVol.TabStop = false;
-            this.editHamPipettStopBackVol.Text = "0.02";
+            this.editHamPipettStopBackVol.Text = "0.0";
             this.editHamPipettStopBackVol.UseSystemPasswordChar = false;
             // 
             // tableLayoutPanel36
@@ -6277,7 +6336,7 @@ namespace CytoDx
             this.editHamPipettAirBlowOutVol.Size = new System.Drawing.Size(55, 22);
             this.editHamPipettAirBlowOutVol.TabIndex = 55;
             this.editHamPipettAirBlowOutVol.TabStop = false;
-            this.editHamPipettAirBlowOutVol.Text = "0.01";
+            this.editHamPipettAirBlowOutVol.Text = "0.0";
             this.editHamPipettAirBlowOutVol.UseSystemPasswordChar = false;
             // 
             // groupBox18
@@ -6287,10 +6346,10 @@ namespace CytoDx
             this.groupBox18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox18.Font = new System.Drawing.Font("Franklin Gothic Medium", 12F);
             this.groupBox18.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox18.Location = new System.Drawing.Point(468, 697);
+            this.groupBox18.Location = new System.Drawing.Point(454, 697);
             this.groupBox18.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(601, 85);
+            this.groupBox18.Size = new System.Drawing.Size(615, 85);
             this.groupBox18.TabIndex = 30;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "Hamilton Pipett cLLD";
@@ -6302,7 +6361,7 @@ namespace CytoDx
             this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.80198F));
             this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.38284F));
             this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.033F));
-            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 218F));
+            this.tableLayoutPanel43.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
             this.tableLayoutPanel43.Controls.Add(this.btnStopcLLD_Ham, 4, 1);
             this.tableLayoutPanel43.Controls.Add(this.comboBox_SensitivitycLLD, 0, 1);
             this.tableLayoutPanel43.Controls.Add(this.editcLLD_Speed, 2, 1);
@@ -6319,7 +6378,7 @@ namespace CytoDx
             this.tableLayoutPanel43.RowCount = 2;
             this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel43.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel43.Size = new System.Drawing.Size(595, 60);
+            this.tableLayoutPanel43.Size = new System.Drawing.Size(609, 60);
             this.tableLayoutPanel43.TabIndex = 0;
             // 
             // btnStopcLLD_Ham
@@ -6332,7 +6391,7 @@ namespace CytoDx
             this.btnStopcLLD_Ham.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStopcLLD_Ham.Name = "btnStopcLLD_Ham";
             this.btnStopcLLD_Ham.Primary = true;
-            this.btnStopcLLD_Ham.Size = new System.Drawing.Size(213, 24);
+            this.btnStopcLLD_Ham.Size = new System.Drawing.Size(227, 24);
             this.btnStopcLLD_Ham.TabIndex = 58;
             this.btnStopcLLD_Ham.Text = "Stop";
             this.btnStopcLLD_Ham.UseVisualStyleBackColor = true;
@@ -6404,7 +6463,7 @@ namespace CytoDx
             this.btnStartcLLD_Ham.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStartcLLD_Ham.Name = "btnStartcLLD_Ham";
             this.btnStartcLLD_Ham.Primary = true;
-            this.btnStartcLLD_Ham.Size = new System.Drawing.Size(213, 24);
+            this.btnStartcLLD_Ham.Size = new System.Drawing.Size(227, 24);
             this.btnStartcLLD_Ham.TabIndex = 26;
             this.btnStartcLLD_Ham.Text = "Start";
             this.btnStartcLLD_Ham.UseVisualStyleBackColor = true;
@@ -7234,7 +7293,7 @@ namespace CytoDx
             this.tableLayoutPanel31.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.46809F));
             this.tableLayoutPanel31.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.53191F));
             this.tableLayoutPanel31.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 133F));
-            this.tableLayoutPanel31.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 233F));
+            this.tableLayoutPanel31.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 247F));
             this.tableLayoutPanel31.Controls.Add(this.btnPinchValveOff, 1, 0);
             this.tableLayoutPanel31.Controls.Add(this.btnPinchValveOn, 0, 0);
             this.tableLayoutPanel31.Controls.Add(this.label15, 2, 0);
@@ -7253,11 +7312,11 @@ namespace CytoDx
             this.btnPinchValveOff.Depth = 0;
             this.btnPinchValveOff.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPinchValveOff.Icon = null;
-            this.btnPinchValveOff.Location = new System.Drawing.Point(142, 3);
+            this.btnPinchValveOff.Location = new System.Drawing.Point(135, 3);
             this.btnPinchValveOff.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPinchValveOff.Name = "btnPinchValveOff";
             this.btnPinchValveOff.Primary = true;
-            this.btnPinchValveOff.Size = new System.Drawing.Size(135, 31);
+            this.btnPinchValveOff.Size = new System.Drawing.Size(128, 31);
             this.btnPinchValveOff.TabIndex = 5;
             this.btnPinchValveOff.Text = "Open";
             this.btnPinchValveOff.UseVisualStyleBackColor = true;
@@ -7273,7 +7332,7 @@ namespace CytoDx
             this.btnPinchValveOn.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPinchValveOn.Name = "btnPinchValveOn";
             this.btnPinchValveOn.Primary = true;
-            this.btnPinchValveOn.Size = new System.Drawing.Size(133, 31);
+            this.btnPinchValveOn.Size = new System.Drawing.Size(126, 31);
             this.btnPinchValveOn.TabIndex = 6;
             this.btnPinchValveOn.Text = "Close";
             this.btnPinchValveOn.UseVisualStyleBackColor = true;
@@ -7285,7 +7344,7 @@ namespace CytoDx
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label15.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label15.Location = new System.Drawing.Point(282, 0);
+            this.label15.Location = new System.Drawing.Point(268, 0);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(129, 37);
@@ -7298,7 +7357,7 @@ namespace CytoDx
             this.editValveDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editValveDelay.Depth = 0;
             this.editValveDelay.Hint = "";
-            this.editValveDelay.Location = new System.Drawing.Point(416, 7);
+            this.editValveDelay.Location = new System.Drawing.Point(402, 7);
             this.editValveDelay.MaxLength = 32767;
             this.editValveDelay.MouseState = MaterialSkin.MouseState.HOVER;
             this.editValveDelay.Name = "editValveDelay";
@@ -7306,7 +7365,7 @@ namespace CytoDx
             this.editValveDelay.SelectedText = "";
             this.editValveDelay.SelectionLength = 0;
             this.editValveDelay.SelectionStart = 0;
-            this.editValveDelay.Size = new System.Drawing.Size(228, 22);
+            this.editValveDelay.Size = new System.Drawing.Size(242, 22);
             this.editValveDelay.TabIndex = 3;
             this.editValveDelay.TabStop = false;
             this.editValveDelay.Text = "0";
@@ -7337,7 +7396,7 @@ namespace CytoDx
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.89209F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.66187F));
             this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.66187F));
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 202F));
             this.tableLayoutPanel29.Controls.Add(this.editPumpPortNo, 3, 1);
             this.tableLayoutPanel29.Controls.Add(this.btnLiquidDispensePump, 0, 2);
             this.tableLayoutPanel29.Controls.Add(this.label7, 3, 0);
@@ -7370,7 +7429,7 @@ namespace CytoDx
             this.editPumpPortNo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editPumpPortNo.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editPumpPortNo.Hint = "";
-            this.editPumpPortNo.Location = new System.Drawing.Point(360, 42);
+            this.editPumpPortNo.Location = new System.Drawing.Point(333, 42);
             this.editPumpPortNo.MaxLength = 32767;
             this.editPumpPortNo.MouseState = MaterialSkin.MouseState.HOVER;
             this.editPumpPortNo.Name = "editPumpPortNo";
@@ -7378,7 +7437,7 @@ namespace CytoDx
             this.editPumpPortNo.SelectedText = "";
             this.editPumpPortNo.SelectionLength = 0;
             this.editPumpPortNo.SelectionStart = 0;
-            this.editPumpPortNo.Size = new System.Drawing.Size(55, 22);
+            this.editPumpPortNo.Size = new System.Drawing.Size(50, 22);
             this.editPumpPortNo.TabIndex = 57;
             this.editPumpPortNo.TabStop = false;
             this.editPumpPortNo.Text = "1";
@@ -7394,7 +7453,7 @@ namespace CytoDx
             this.btnLiquidDispensePump.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnLiquidDispensePump.Name = "btnLiquidDispensePump";
             this.btnLiquidDispensePump.Primary = true;
-            this.btnLiquidDispensePump.Size = new System.Drawing.Size(113, 25);
+            this.btnLiquidDispensePump.Size = new System.Drawing.Size(104, 25);
             this.btnLiquidDispensePump.TabIndex = 53;
             this.btnLiquidDispensePump.Text = "Dispense";
             this.btnLiquidDispensePump.UseVisualStyleBackColor = true;
@@ -7406,10 +7465,10 @@ namespace CytoDx
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label7.Location = new System.Drawing.Point(359, 0);
+            this.label7.Location = new System.Drawing.Point(332, 0);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 39);
+            this.label7.Size = new System.Drawing.Size(52, 39);
             this.label7.TabIndex = 52;
             this.label7.Text = "Port\r\n(1~6)";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7420,10 +7479,10 @@ namespace CytoDx
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label6.Location = new System.Drawing.Point(240, 0);
+            this.label6.Location = new System.Drawing.Point(222, 0);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(115, 39);
+            this.label6.Size = new System.Drawing.Size(106, 39);
             this.label6.TabIndex = 51;
             this.label6.Text = "Offset Volume(mL)";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7437,7 +7496,7 @@ namespace CytoDx
             this.label1.Location = new System.Drawing.Point(2, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 39);
+            this.label1.Size = new System.Drawing.Size(106, 39);
             this.label1.TabIndex = 52;
             this.label1.Text = "Flow Rate (mL/sec)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7448,10 +7507,10 @@ namespace CytoDx
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(121, 0);
+            this.label2.Location = new System.Drawing.Point(112, 0);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 39);
+            this.label2.Size = new System.Drawing.Size(106, 39);
             this.label2.TabIndex = 52;
             this.label2.Text = "Volume\r\n(mL)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7470,7 +7529,7 @@ namespace CytoDx
             this.editPumpFlowRate.SelectedText = "";
             this.editPumpFlowRate.SelectionLength = 0;
             this.editPumpFlowRate.SelectionStart = 0;
-            this.editPumpFlowRate.Size = new System.Drawing.Size(113, 22);
+            this.editPumpFlowRate.Size = new System.Drawing.Size(104, 22);
             this.editPumpFlowRate.TabIndex = 3;
             this.editPumpFlowRate.TabStop = false;
             this.editPumpFlowRate.Text = "10.0";
@@ -7482,7 +7541,7 @@ namespace CytoDx
             this.editPumpLoadingVolume.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editPumpLoadingVolume.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editPumpLoadingVolume.Hint = "";
-            this.editPumpLoadingVolume.Location = new System.Drawing.Point(122, 42);
+            this.editPumpLoadingVolume.Location = new System.Drawing.Point(113, 42);
             this.editPumpLoadingVolume.MaxLength = 32767;
             this.editPumpLoadingVolume.MouseState = MaterialSkin.MouseState.HOVER;
             this.editPumpLoadingVolume.Name = "editPumpLoadingVolume";
@@ -7490,7 +7549,7 @@ namespace CytoDx
             this.editPumpLoadingVolume.SelectedText = "";
             this.editPumpLoadingVolume.SelectionLength = 0;
             this.editPumpLoadingVolume.SelectionStart = 0;
-            this.editPumpLoadingVolume.Size = new System.Drawing.Size(113, 22);
+            this.editPumpLoadingVolume.Size = new System.Drawing.Size(104, 22);
             this.editPumpLoadingVolume.TabIndex = 49;
             this.editPumpLoadingVolume.TabStop = false;
             this.editPumpLoadingVolume.Text = "10.0";
@@ -7502,11 +7561,11 @@ namespace CytoDx
             this.btnLiquidAspiratePump.Depth = 0;
             this.btnLiquidAspiratePump.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnLiquidAspiratePump.Icon = null;
-            this.btnLiquidAspiratePump.Location = new System.Drawing.Point(122, 73);
+            this.btnLiquidAspiratePump.Location = new System.Drawing.Point(113, 73);
             this.btnLiquidAspiratePump.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnLiquidAspiratePump.Name = "btnLiquidAspiratePump";
             this.btnLiquidAspiratePump.Primary = true;
-            this.btnLiquidAspiratePump.Size = new System.Drawing.Size(113, 25);
+            this.btnLiquidAspiratePump.Size = new System.Drawing.Size(104, 25);
             this.btnLiquidAspiratePump.TabIndex = 1;
             this.btnLiquidAspiratePump.Text = "Aspirate";
             this.btnLiquidAspiratePump.UseVisualStyleBackColor = true;
@@ -7518,11 +7577,11 @@ namespace CytoDx
             this.btnStopPump.Depth = 0;
             this.btnStopPump.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStopPump.Icon = null;
-            this.btnStopPump.Location = new System.Drawing.Point(241, 73);
+            this.btnStopPump.Location = new System.Drawing.Point(223, 73);
             this.btnStopPump.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStopPump.Name = "btnStopPump";
             this.btnStopPump.Primary = true;
-            this.btnStopPump.Size = new System.Drawing.Size(113, 25);
+            this.btnStopPump.Size = new System.Drawing.Size(104, 25);
             this.btnStopPump.TabIndex = 4;
             this.btnStopPump.Text = "Stop";
             this.btnStopPump.UseVisualStyleBackColor = true;
@@ -7534,7 +7593,7 @@ namespace CytoDx
             this.editPumpOffsetVolume.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editPumpOffsetVolume.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
             this.editPumpOffsetVolume.Hint = "";
-            this.editPumpOffsetVolume.Location = new System.Drawing.Point(241, 42);
+            this.editPumpOffsetVolume.Location = new System.Drawing.Point(223, 42);
             this.editPumpOffsetVolume.MaxLength = 32767;
             this.editPumpOffsetVolume.MouseState = MaterialSkin.MouseState.HOVER;
             this.editPumpOffsetVolume.Name = "editPumpOffsetVolume";
@@ -7542,7 +7601,7 @@ namespace CytoDx
             this.editPumpOffsetVolume.SelectedText = "";
             this.editPumpOffsetVolume.SelectionLength = 0;
             this.editPumpOffsetVolume.SelectionStart = 0;
-            this.editPumpOffsetVolume.Size = new System.Drawing.Size(113, 22);
+            this.editPumpOffsetVolume.Size = new System.Drawing.Size(104, 22);
             this.editPumpOffsetVolume.TabIndex = 54;
             this.editPumpOffsetVolume.TabStop = false;
             this.editPumpOffsetVolume.Text = "2.0";
@@ -7554,11 +7613,11 @@ namespace CytoDx
             this.btnSelectPumpPortCW.Depth = 0;
             this.btnSelectPumpPortCW.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelectPumpPortCW.Icon = null;
-            this.btnSelectPumpPortCW.Location = new System.Drawing.Point(360, 73);
+            this.btnSelectPumpPortCW.Location = new System.Drawing.Point(333, 73);
             this.btnSelectPumpPortCW.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSelectPumpPortCW.Name = "btnSelectPumpPortCW";
             this.btnSelectPumpPortCW.Primary = true;
-            this.btnSelectPumpPortCW.Size = new System.Drawing.Size(55, 25);
+            this.btnSelectPumpPortCW.Size = new System.Drawing.Size(50, 25);
             this.btnSelectPumpPortCW.TabIndex = 55;
             this.btnSelectPumpPortCW.Text = "CW";
             this.btnSelectPumpPortCW.UseVisualStyleBackColor = true;
@@ -7570,11 +7629,11 @@ namespace CytoDx
             this.btnSelectPumpPortCCW.Depth = 0;
             this.btnSelectPumpPortCCW.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelectPumpPortCCW.Icon = null;
-            this.btnSelectPumpPortCCW.Location = new System.Drawing.Point(421, 73);
+            this.btnSelectPumpPortCCW.Location = new System.Drawing.Point(389, 73);
             this.btnSelectPumpPortCCW.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSelectPumpPortCCW.Name = "btnSelectPumpPortCCW";
             this.btnSelectPumpPortCCW.Primary = true;
-            this.btnSelectPumpPortCCW.Size = new System.Drawing.Size(55, 25);
+            this.btnSelectPumpPortCCW.Size = new System.Drawing.Size(50, 25);
             this.btnSelectPumpPortCCW.TabIndex = 56;
             this.btnSelectPumpPortCCW.Text = "CCW";
             this.btnSelectPumpPortCCW.UseVisualStyleBackColor = true;
@@ -7585,9 +7644,9 @@ namespace CytoDx
             this.label_PE3_PlungerPos.AutoSize = true;
             this.label_PE3_PlungerPos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_PE3_PlungerPos.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
-            this.label_PE3_PlungerPos.Location = new System.Drawing.Point(421, 39);
+            this.label_PE3_PlungerPos.Location = new System.Drawing.Point(389, 39);
             this.label_PE3_PlungerPos.Name = "label_PE3_PlungerPos";
-            this.label_PE3_PlungerPos.Size = new System.Drawing.Size(55, 31);
+            this.label_PE3_PlungerPos.Size = new System.Drawing.Size(50, 31);
             this.label_PE3_PlungerPos.TabIndex = 58;
             this.label_PE3_PlungerPos.Text = "0";
             this.label_PE3_PlungerPos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7598,11 +7657,11 @@ namespace CytoDx
             this.btnPumpInitialize.Depth = 0;
             this.btnPumpInitialize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPumpInitialize.Icon = null;
-            this.btnPumpInitialize.Location = new System.Drawing.Point(421, 3);
+            this.btnPumpInitialize.Location = new System.Drawing.Point(389, 3);
             this.btnPumpInitialize.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPumpInitialize.Name = "btnPumpInitialize";
             this.btnPumpInitialize.Primary = true;
-            this.btnPumpInitialize.Size = new System.Drawing.Size(55, 33);
+            this.btnPumpInitialize.Size = new System.Drawing.Size(50, 33);
             this.btnPumpInitialize.TabIndex = 59;
             this.btnPumpInitialize.Text = "Init";
             this.btnPumpInitialize.UseVisualStyleBackColor = true;
@@ -7614,11 +7673,11 @@ namespace CytoDx
             this.btnPumpPriming.Depth = 0;
             this.btnPumpPriming.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPumpPriming.Icon = null;
-            this.btnPumpPriming.Location = new System.Drawing.Point(482, 3);
+            this.btnPumpPriming.Location = new System.Drawing.Point(445, 3);
             this.btnPumpPriming.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPumpPriming.Name = "btnPumpPriming";
             this.btnPumpPriming.Primary = true;
-            this.btnPumpPriming.Size = new System.Drawing.Size(162, 33);
+            this.btnPumpPriming.Size = new System.Drawing.Size(199, 33);
             this.btnPumpPriming.TabIndex = 59;
             this.btnPumpPriming.Text = "Priming";
             this.btnPumpPriming.UseVisualStyleBackColor = true;
@@ -7650,7 +7709,7 @@ namespace CytoDx
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 126F));
+            this.tableLayoutPanel27.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel27.Controls.Add(this.pictureBox_CoverLimitHigh, 7, 1);
             this.tableLayoutPanel27.Controls.Add(this.btnStepDecDoor, 6, 2);
             this.tableLayoutPanel27.Controls.Add(this.btnStepIncDoor, 6, 1);
@@ -7685,7 +7744,7 @@ namespace CytoDx
             // pictureBox_CoverLimitHigh
             // 
             this.pictureBox_CoverLimitHigh.Image = global::CytoDx.Properties.Resources.none2;
-            this.pictureBox_CoverLimitHigh.Location = new System.Drawing.Point(523, 38);
+            this.pictureBox_CoverLimitHigh.Location = new System.Drawing.Point(509, 38);
             this.pictureBox_CoverLimitHigh.Name = "pictureBox_CoverLimitHigh";
             this.pictureBox_CoverLimitHigh.Size = new System.Drawing.Size(55, 29);
             this.pictureBox_CoverLimitHigh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -7698,7 +7757,7 @@ namespace CytoDx
             this.btnStepDecDoor.Depth = 0;
             this.btnStepDecDoor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStepDecDoor.Icon = null;
-            this.btnStepDecDoor.Location = new System.Drawing.Point(443, 73);
+            this.btnStepDecDoor.Location = new System.Drawing.Point(429, 73);
             this.btnStepDecDoor.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepDecDoor.Name = "btnStepDecDoor";
             this.btnStepDecDoor.Primary = true;
@@ -7714,7 +7773,7 @@ namespace CytoDx
             this.btnStepIncDoor.Depth = 0;
             this.btnStepIncDoor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStepIncDoor.Icon = null;
-            this.btnStepIncDoor.Location = new System.Drawing.Point(443, 38);
+            this.btnStepIncDoor.Location = new System.Drawing.Point(429, 38);
             this.btnStepIncDoor.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnStepIncDoor.Name = "btnStepIncDoor";
             this.btnStepIncDoor.Primary = true;
@@ -7730,7 +7789,7 @@ namespace CytoDx
             this.label79.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label79.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label79.Location = new System.Drawing.Point(442, 0);
+            this.label79.Location = new System.Drawing.Point(428, 0);
             this.label79.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(76, 35);
@@ -7743,7 +7802,7 @@ namespace CytoDx
             this.label_StepDoorAxis.AutoSize = true;
             this.label_StepDoorAxis.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_StepDoorAxis.Font = new System.Drawing.Font("Franklin Gothic Medium", 10F);
-            this.label_StepDoorAxis.Location = new System.Drawing.Point(343, 35);
+            this.label_StepDoorAxis.Location = new System.Drawing.Point(329, 35);
             this.label_StepDoorAxis.Name = "label_StepDoorAxis";
             this.label_StepDoorAxis.Size = new System.Drawing.Size(94, 35);
             this.label_StepDoorAxis.TabIndex = 59;
@@ -7756,7 +7815,7 @@ namespace CytoDx
             this.label73.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label73.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label73.Location = new System.Drawing.Point(342, 0);
+            this.label73.Location = new System.Drawing.Point(328, 0);
             this.label73.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(96, 35);
@@ -7774,7 +7833,7 @@ namespace CytoDx
             this.btnCoverOpen.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCoverOpen.Name = "btnCoverOpen";
             this.btnCoverOpen.Primary = true;
-            this.btnCoverOpen.Size = new System.Drawing.Size(73, 29);
+            this.btnCoverOpen.Size = new System.Drawing.Size(66, 29);
             this.btnCoverOpen.TabIndex = 25;
             this.btnCoverOpen.Text = "Open";
             this.btnCoverOpen.UseVisualStyleBackColor = true;
@@ -7790,7 +7849,7 @@ namespace CytoDx
             this.btnCoverClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCoverClose.Name = "btnCoverClose";
             this.btnCoverClose.Primary = true;
-            this.btnCoverClose.Size = new System.Drawing.Size(73, 30);
+            this.btnCoverClose.Size = new System.Drawing.Size(66, 30);
             this.btnCoverClose.TabIndex = 26;
             this.btnCoverClose.Text = "Close";
             this.btnCoverClose.UseVisualStyleBackColor = true;
@@ -7802,10 +7861,10 @@ namespace CytoDx
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label13.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label13.Location = new System.Drawing.Point(121, 0);
+            this.label13.Location = new System.Drawing.Point(114, 0);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 35);
+            this.label13.Size = new System.Drawing.Size(70, 35);
             this.label13.TabIndex = 54;
             this.label13.Text = "Speed";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -7816,7 +7875,7 @@ namespace CytoDx
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label14.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label14.Location = new System.Drawing.Point(242, 0);
+            this.label14.Location = new System.Drawing.Point(228, 0);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 35);
@@ -7829,7 +7888,7 @@ namespace CytoDx
             this.editCoverOpenSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editCoverOpenSpeed.Depth = 0;
             this.editCoverOpenSpeed.Hint = "";
-            this.editCoverOpenSpeed.Location = new System.Drawing.Point(122, 41);
+            this.editCoverOpenSpeed.Location = new System.Drawing.Point(115, 41);
             this.editCoverOpenSpeed.MaxLength = 32767;
             this.editCoverOpenSpeed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editCoverOpenSpeed.Name = "editCoverOpenSpeed";
@@ -7837,7 +7896,7 @@ namespace CytoDx
             this.editCoverOpenSpeed.SelectedText = "";
             this.editCoverOpenSpeed.SelectionLength = 0;
             this.editCoverOpenSpeed.SelectionStart = 0;
-            this.editCoverOpenSpeed.Size = new System.Drawing.Size(75, 22);
+            this.editCoverOpenSpeed.Size = new System.Drawing.Size(68, 22);
             this.editCoverOpenSpeed.TabIndex = 3;
             this.editCoverOpenSpeed.TabStop = false;
             this.editCoverOpenSpeed.Text = "0";
@@ -7848,7 +7907,7 @@ namespace CytoDx
             this.editCoverOpenPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editCoverOpenPos.Depth = 0;
             this.editCoverOpenPos.Hint = "";
-            this.editCoverOpenPos.Location = new System.Drawing.Point(243, 41);
+            this.editCoverOpenPos.Location = new System.Drawing.Point(229, 41);
             this.editCoverOpenPos.MaxLength = 32767;
             this.editCoverOpenPos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editCoverOpenPos.Name = "editCoverOpenPos";
@@ -7867,7 +7926,7 @@ namespace CytoDx
             this.editCoverCloseSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editCoverCloseSpeed.Depth = 0;
             this.editCoverCloseSpeed.Hint = "";
-            this.editCoverCloseSpeed.Location = new System.Drawing.Point(122, 77);
+            this.editCoverCloseSpeed.Location = new System.Drawing.Point(115, 77);
             this.editCoverCloseSpeed.MaxLength = 32767;
             this.editCoverCloseSpeed.MouseState = MaterialSkin.MouseState.HOVER;
             this.editCoverCloseSpeed.Name = "editCoverCloseSpeed";
@@ -7875,7 +7934,7 @@ namespace CytoDx
             this.editCoverCloseSpeed.SelectedText = "";
             this.editCoverCloseSpeed.SelectionLength = 0;
             this.editCoverCloseSpeed.SelectionStart = 0;
-            this.editCoverCloseSpeed.Size = new System.Drawing.Size(75, 22);
+            this.editCoverCloseSpeed.Size = new System.Drawing.Size(68, 22);
             this.editCoverCloseSpeed.TabIndex = 3;
             this.editCoverCloseSpeed.TabStop = false;
             this.editCoverCloseSpeed.Text = "0";
@@ -7886,7 +7945,7 @@ namespace CytoDx
             this.editCoverClosePos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editCoverClosePos.Depth = 0;
             this.editCoverClosePos.Hint = "";
-            this.editCoverClosePos.Location = new System.Drawing.Point(243, 77);
+            this.editCoverClosePos.Location = new System.Drawing.Point(229, 77);
             this.editCoverClosePos.MaxLength = 32767;
             this.editCoverClosePos.MouseState = MaterialSkin.MouseState.HOVER;
             this.editCoverClosePos.Name = "editCoverClosePos";
@@ -7910,7 +7969,7 @@ namespace CytoDx
             this.btnHomeStepRotorDoor.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHomeStepRotorDoor.Name = "btnHomeStepRotorDoor";
             this.btnHomeStepRotorDoor.Primary = true;
-            this.btnHomeStepRotorDoor.Size = new System.Drawing.Size(73, 29);
+            this.btnHomeStepRotorDoor.Size = new System.Drawing.Size(66, 29);
             this.btnHomeStepRotorDoor.TabIndex = 19;
             this.btnHomeStepRotorDoor.Text = "Home";
             this.btnHomeStepRotorDoor.UseVisualStyleBackColor = true;
@@ -7922,7 +7981,7 @@ namespace CytoDx
             this.label96.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label96.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label96.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label96.Location = new System.Drawing.Point(81, 0);
+            this.label96.Location = new System.Drawing.Point(74, 0);
             this.label96.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(36, 35);
@@ -7936,7 +7995,7 @@ namespace CytoDx
             this.label97.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label97.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.label97.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label97.Location = new System.Drawing.Point(202, 0);
+            this.label97.Location = new System.Drawing.Point(188, 0);
             this.label97.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(36, 35);
@@ -7949,7 +8008,7 @@ namespace CytoDx
             this.editStepCoverAcc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editStepCoverAcc.Depth = 0;
             this.editStepCoverAcc.Hint = "";
-            this.editStepCoverAcc.Location = new System.Drawing.Point(82, 41);
+            this.editStepCoverAcc.Location = new System.Drawing.Point(75, 41);
             this.editStepCoverAcc.MaxLength = 32767;
             this.editStepCoverAcc.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepCoverAcc.Name = "editStepCoverAcc";
@@ -7968,7 +8027,7 @@ namespace CytoDx
             this.editStepCoverDec.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.editStepCoverDec.Depth = 0;
             this.editStepCoverDec.Hint = "";
-            this.editStepCoverDec.Location = new System.Drawing.Point(203, 41);
+            this.editStepCoverDec.Location = new System.Drawing.Point(189, 41);
             this.editStepCoverDec.MaxLength = 32767;
             this.editStepCoverDec.MouseState = MaterialSkin.MouseState.HOVER;
             this.editStepCoverDec.Name = "editStepCoverDec";
@@ -7985,7 +8044,7 @@ namespace CytoDx
             // pictureBox_CoverLimitLow
             // 
             this.pictureBox_CoverLimitLow.Image = global::CytoDx.Properties.Resources.none2;
-            this.pictureBox_CoverLimitLow.Location = new System.Drawing.Point(523, 73);
+            this.pictureBox_CoverLimitLow.Location = new System.Drawing.Point(509, 73);
             this.pictureBox_CoverLimitLow.Name = "pictureBox_CoverLimitLow";
             this.pictureBox_CoverLimitLow.Size = new System.Drawing.Size(55, 29);
             this.pictureBox_CoverLimitLow.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -7998,11 +8057,11 @@ namespace CytoDx
             this.btnCoverSenRead.Depth = 0;
             this.btnCoverSenRead.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCoverSenRead.Icon = null;
-            this.btnCoverSenRead.Location = new System.Drawing.Point(523, 3);
+            this.btnCoverSenRead.Location = new System.Drawing.Point(509, 3);
             this.btnCoverSenRead.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCoverSenRead.Name = "btnCoverSenRead";
             this.btnCoverSenRead.Primary = true;
-            this.btnCoverSenRead.Size = new System.Drawing.Size(121, 29);
+            this.btnCoverSenRead.Size = new System.Drawing.Size(135, 29);
             this.btnCoverSenRead.TabIndex = 61;
             this.btnCoverSenRead.Text = "Read";
             this.btnCoverSenRead.UseVisualStyleBackColor = true;
@@ -8280,7 +8339,7 @@ namespace CytoDx
             this.tableLayoutPanel32.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.17582F));
             this.tableLayoutPanel32.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.17582F));
             this.tableLayoutPanel32.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.17582F));
-            this.tableLayoutPanel32.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 195F));
+            this.tableLayoutPanel32.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221F));
             this.tableLayoutPanel32.Controls.Add(this.editSetTemp, 4, 1);
             this.tableLayoutPanel32.Controls.Add(this.materialRaisedButton12, 0, 1);
             this.tableLayoutPanel32.Controls.Add(this.materialLabel52, 4, 0);
@@ -8317,7 +8376,7 @@ namespace CytoDx
             this.editSetTemp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editSetTemp.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editSetTemp.Hint = "";
-            this.editSetTemp.Location = new System.Drawing.Point(454, 37);
+            this.editSetTemp.Location = new System.Drawing.Point(426, 37);
             this.editSetTemp.MaxLength = 32767;
             this.editSetTemp.MouseState = MaterialSkin.MouseState.HOVER;
             this.editSetTemp.Name = "editSetTemp";
@@ -8325,7 +8384,7 @@ namespace CytoDx
             this.editSetTemp.SelectedText = "";
             this.editSetTemp.SelectionLength = 0;
             this.editSetTemp.SelectionStart = 0;
-            this.editSetTemp.Size = new System.Drawing.Size(190, 22);
+            this.editSetTemp.Size = new System.Drawing.Size(218, 22);
             this.editSetTemp.TabIndex = 59;
             this.editSetTemp.TabStop = false;
             this.editSetTemp.Text = "10.0";
@@ -8342,7 +8401,7 @@ namespace CytoDx
             this.materialRaisedButton12.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialRaisedButton12.Name = "materialRaisedButton12";
             this.materialRaisedButton12.Primary = true;
-            this.materialRaisedButton12.Size = new System.Drawing.Size(118, 24);
+            this.materialRaisedButton12.Size = new System.Drawing.Size(111, 24);
             this.materialRaisedButton12.TabIndex = 58;
             this.materialRaisedButton12.Text = "Stop";
             this.materialRaisedButton12.UseVisualStyleBackColor = true;
@@ -8355,10 +8414,10 @@ namespace CytoDx
             this.materialLabel52.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel52.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel52.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel52.Location = new System.Drawing.Point(454, 0);
+            this.materialLabel52.Location = new System.Drawing.Point(426, 0);
             this.materialLabel52.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel52.Name = "materialLabel52";
-            this.materialLabel52.Size = new System.Drawing.Size(190, 34);
+            this.materialLabel52.Size = new System.Drawing.Size(218, 34);
             this.materialLabel52.TabIndex = 57;
             this.materialLabel52.Text = "Set Temp";
             this.materialLabel52.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8369,7 +8428,7 @@ namespace CytoDx
             this.edit_fan_off_temp.Depth = 0;
             this.edit_fan_off_temp.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.edit_fan_off_temp.Hint = "";
-            this.edit_fan_off_temp.Location = new System.Drawing.Point(345, 38);
+            this.edit_fan_off_temp.Location = new System.Drawing.Point(324, 38);
             this.edit_fan_off_temp.MaxLength = 32767;
             this.edit_fan_off_temp.MouseState = MaterialSkin.MouseState.HOVER;
             this.edit_fan_off_temp.Name = "edit_fan_off_temp";
@@ -8377,7 +8436,7 @@ namespace CytoDx
             this.edit_fan_off_temp.SelectedText = "";
             this.edit_fan_off_temp.SelectionLength = 0;
             this.edit_fan_off_temp.SelectionStart = 0;
-            this.edit_fan_off_temp.Size = new System.Drawing.Size(103, 22);
+            this.edit_fan_off_temp.Size = new System.Drawing.Size(96, 22);
             this.edit_fan_off_temp.TabIndex = 56;
             this.edit_fan_off_temp.TabStop = false;
             this.edit_fan_off_temp.Text = "0";
@@ -8389,7 +8448,7 @@ namespace CytoDx
             this.edit_fan_on_temp.Depth = 0;
             this.edit_fan_on_temp.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.edit_fan_on_temp.Hint = "";
-            this.edit_fan_on_temp.Location = new System.Drawing.Point(236, 38);
+            this.edit_fan_on_temp.Location = new System.Drawing.Point(222, 38);
             this.edit_fan_on_temp.MaxLength = 32767;
             this.edit_fan_on_temp.MouseState = MaterialSkin.MouseState.HOVER;
             this.edit_fan_on_temp.Name = "edit_fan_on_temp";
@@ -8397,7 +8456,7 @@ namespace CytoDx
             this.edit_fan_on_temp.SelectedText = "";
             this.edit_fan_on_temp.SelectionLength = 0;
             this.edit_fan_on_temp.SelectionStart = 0;
-            this.edit_fan_on_temp.Size = new System.Drawing.Size(103, 22);
+            this.edit_fan_on_temp.Size = new System.Drawing.Size(96, 22);
             this.edit_fan_on_temp.TabIndex = 55;
             this.edit_fan_on_temp.TabStop = false;
             this.edit_fan_on_temp.Text = "0";
@@ -8409,7 +8468,7 @@ namespace CytoDx
             this.edit_pelt_set_temp.Depth = 0;
             this.edit_pelt_set_temp.Font = new System.Drawing.Font("Franklin Gothic Medium", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.edit_pelt_set_temp.Hint = "";
-            this.edit_pelt_set_temp.Location = new System.Drawing.Point(127, 38);
+            this.edit_pelt_set_temp.Location = new System.Drawing.Point(120, 38);
             this.edit_pelt_set_temp.MaxLength = 32767;
             this.edit_pelt_set_temp.MouseState = MaterialSkin.MouseState.HOVER;
             this.edit_pelt_set_temp.Name = "edit_pelt_set_temp";
@@ -8417,7 +8476,7 @@ namespace CytoDx
             this.edit_pelt_set_temp.SelectedText = "";
             this.edit_pelt_set_temp.SelectionLength = 0;
             this.edit_pelt_set_temp.SelectionStart = 0;
-            this.edit_pelt_set_temp.Size = new System.Drawing.Size(103, 22);
+            this.edit_pelt_set_temp.Size = new System.Drawing.Size(96, 22);
             this.edit_pelt_set_temp.TabIndex = 54;
             this.edit_pelt_set_temp.TabStop = false;
             this.edit_pelt_set_temp.Text = "0";
@@ -8430,10 +8489,10 @@ namespace CytoDx
             this.materialLabel51.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel51.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel51.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel51.Location = new System.Drawing.Point(345, 0);
+            this.materialLabel51.Location = new System.Drawing.Point(324, 0);
             this.materialLabel51.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel51.Name = "materialLabel51";
-            this.materialLabel51.Size = new System.Drawing.Size(103, 34);
+            this.materialLabel51.Size = new System.Drawing.Size(96, 34);
             this.materialLabel51.TabIndex = 15;
             this.materialLabel51.Text = "Fan Off Temp";
             this.materialLabel51.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8445,10 +8504,10 @@ namespace CytoDx
             this.materialLabel50.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel50.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel50.Location = new System.Drawing.Point(236, 0);
+            this.materialLabel50.Location = new System.Drawing.Point(222, 0);
             this.materialLabel50.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel50.Name = "materialLabel50";
-            this.materialLabel50.Size = new System.Drawing.Size(103, 34);
+            this.materialLabel50.Size = new System.Drawing.Size(96, 34);
             this.materialLabel50.TabIndex = 14;
             this.materialLabel50.Text = "Fan On Temp";
             this.materialLabel50.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8460,10 +8519,10 @@ namespace CytoDx
             this.materialLabel49.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel49.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel49.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel49.Location = new System.Drawing.Point(127, 0);
+            this.materialLabel49.Location = new System.Drawing.Point(120, 0);
             this.materialLabel49.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel49.Name = "materialLabel49";
-            this.materialLabel49.Size = new System.Drawing.Size(103, 34);
+            this.materialLabel49.Size = new System.Drawing.Size(96, 34);
             this.materialLabel49.TabIndex = 13;
             this.materialLabel49.Text = "Peltier Temp Cmd";
             this.materialLabel49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8474,7 +8533,7 @@ namespace CytoDx
             this.editTempPeltier.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editTempPeltier.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editTempPeltier.Hint = "";
-            this.editTempPeltier.Location = new System.Drawing.Point(127, 87);
+            this.editTempPeltier.Location = new System.Drawing.Point(120, 87);
             this.editTempPeltier.MaxLength = 32767;
             this.editTempPeltier.MouseState = MaterialSkin.MouseState.HOVER;
             this.editTempPeltier.Name = "editTempPeltier";
@@ -8482,7 +8541,7 @@ namespace CytoDx
             this.editTempPeltier.SelectedText = "";
             this.editTempPeltier.SelectionLength = 0;
             this.editTempPeltier.SelectionStart = 0;
-            this.editTempPeltier.Size = new System.Drawing.Size(103, 22);
+            this.editTempPeltier.Size = new System.Drawing.Size(96, 22);
             this.editTempPeltier.TabIndex = 12;
             this.editTempPeltier.TabStop = false;
             this.editTempPeltier.Text = "10.0";
@@ -8494,7 +8553,7 @@ namespace CytoDx
             this.editTempChamber.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editTempChamber.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editTempChamber.Hint = "";
-            this.editTempChamber.Location = new System.Drawing.Point(236, 87);
+            this.editTempChamber.Location = new System.Drawing.Point(222, 87);
             this.editTempChamber.MaxLength = 32767;
             this.editTempChamber.MouseState = MaterialSkin.MouseState.HOVER;
             this.editTempChamber.Name = "editTempChamber";
@@ -8502,7 +8561,7 @@ namespace CytoDx
             this.editTempChamber.SelectedText = "";
             this.editTempChamber.SelectionLength = 0;
             this.editTempChamber.SelectionStart = 0;
-            this.editTempChamber.Size = new System.Drawing.Size(103, 22);
+            this.editTempChamber.Size = new System.Drawing.Size(96, 22);
             this.editTempChamber.TabIndex = 11;
             this.editTempChamber.TabStop = false;
             this.editTempChamber.Text = "10.0";
@@ -8515,10 +8574,10 @@ namespace CytoDx
             this.materialLabel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel18.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel18.Location = new System.Drawing.Point(345, 64);
+            this.materialLabel18.Location = new System.Drawing.Point(324, 64);
             this.materialLabel18.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel18.Name = "materialLabel18";
-            this.materialLabel18.Size = new System.Drawing.Size(103, 20);
+            this.materialLabel18.Size = new System.Drawing.Size(96, 20);
             this.materialLabel18.TabIndex = 10;
             this.materialLabel18.Text = "FAN";
             this.materialLabel18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8530,10 +8589,10 @@ namespace CytoDx
             this.materialLabel23.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel23.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel23.Location = new System.Drawing.Point(236, 64);
+            this.materialLabel23.Location = new System.Drawing.Point(222, 64);
             this.materialLabel23.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel23.Name = "materialLabel23";
-            this.materialLabel23.Size = new System.Drawing.Size(103, 20);
+            this.materialLabel23.Size = new System.Drawing.Size(96, 20);
             this.materialLabel23.TabIndex = 9;
             this.materialLabel23.Text = "Chamber";
             this.materialLabel23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8544,7 +8603,7 @@ namespace CytoDx
             this.editTempCooler.Dock = System.Windows.Forms.DockStyle.Fill;
             this.editTempCooler.Font = new System.Drawing.Font("Franklin Gothic Medium", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editTempCooler.Hint = "";
-            this.editTempCooler.Location = new System.Drawing.Point(345, 87);
+            this.editTempCooler.Location = new System.Drawing.Point(324, 87);
             this.editTempCooler.MaxLength = 32767;
             this.editTempCooler.MouseState = MaterialSkin.MouseState.HOVER;
             this.editTempCooler.Name = "editTempCooler";
@@ -8552,7 +8611,7 @@ namespace CytoDx
             this.editTempCooler.SelectedText = "";
             this.editTempCooler.SelectionLength = 0;
             this.editTempCooler.SelectionStart = 0;
-            this.editTempCooler.Size = new System.Drawing.Size(103, 22);
+            this.editTempCooler.Size = new System.Drawing.Size(96, 22);
             this.editTempCooler.TabIndex = 8;
             this.editTempCooler.TabStop = false;
             this.editTempCooler.Text = "10.0";
@@ -8565,10 +8624,10 @@ namespace CytoDx
             this.materialLabel24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel24.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel24.Location = new System.Drawing.Point(127, 64);
+            this.materialLabel24.Location = new System.Drawing.Point(120, 64);
             this.materialLabel24.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel24.Name = "materialLabel24";
-            this.materialLabel24.Size = new System.Drawing.Size(103, 20);
+            this.materialLabel24.Size = new System.Drawing.Size(96, 20);
             this.materialLabel24.TabIndex = 7;
             this.materialLabel24.Text = "Peltier";
             this.materialLabel24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -8585,7 +8644,7 @@ namespace CytoDx
             this.materialRaisedButton1.Name = "materialRaisedButton1";
             this.materialRaisedButton1.Primary = true;
             this.tableLayoutPanel32.SetRowSpan(this.materialRaisedButton1, 2);
-            this.materialRaisedButton1.Size = new System.Drawing.Size(118, 35);
+            this.materialRaisedButton1.Size = new System.Drawing.Size(111, 35);
             this.materialRaisedButton1.TabIndex = 6;
             this.materialRaisedButton1.Text = "Read Temp.";
             this.materialRaisedButton1.UseVisualStyleBackColor = true;
@@ -8602,7 +8661,7 @@ namespace CytoDx
             this.btnRunPeltier.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnRunPeltier.Name = "btnRunPeltier";
             this.btnRunPeltier.Primary = true;
-            this.btnRunPeltier.Size = new System.Drawing.Size(118, 28);
+            this.btnRunPeltier.Size = new System.Drawing.Size(111, 28);
             this.btnRunPeltier.TabIndex = 1;
             this.btnRunPeltier.Text = "Run";
             this.btnRunPeltier.UseVisualStyleBackColor = true;
@@ -14635,7 +14694,7 @@ namespace CytoDx
             this.tableLayoutPanel72.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel72.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel72.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel72.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 554F));
+            this.tableLayoutPanel72.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 575F));
             this.tableLayoutPanel72.Controls.Add(this.materialLabel26, 2, 3);
             this.tableLayoutPanel72.Controls.Add(this.materialLabel22, 2, 1);
             this.tableLayoutPanel72.Controls.Add(this.materialLabel20, 2, 0);
@@ -14712,11 +14771,11 @@ namespace CytoDx
             this.materialLabel26.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel26.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel26.Location = new System.Drawing.Point(196, 117);
+            this.materialLabel26.Location = new System.Drawing.Point(182, 117);
             this.materialLabel26.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel26.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel26.Name = "materialLabel26";
-            this.materialLabel26.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel26.Size = new System.Drawing.Size(84, 32);
             this.materialLabel26.TabIndex = 62;
             this.materialLabel26.Text = "00:00";
             this.materialLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14728,11 +14787,11 @@ namespace CytoDx
             this.materialLabel22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel22.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel22.Location = new System.Drawing.Point(196, 41);
+            this.materialLabel22.Location = new System.Drawing.Point(182, 41);
             this.materialLabel22.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel22.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel22.Name = "materialLabel22";
-            this.materialLabel22.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel22.Size = new System.Drawing.Size(84, 32);
             this.materialLabel22.TabIndex = 61;
             this.materialLabel22.Text = "00:00";
             this.materialLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14745,11 +14804,11 @@ namespace CytoDx
             this.materialLabel20.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel20.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel20.Location = new System.Drawing.Point(196, 3);
+            this.materialLabel20.Location = new System.Drawing.Point(182, 3);
             this.materialLabel20.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel20.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel20.Name = "materialLabel20";
-            this.materialLabel20.Size = new System.Drawing.Size(646, 32);
+            this.materialLabel20.Size = new System.Drawing.Size(660, 32);
             this.materialLabel20.TabIndex = 60;
             this.materialLabel20.Text = "Elapsed";
             this.materialLabel20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14761,11 +14820,11 @@ namespace CytoDx
             this.materialLabel17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel17.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel17.Location = new System.Drawing.Point(99, 3);
+            this.materialLabel17.Location = new System.Drawing.Point(92, 3);
             this.materialLabel17.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel17.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel17.Name = "materialLabel17";
-            this.materialLabel17.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel17.Size = new System.Drawing.Size(84, 32);
             this.materialLabel17.TabIndex = 59;
             this.materialLabel17.Text = "Step";
             this.materialLabel17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14781,7 +14840,7 @@ namespace CytoDx
             this.materialLabel16.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel16.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel16.Name = "materialLabel16";
-            this.materialLabel16.Size = new System.Drawing.Size(90, 32);
+            this.materialLabel16.Size = new System.Drawing.Size(83, 32);
             this.materialLabel16.TabIndex = 58;
             this.materialLabel16.Text = "Process";
             this.materialLabel16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14790,7 +14849,7 @@ namespace CytoDx
             // 
             this.pictureBox8.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox8.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox8.Location = new System.Drawing.Point(122, 79);
+            this.pictureBox8.Location = new System.Drawing.Point(111, 79);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(45, 25);
             this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14801,7 +14860,7 @@ namespace CytoDx
             // 
             this.pictureBox9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox9.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox9.Location = new System.Drawing.Point(122, 155);
+            this.pictureBox9.Location = new System.Drawing.Point(111, 155);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(45, 25);
             this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14812,7 +14871,7 @@ namespace CytoDx
             // 
             this.pictureBox10.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox10.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox10.Location = new System.Drawing.Point(122, 231);
+            this.pictureBox10.Location = new System.Drawing.Point(111, 231);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(45, 25);
             this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14823,7 +14882,7 @@ namespace CytoDx
             // 
             this.pictureBox11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox11.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox11.Location = new System.Drawing.Point(122, 307);
+            this.pictureBox11.Location = new System.Drawing.Point(111, 307);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(45, 25);
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14837,11 +14896,11 @@ namespace CytoDx
             this.materialLabel27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel27.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel27.Location = new System.Drawing.Point(196, 193);
+            this.materialLabel27.Location = new System.Drawing.Point(182, 193);
             this.materialLabel27.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel27.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel27.Name = "materialLabel27";
-            this.materialLabel27.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel27.Size = new System.Drawing.Size(84, 32);
             this.materialLabel27.TabIndex = 62;
             this.materialLabel27.Text = "00:00";
             this.materialLabel27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14853,11 +14912,11 @@ namespace CytoDx
             this.materialLabel28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel28.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel28.Location = new System.Drawing.Point(196, 269);
+            this.materialLabel28.Location = new System.Drawing.Point(182, 269);
             this.materialLabel28.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel28.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel28.Name = "materialLabel28";
-            this.materialLabel28.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel28.Size = new System.Drawing.Size(84, 32);
             this.materialLabel28.TabIndex = 62;
             this.materialLabel28.Text = "00:00";
             this.materialLabel28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14866,7 +14925,7 @@ namespace CytoDx
             // 
             this.pictureBox12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox12.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox12.Location = new System.Drawing.Point(122, 383);
+            this.pictureBox12.Location = new System.Drawing.Point(111, 383);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(45, 25);
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14877,7 +14936,7 @@ namespace CytoDx
             // 
             this.pictureBox13.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox13.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox13.Location = new System.Drawing.Point(122, 459);
+            this.pictureBox13.Location = new System.Drawing.Point(111, 459);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(45, 25);
             this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14891,11 +14950,11 @@ namespace CytoDx
             this.materialLabel30.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel30.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel30.Location = new System.Drawing.Point(196, 345);
+            this.materialLabel30.Location = new System.Drawing.Point(182, 345);
             this.materialLabel30.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel30.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel30.Name = "materialLabel30";
-            this.materialLabel30.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel30.Size = new System.Drawing.Size(84, 32);
             this.materialLabel30.TabIndex = 62;
             this.materialLabel30.Text = "00:00";
             this.materialLabel30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14907,11 +14966,11 @@ namespace CytoDx
             this.materialLabel31.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel31.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel31.Location = new System.Drawing.Point(196, 421);
+            this.materialLabel31.Location = new System.Drawing.Point(182, 421);
             this.materialLabel31.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel31.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel31.Name = "materialLabel31";
-            this.materialLabel31.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel31.Size = new System.Drawing.Size(84, 32);
             this.materialLabel31.TabIndex = 62;
             this.materialLabel31.Text = "00:00";
             this.materialLabel31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14923,11 +14982,11 @@ namespace CytoDx
             this.materialLabel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel29.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel29.Location = new System.Drawing.Point(196, 497);
+            this.materialLabel29.Location = new System.Drawing.Point(182, 497);
             this.materialLabel29.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel29.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel29.Name = "materialLabel29";
-            this.materialLabel29.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel29.Size = new System.Drawing.Size(84, 32);
             this.materialLabel29.TabIndex = 62;
             this.materialLabel29.Text = "00:00";
             this.materialLabel29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14936,7 +14995,7 @@ namespace CytoDx
             // 
             this.pictureBox14.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox14.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox14.Location = new System.Drawing.Point(122, 535);
+            this.pictureBox14.Location = new System.Drawing.Point(111, 535);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(45, 25);
             this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14947,7 +15006,7 @@ namespace CytoDx
             // 
             this.pictureBox15.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBox15.Image = global::CytoDx.Properties.Resources.DownwardArrow;
-            this.pictureBox15.Location = new System.Drawing.Point(122, 611);
+            this.pictureBox15.Location = new System.Drawing.Point(111, 611);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(45, 25);
             this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -14961,11 +15020,11 @@ namespace CytoDx
             this.materialLabel33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel33.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel33.Location = new System.Drawing.Point(196, 573);
+            this.materialLabel33.Location = new System.Drawing.Point(182, 573);
             this.materialLabel33.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel33.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel33.Name = "materialLabel33";
-            this.materialLabel33.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel33.Size = new System.Drawing.Size(84, 32);
             this.materialLabel33.TabIndex = 62;
             this.materialLabel33.Text = "00:00";
             this.materialLabel33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14977,11 +15036,11 @@ namespace CytoDx
             this.materialLabel34.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel34.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel34.Location = new System.Drawing.Point(196, 649);
+            this.materialLabel34.Location = new System.Drawing.Point(182, 649);
             this.materialLabel34.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel34.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel34.Name = "materialLabel34";
-            this.materialLabel34.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel34.Size = new System.Drawing.Size(84, 32);
             this.materialLabel34.TabIndex = 62;
             this.materialLabel34.Text = "00:00";
             this.materialLabel34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -14993,11 +15052,11 @@ namespace CytoDx
             this.materialLabel35.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel35.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel35.Location = new System.Drawing.Point(196, 725);
+            this.materialLabel35.Location = new System.Drawing.Point(182, 725);
             this.materialLabel35.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel35.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel35.Name = "materialLabel35";
-            this.materialLabel35.Size = new System.Drawing.Size(91, 51);
+            this.materialLabel35.Size = new System.Drawing.Size(84, 51);
             this.materialLabel35.TabIndex = 62;
             this.materialLabel35.Text = "00:00";
             this.materialLabel35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15014,7 +15073,7 @@ namespace CytoDx
             this.materialLabel36.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel36.Name = "materialLabel36";
             this.tableLayoutPanel72.SetRowSpan(this.materialLabel36, 8);
-            this.materialLabel36.Size = new System.Drawing.Size(90, 298);
+            this.materialLabel36.Size = new System.Drawing.Size(83, 298);
             this.materialLabel36.TabIndex = 62;
             this.materialLabel36.Text = "PBMC Separation";
             this.materialLabel36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15026,11 +15085,11 @@ namespace CytoDx
             this.materialLabel37.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel37.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel37.Location = new System.Drawing.Point(99, 41);
+            this.materialLabel37.Location = new System.Drawing.Point(92, 41);
             this.materialLabel37.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel37.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel37.Name = "materialLabel37";
-            this.materialLabel37.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel37.Size = new System.Drawing.Size(84, 32);
             this.materialLabel37.TabIndex = 62;
             this.materialLabel37.Text = "Sample Injection";
             this.materialLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15042,11 +15101,11 @@ namespace CytoDx
             this.materialLabel38.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel38.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel38.Location = new System.Drawing.Point(99, 117);
+            this.materialLabel38.Location = new System.Drawing.Point(92, 117);
             this.materialLabel38.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel38.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel38.Name = "materialLabel38";
-            this.materialLabel38.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel38.Size = new System.Drawing.Size(84, 32);
             this.materialLabel38.TabIndex = 62;
             this.materialLabel38.Text = "Blood leveling";
             this.materialLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15058,11 +15117,11 @@ namespace CytoDx
             this.materialLabel39.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel39.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel39.Location = new System.Drawing.Point(99, 193);
+            this.materialLabel39.Location = new System.Drawing.Point(92, 193);
             this.materialLabel39.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel39.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel39.Name = "materialLabel39";
-            this.materialLabel39.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel39.Size = new System.Drawing.Size(84, 32);
             this.materialLabel39.TabIndex = 62;
             this.materialLabel39.Text = "Centrifugation";
             this.materialLabel39.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15074,11 +15133,11 @@ namespace CytoDx
             this.materialLabel40.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel40.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel40.Location = new System.Drawing.Point(99, 269);
+            this.materialLabel40.Location = new System.Drawing.Point(92, 269);
             this.materialLabel40.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel40.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel40.Name = "materialLabel40";
-            this.materialLabel40.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel40.Size = new System.Drawing.Size(84, 32);
             this.materialLabel40.TabIndex = 62;
             this.materialLabel40.Text = "PBMC adjusting";
             this.materialLabel40.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15090,11 +15149,11 @@ namespace CytoDx
             this.materialLabel41.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel41.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel41.Location = new System.Drawing.Point(99, 345);
+            this.materialLabel41.Location = new System.Drawing.Point(92, 345);
             this.materialLabel41.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel41.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel41.Name = "materialLabel41";
-            this.materialLabel41.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel41.Size = new System.Drawing.Size(84, 32);
             this.materialLabel41.TabIndex = 62;
             this.materialLabel41.Text = "Washing";
             this.materialLabel41.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15106,11 +15165,11 @@ namespace CytoDx
             this.materialLabel42.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel42.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel42.Location = new System.Drawing.Point(99, 421);
+            this.materialLabel42.Location = new System.Drawing.Point(92, 421);
             this.materialLabel42.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel42.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel42.Name = "materialLabel42";
-            this.materialLabel42.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel42.Size = new System.Drawing.Size(84, 32);
             this.materialLabel42.TabIndex = 62;
             this.materialLabel42.Text = "Reagent Process1";
             this.materialLabel42.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15122,11 +15181,11 @@ namespace CytoDx
             this.materialLabel43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel43.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel43.Location = new System.Drawing.Point(99, 497);
+            this.materialLabel43.Location = new System.Drawing.Point(92, 497);
             this.materialLabel43.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel43.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel43.Name = "materialLabel43";
-            this.materialLabel43.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel43.Size = new System.Drawing.Size(84, 32);
             this.materialLabel43.TabIndex = 62;
             this.materialLabel43.Text = "Reagent Process2";
             this.materialLabel43.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15138,11 +15197,11 @@ namespace CytoDx
             this.materialLabel44.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel44.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel44.Location = new System.Drawing.Point(99, 573);
+            this.materialLabel44.Location = new System.Drawing.Point(92, 573);
             this.materialLabel44.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel44.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel44.Name = "materialLabel44";
-            this.materialLabel44.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel44.Size = new System.Drawing.Size(84, 32);
             this.materialLabel44.TabIndex = 62;
             this.materialLabel44.Text = "Reagent Process3";
             this.materialLabel44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15154,11 +15213,11 @@ namespace CytoDx
             this.materialLabel45.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel45.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel45.Location = new System.Drawing.Point(99, 649);
+            this.materialLabel45.Location = new System.Drawing.Point(92, 649);
             this.materialLabel45.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel45.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel45.Name = "materialLabel45";
-            this.materialLabel45.Size = new System.Drawing.Size(91, 32);
+            this.materialLabel45.Size = new System.Drawing.Size(84, 32);
             this.materialLabel45.TabIndex = 62;
             this.materialLabel45.Text = "Buffer exchange";
             this.materialLabel45.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15170,11 +15229,11 @@ namespace CytoDx
             this.materialLabel46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.materialLabel46.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel46.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel46.Location = new System.Drawing.Point(99, 725);
+            this.materialLabel46.Location = new System.Drawing.Point(92, 725);
             this.materialLabel46.Margin = new System.Windows.Forms.Padding(3);
             this.materialLabel46.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel46.Name = "materialLabel46";
-            this.materialLabel46.Size = new System.Drawing.Size(91, 51);
+            this.materialLabel46.Size = new System.Drawing.Size(84, 51);
             this.materialLabel46.TabIndex = 62;
             this.materialLabel46.Text = "Total";
             this.materialLabel46.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15191,7 +15250,7 @@ namespace CytoDx
             this.materialLabel47.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel47.Name = "materialLabel47";
             this.tableLayoutPanel72.SetRowSpan(this.materialLabel47, 9);
-            this.materialLabel47.Size = new System.Drawing.Size(90, 336);
+            this.materialLabel47.Size = new System.Drawing.Size(83, 336);
             this.materialLabel47.TabIndex = 62;
             this.materialLabel47.Text = "CTC Enrichment";
             this.materialLabel47.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15200,7 +15259,7 @@ namespace CytoDx
             // 
             this.materialProgressBar1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar1.Depth = 0;
-            this.materialProgressBar1.Location = new System.Drawing.Point(293, 54);
+            this.materialProgressBar1.Location = new System.Drawing.Point(272, 54);
             this.materialProgressBar1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar1.Name = "materialProgressBar1";
             this.materialProgressBar1.Size = new System.Drawing.Size(203, 5);
@@ -15210,7 +15269,7 @@ namespace CytoDx
             // 
             this.materialProgressBar2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar2.Depth = 0;
-            this.materialProgressBar2.Location = new System.Drawing.Point(293, 130);
+            this.materialProgressBar2.Location = new System.Drawing.Point(272, 130);
             this.materialProgressBar2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar2.Name = "materialProgressBar2";
             this.materialProgressBar2.Size = new System.Drawing.Size(203, 5);
@@ -15220,7 +15279,7 @@ namespace CytoDx
             // 
             this.materialProgressBar3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar3.Depth = 0;
-            this.materialProgressBar3.Location = new System.Drawing.Point(293, 206);
+            this.materialProgressBar3.Location = new System.Drawing.Point(272, 206);
             this.materialProgressBar3.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar3.Name = "materialProgressBar3";
             this.materialProgressBar3.Size = new System.Drawing.Size(203, 5);
@@ -15230,7 +15289,7 @@ namespace CytoDx
             // 
             this.materialProgressBar4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar4.Depth = 0;
-            this.materialProgressBar4.Location = new System.Drawing.Point(293, 282);
+            this.materialProgressBar4.Location = new System.Drawing.Point(272, 282);
             this.materialProgressBar4.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar4.Name = "materialProgressBar4";
             this.materialProgressBar4.Size = new System.Drawing.Size(203, 5);
@@ -15240,7 +15299,7 @@ namespace CytoDx
             // 
             this.materialProgressBar5.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar5.Depth = 0;
-            this.materialProgressBar5.Location = new System.Drawing.Point(293, 358);
+            this.materialProgressBar5.Location = new System.Drawing.Point(272, 358);
             this.materialProgressBar5.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar5.Name = "materialProgressBar5";
             this.materialProgressBar5.Size = new System.Drawing.Size(203, 5);
@@ -15250,7 +15309,7 @@ namespace CytoDx
             // 
             this.materialProgressBar6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar6.Depth = 0;
-            this.materialProgressBar6.Location = new System.Drawing.Point(293, 434);
+            this.materialProgressBar6.Location = new System.Drawing.Point(272, 434);
             this.materialProgressBar6.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar6.Name = "materialProgressBar6";
             this.materialProgressBar6.Size = new System.Drawing.Size(203, 5);
@@ -15260,7 +15319,7 @@ namespace CytoDx
             // 
             this.materialProgressBar7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar7.Depth = 0;
-            this.materialProgressBar7.Location = new System.Drawing.Point(293, 510);
+            this.materialProgressBar7.Location = new System.Drawing.Point(272, 510);
             this.materialProgressBar7.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar7.Name = "materialProgressBar7";
             this.materialProgressBar7.Size = new System.Drawing.Size(203, 5);
@@ -15270,7 +15329,7 @@ namespace CytoDx
             // 
             this.materialProgressBar8.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar8.Depth = 0;
-            this.materialProgressBar8.Location = new System.Drawing.Point(293, 586);
+            this.materialProgressBar8.Location = new System.Drawing.Point(272, 586);
             this.materialProgressBar8.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar8.Name = "materialProgressBar8";
             this.materialProgressBar8.Size = new System.Drawing.Size(203, 5);
@@ -15280,7 +15339,7 @@ namespace CytoDx
             // 
             this.materialProgressBar9.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.materialProgressBar9.Depth = 0;
-            this.materialProgressBar9.Location = new System.Drawing.Point(293, 662);
+            this.materialProgressBar9.Location = new System.Drawing.Point(272, 662);
             this.materialProgressBar9.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialProgressBar9.Name = "materialProgressBar9";
             this.materialProgressBar9.Size = new System.Drawing.Size(203, 5);
@@ -15294,7 +15353,7 @@ namespace CytoDx
             this.tableLayoutPanel67.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel67.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 48F));
             this.tableLayoutPanel67.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 13.04348F));
-            this.tableLayoutPanel67.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 419F));
+            this.tableLayoutPanel67.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 433F));
             this.tableLayoutPanel67.Controls.Add(this.materialLabel48, 0, 1);
             this.tableLayoutPanel67.Controls.Add(this.materialLabel13, 2, 0);
             this.tableLayoutPanel67.Controls.Add(this.materialLabel14, 0, 0);
@@ -15333,11 +15392,11 @@ namespace CytoDx
             this.materialLabel13.Depth = 0;
             this.materialLabel13.Font = new System.Drawing.Font("Roboto", 10F);
             this.materialLabel13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel13.Location = new System.Drawing.Point(419, 4);
+            this.materialLabel13.Location = new System.Drawing.Point(407, 4);
             this.materialLabel13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.materialLabel13.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel13.Name = "materialLabel13";
-            this.materialLabel13.Size = new System.Drawing.Size(39, 36);
+            this.materialLabel13.Size = new System.Drawing.Size(31, 36);
             this.materialLabel13.TabIndex = 47;
             this.materialLabel13.Text = "Output";
             // 
@@ -15372,7 +15431,7 @@ namespace CytoDx
             this.label66.Location = new System.Drawing.Point(72, 1);
             this.label66.Margin = new System.Windows.Forms.Padding(1);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(344, 42);
+            this.label66.Size = new System.Drawing.Size(332, 42);
             this.label66.TabIndex = 46;
             this.label66.Text = "Ready";
             this.label66.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -15384,9 +15443,9 @@ namespace CytoDx
             this.label67.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
             this.label67.ForeColor = System.Drawing.SystemColors.Window;
-            this.label67.Location = new System.Drawing.Point(464, 0);
+            this.label67.Location = new System.Drawing.Point(450, 0);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(414, 44);
+            this.label67.Size = new System.Drawing.Size(428, 44);
             this.label67.TabIndex = 48;
             this.label67.Text = "-";
             this.label67.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -16495,6 +16554,7 @@ namespace CytoDx
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.tableLayoutPanel82);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.pictureBox1);
@@ -16504,12 +16564,84 @@ namespace CytoDx
             this.panel2.Size = new System.Drawing.Size(843, 569);
             this.panel2.TabIndex = 33;
             // 
+            // tableLayoutPanel82
+            // 
+            this.tableLayoutPanel82.ColumnCount = 4;
+            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel82.Controls.Add(this.btn_get_status, 2, 0);
+            this.tableLayoutPanel82.Controls.Add(this.btn_ErrorReset, 3, 0);
+            this.tableLayoutPanel82.Controls.Add(this.materialRaisedButton15, 1, 0);
+            this.tableLayoutPanel82.Controls.Add(this.materialRaisedButton16, 0, 0);
+            this.tableLayoutPanel82.Location = new System.Drawing.Point(451, 51);
+            this.tableLayoutPanel82.Name = "tableLayoutPanel82";
+            this.tableLayoutPanel82.RowCount = 1;
+            this.tableLayoutPanel82.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel82.Size = new System.Drawing.Size(381, 39);
+            this.tableLayoutPanel82.TabIndex = 0;
+            // 
+            // btn_ErrorReset
+            // 
+            this.btn_ErrorReset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_ErrorReset.Depth = 0;
+            this.btn_ErrorReset.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_ErrorReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btn_ErrorReset.Icon = null;
+            this.btn_ErrorReset.Location = new System.Drawing.Point(288, 6);
+            this.btn_ErrorReset.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.btn_ErrorReset.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_ErrorReset.Name = "btn_ErrorReset";
+            this.btn_ErrorReset.Primary = true;
+            this.btn_ErrorReset.Size = new System.Drawing.Size(90, 27);
+            this.btn_ErrorReset.TabIndex = 39;
+            this.btn_ErrorReset.Text = "Error Reset";
+            this.btn_ErrorReset.UseVisualStyleBackColor = true;
+            this.btn_ErrorReset.Click += new System.EventHandler(this.btnErrorReset_Click);
+            // 
+            // materialRaisedButton15
+            // 
+            this.materialRaisedButton15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton15.Depth = 0;
+            this.materialRaisedButton15.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialRaisedButton15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.materialRaisedButton15.Icon = null;
+            this.materialRaisedButton15.Location = new System.Drawing.Point(98, 6);
+            this.materialRaisedButton15.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.materialRaisedButton15.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton15.Name = "materialRaisedButton15";
+            this.materialRaisedButton15.Primary = true;
+            this.materialRaisedButton15.Size = new System.Drawing.Size(89, 27);
+            this.materialRaisedButton15.TabIndex = 39;
+            this.materialRaisedButton15.Text = "Pos Read";
+            this.materialRaisedButton15.UseVisualStyleBackColor = true;
+            this.materialRaisedButton15.Click += new System.EventHandler(this.btnRefreshWorldPosition_Click);
+            // 
+            // materialRaisedButton16
+            // 
+            this.materialRaisedButton16.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialRaisedButton16.Depth = 0;
+            this.materialRaisedButton16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.materialRaisedButton16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.materialRaisedButton16.Icon = null;
+            this.materialRaisedButton16.Location = new System.Drawing.Point(3, 6);
+            this.materialRaisedButton16.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.materialRaisedButton16.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialRaisedButton16.Name = "materialRaisedButton16";
+            this.materialRaisedButton16.Primary = true;
+            this.materialRaisedButton16.Size = new System.Drawing.Size(89, 27);
+            this.materialRaisedButton16.TabIndex = 39;
+            this.materialRaisedButton16.Text = "Temp Read";
+            this.materialRaisedButton16.UseVisualStyleBackColor = true;
+            this.materialRaisedButton16.Click += new System.EventHandler(this.btnReadTemperatureMain_Click);
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.groupBox37);
             this.panel4.Controls.Add(this.groupBox19);
             this.panel4.Controls.Add(this.groupBox36);
-            this.panel4.Location = new System.Drawing.Point(451, 54);
+            this.panel4.Location = new System.Drawing.Point(451, 93);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(390, 332);
             this.panel4.TabIndex = 29;
@@ -17122,83 +17254,62 @@ namespace CytoDx
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.tableLayoutPanel82);
+            this.panel3.Controls.Add(this.tableLayoutPanel83);
             this.panel3.Location = new System.Drawing.Point(450, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(390, 45);
             this.panel3.TabIndex = 28;
             // 
-            // tableLayoutPanel82
+            // tableLayoutPanel83
             // 
-            this.tableLayoutPanel82.ColumnCount = 4;
-            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel82.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel82.Controls.Add(this.btn_get_status, 2, 0);
-            this.tableLayoutPanel82.Controls.Add(this.btn_ErrorReset, 3, 0);
-            this.tableLayoutPanel82.Controls.Add(this.materialRaisedButton15, 1, 0);
-            this.tableLayoutPanel82.Controls.Add(this.materialRaisedButton16, 0, 0);
-            this.tableLayoutPanel82.Location = new System.Drawing.Point(4, 3);
-            this.tableLayoutPanel82.Name = "tableLayoutPanel82";
-            this.tableLayoutPanel82.RowCount = 1;
-            this.tableLayoutPanel82.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel82.Size = new System.Drawing.Size(381, 39);
-            this.tableLayoutPanel82.TabIndex = 0;
+            this.tableLayoutPanel83.ColumnCount = 2;
+            this.tableLayoutPanel83.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel83.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel83.Controls.Add(this.btnInitializeAll, 0, 0);
+            this.tableLayoutPanel83.Controls.Add(this.btnInitializeCover, 1, 0);
+            this.tableLayoutPanel83.Location = new System.Drawing.Point(3, 9);
+            this.tableLayoutPanel83.Name = "tableLayoutPanel83";
+            this.tableLayoutPanel83.RowCount = 1;
+            this.tableLayoutPanel83.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel83.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel83.Size = new System.Drawing.Size(382, 33);
+            this.tableLayoutPanel83.TabIndex = 30;
             // 
-            // btn_ErrorReset
+            // btnInitializeAll
             // 
-            this.btn_ErrorReset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btn_ErrorReset.Depth = 0;
-            this.btn_ErrorReset.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_ErrorReset.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btn_ErrorReset.Icon = null;
-            this.btn_ErrorReset.Location = new System.Drawing.Point(288, 6);
-            this.btn_ErrorReset.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.btn_ErrorReset.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btn_ErrorReset.Name = "btn_ErrorReset";
-            this.btn_ErrorReset.Primary = true;
-            this.btn_ErrorReset.Size = new System.Drawing.Size(90, 27);
-            this.btn_ErrorReset.TabIndex = 39;
-            this.btn_ErrorReset.Text = "Error Reset";
-            this.btn_ErrorReset.UseVisualStyleBackColor = true;
-            this.btn_ErrorReset.Click += new System.EventHandler(this.btnErrorReset_Click);
+            this.btnInitializeAll.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnInitializeAll.AutoSize = true;
+            this.btnInitializeAll.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnInitializeAll.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnInitializeAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnInitializeAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInitializeAll.Location = new System.Drawing.Point(3, 3);
+            this.btnInitializeAll.Name = "btnInitializeAll";
+            this.btnInitializeAll.Size = new System.Drawing.Size(185, 27);
+            this.btnInitializeAll.TabIndex = 67;
+            this.btnInitializeAll.TabStop = true;
+            this.btnInitializeAll.Text = "Initialize All";
+            this.btnInitializeAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnInitializeAll.UseVisualStyleBackColor = false;
+            this.btnInitializeAll.Click += new System.EventHandler(this.btnInitializeAll_Click);
             // 
-            // materialRaisedButton15
+            // btnInitializeCover
             // 
-            this.materialRaisedButton15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton15.Depth = 0;
-            this.materialRaisedButton15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialRaisedButton15.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.materialRaisedButton15.Icon = null;
-            this.materialRaisedButton15.Location = new System.Drawing.Point(98, 6);
-            this.materialRaisedButton15.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.materialRaisedButton15.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton15.Name = "materialRaisedButton15";
-            this.materialRaisedButton15.Primary = true;
-            this.materialRaisedButton15.Size = new System.Drawing.Size(89, 27);
-            this.materialRaisedButton15.TabIndex = 39;
-            this.materialRaisedButton15.Text = "Pos Read";
-            this.materialRaisedButton15.UseVisualStyleBackColor = true;
-            this.materialRaisedButton15.Click += new System.EventHandler(this.btnRefreshWorldPosition_Click);
-            // 
-            // materialRaisedButton16
-            // 
-            this.materialRaisedButton16.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton16.Depth = 0;
-            this.materialRaisedButton16.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialRaisedButton16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.materialRaisedButton16.Icon = null;
-            this.materialRaisedButton16.Location = new System.Drawing.Point(3, 6);
-            this.materialRaisedButton16.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.materialRaisedButton16.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton16.Name = "materialRaisedButton16";
-            this.materialRaisedButton16.Primary = true;
-            this.materialRaisedButton16.Size = new System.Drawing.Size(89, 27);
-            this.materialRaisedButton16.TabIndex = 39;
-            this.materialRaisedButton16.Text = "Temp Read";
-            this.materialRaisedButton16.UseVisualStyleBackColor = true;
-            this.materialRaisedButton16.Click += new System.EventHandler(this.btnReadTemperatureMain_Click);
+            this.btnInitializeCover.Appearance = System.Windows.Forms.Appearance.Button;
+            this.btnInitializeCover.AutoSize = true;
+            this.btnInitializeCover.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnInitializeCover.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnInitializeCover.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnInitializeCover.Font = new System.Drawing.Font("Franklin Gothic Medium", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInitializeCover.Location = new System.Drawing.Point(194, 3);
+            this.btnInitializeCover.Name = "btnInitializeCover";
+            this.btnInitializeCover.Size = new System.Drawing.Size(185, 27);
+            this.btnInitializeCover.TabIndex = 67;
+            this.btnInitializeCover.TabStop = true;
+            this.btnInitializeCover.Text = "Home Cover";
+            this.btnInitializeCover.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnInitializeCover.UseVisualStyleBackColor = false;
+            this.btnInitializeCover.Click += new System.EventHandler(this.btnInitializeCover_Click);
             // 
             // pictureBox1
             // 
@@ -17560,7 +17671,6 @@ namespace CytoDx
             this.tableLayoutPanel19.Controls.Add(this.btnRecipeStop, 12, 1);
             this.tableLayoutPanel19.Controls.Add(this.labelPanelRunState, 8, 0);
             this.tableLayoutPanel19.Controls.Add(this.btnRecipeTest, 10, 1);
-            this.tableLayoutPanel19.Controls.Add(this.btnInitializeAll, 4, 0);
             this.tableLayoutPanel19.Controls.Add(this.btnDoorActive, 0, 0);
             this.tableLayoutPanel19.Controls.Add(this.label_rpm_title, 1, 1);
             this.tableLayoutPanel19.Controls.Add(this.label_rpm, 2, 1);
@@ -17631,25 +17741,6 @@ namespace CytoDx
             this.btnRecipeTest.Text = "Run Recipe";
             this.btnRecipeTest.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnRecipeTest.Click += new System.EventHandler(this.btnRecipeTest_Click);
-            // 
-            // btnInitializeAll
-            // 
-            this.btnInitializeAll.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnInitializeAll.AutoSize = true;
-            this.btnInitializeAll.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btnInitializeAll.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tableLayoutPanel19.SetColumnSpan(this.btnInitializeAll, 2);
-            this.btnInitializeAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnInitializeAll.Font = new System.Drawing.Font("Franklin Gothic Medium", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInitializeAll.Location = new System.Drawing.Point(223, 3);
-            this.btnInitializeAll.Name = "btnInitializeAll";
-            this.btnInitializeAll.Size = new System.Drawing.Size(224, 26);
-            this.btnInitializeAll.TabIndex = 67;
-            this.btnInitializeAll.TabStop = true;
-            this.btnInitializeAll.Text = "Initialize All";
-            this.btnInitializeAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnInitializeAll.UseVisualStyleBackColor = false;
-            this.btnInitializeAll.Click += new System.EventHandler(this.btnInitializeAll_Click);
             // 
             // btnDoorActive
             // 
@@ -18131,6 +18222,7 @@ namespace CytoDx
             this.panel1.ResumeLayout(false);
             this.tableLayoutMain.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel82.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.groupBox37.ResumeLayout(false);
             this.tableLayoutPanel81.ResumeLayout(false);
@@ -18142,7 +18234,8 @@ namespace CytoDx
             this.tableLayoutPanel80.ResumeLayout(false);
             this.tableLayoutPanel80.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.tableLayoutPanel82.ResumeLayout(false);
+            this.tableLayoutPanel83.ResumeLayout(false);
+            this.tableLayoutPanel83.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TrackBar_Video)).EndInit();
@@ -19179,6 +19272,11 @@ namespace CytoDx
         private MaterialRaisedButton btnConfigSave;
         private MaterialSingleLineTextField edit_rpm_offset;
         private MaterialLabel materialLabel62;
+        private MaterialRaisedButton btnRecipeCopy;
+        private MaterialRaisedButton btnRecipePaste;
+        private MaterialRaisedButton materialRaisedButton17;
+        private TableLayoutPanel tableLayoutPanel83;
+        private RadioButton btnInitializeCover;
         //private OpenCvSharp.UserInterface.PictureBoxIpl pictureBoxIpl1;
     }
 }
